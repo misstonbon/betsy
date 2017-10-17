@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
 
-  STATUS = ["completed", "incomplete"]
+  STATUS = ["pending", "paid"]
 
   belongs_to :user
   belongs_to :cart
