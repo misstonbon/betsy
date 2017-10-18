@@ -4,14 +4,57 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
-
+    <title><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
+    <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
+    <header class = "page-header row">
+          <h2 class = "columns small-12">
+            <%= link_to("GLITZY", root_path) %>
+            <small>What budget ceiling?</small>
+          </h2>
+          <nav class= "small columns-12">
+            <%= link_to("Home", root_path, :class => "button") %>
+            <%= link_to("Shop All Items", products_path,:class => "button") %>
+            <%= link_to("Shop By Merchant", products_path, :class => "button") %>
+            <%= link_to("Shop By Category", products_path, :class => "button") %>
+            <div class = "float_right">
+
+                <%= link_to('Log Out', logout_path, :class => "button float-right") %>
+
+                <%= link_to('Log In', login_path, :class => "button float-right")  %>
+                <%= link_to('Sign Up',"/auth/:provider/callback" , :class => "button float-right")  %>
+
+            </div>
+          </nav>
+        </header>
+
+        <% if flash[:failure] %>
+          <section class = "row status failure">
+            <h3 class="<%= :failure %>"><%= flash[:failure] %></h3>
+            <% if flash[:errors] %>
+              <ul class = "errors">
+                <% flash[:errors].each do |column, message| %>
+                  <li>
+                    <%= column.capitalize %>: <%= message %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if flash[:success] %>
+          <section class = "row status success">
+            <% flash.each do |name, message| %>
+              <h3 class="<%= name %>"><%= message %></h3>
+            <% end %>
+          </section>
+        <% end  %>
 
     <%= yield %>
 
