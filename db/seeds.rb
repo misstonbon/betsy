@@ -5,3 +5,97 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'csv'
+
+#---------------------------------------------------
+USER_FILE = Rails.root.join('db', 'seed_data', 'users.csv')
+puts "Loading raw work data from #{USER_FILE}"
+
+user_failures = []
+CSV.foreach(USER_FILE, :headers => true) do |row|
+  user = User.new
+  user.id = row['id']
+  user.name = row['name']
+  user.email = row['email']
+  user.mailing_address = row['mailing_address']
+  user.cc_number = row['cc_number']
+  user.cc_expiration_date = row['cc_expiration_date']
+  user.cc_cvv = row['cc_cvv']
+  user.zipcode = row['zipcode']
+  user.uid = row['uid']
+  user.provider = row['provider']
+  puts "Created work: #{user.inspect}"
+  successful = user.save
+  if !successful
+    user_failures << user
+    puts user.errors
+    puts "----------"
+    user.errors.each do |column, message|
+      puts "#{column}: #{message}"
+    end
+    puts "----------"
+  end
+
+end
+
+puts "Added #{User.count} user records"
+puts "#{user_failures.length} user failed to save"
+
+
+# Since we set the primary key (the ID) manually on each of the
+# tables, we've got to tell postgres to reload the latest ID
+# values. Otherwise when we create a new record it will try
+# to start at ID 1, which will be a conflict.
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
+puts "done"
+
+
+#---------------------------------------------------
+PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'product_seeds.csv')
+puts "Loading raw work data from #{PRODUCT_FILE}"
+
+i = 1000
+product_failures = []
+CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
+  product = Product.new
+  product.id = i
+  product.user_id = row['user_id']
+  product.category = row['category']
+  product.name = row['name']
+  product.price = row['price']
+  product.quantity = row['quantity']
+  product.description = row['description']
+  puts "Created work: #{product.inspect}"
+  successful = product.save
+  if !successful
+    product_failures << product
+    puts product.errors
+    puts "----------"
+    product.errors.each do |column, message|
+      puts "#{column}: #{message}"
+    end
+    puts "----------"
+  end
+
+  i += 1
+end
+
+puts "Added #{Product.count} product records"
+puts "#{product_failures.length} products failed to save"
+
+
+# Since we set the primary key (the ID) manually on each of the
+# tables, we've got to tell postgres to reload the latest ID
+# values. Otherwise when we create a new record it will try
+# to start at ID 1, which will be a conflict.
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
+puts "done"
