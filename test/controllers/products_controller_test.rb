@@ -3,15 +3,22 @@ require "test_helper"
 describe ProductsController do
 
   describe "index" do
-    it "succeeds when there are works" do
-      Work.count.must_be :>, 0, "No works in the test fixtures"
-      get works_path
+    it "allows you to see products when products exist" do
+      Product.count.must_be :>, 0, "No products"
+      get products_path
       must_respond_with :success
     end
 
-    it "succeeds when there are no works" do
-      Work.destroy_all
-      get works_path
+    it "still succceeds when there are no products" do
+      Product.destroy_all
+      get products_path
+      must_respond_with :success
+    end
+  end
+
+  describe "new" do
+    it "will allow you to see a form to create a new product" do
+      get new_product_path
       must_respond_with :success
     end
   end
