@@ -1,8 +1,7 @@
 require "test_helper"
 
 describe Product do
-
-    describe "relations" do
+  describe "relations" do
     it "has a user" do
       prod = products(:soap)
       prod.must_respond_to :user
@@ -59,5 +58,42 @@ describe Product do
     end
   end
 
+  describe "custom model methods " do
+
+    describe "self.by_category(category)" do
+      before do
+        @categories = [ "cosmetics", "food", "clothing"]
+      end
+
+      it "returns an array of products of the appropriate category" do
+        Product.by_category("transportation").count.must_equal 1
+        Product.by_category("transportation")[0].name.must_equal "Weekend Yacht"
+
+        Product.by_category("cosmetics").count.must_equal 2
+
+      end
+
+      it "will not error out if there are no products of that category" do
+
+        Product.by_category("bamboozles").count.must_equal 0
+      end
+
+    end
+
+    describe "self.by_merchant(merchant)" do
+      it "returns an array of products by the given merchant" do
+        Product.by_merchant(users(:bubbles)).count.must_equal 1
+        Product.by_merchant(users(:bubbles))[0].name.must_equal "Weekend Yacht"
+
+        Product.by_merchant(users(:buttercup)).count.must_equal 2
+
+      end
+
+      it "will not error out if there are no products of that category" do
+        Product.by_category("bamboozles").count.must_equal 0
+      end
+
+    end
+  end
 
 end
