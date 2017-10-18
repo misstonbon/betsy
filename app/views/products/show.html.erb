@@ -1,16 +1,20 @@
-<h2><%= @product.name %></h2>
+<% if @product %>
+  <h2><%= @product.name %></h2>
 
-<ul>
-  <li>
-    Category: <%= @product.category %>
-  </li>
-  <li>
-    Description: <%=@product.description%>
-  </li>
-  <li>
-    Price: $<%=@product.price%>
-  </li>
-  <li>
-    Available Quantity: <%=@product.quantity%>
-  </li>
-</ul>
+  <ul>
+    <li>
+      Category: <%= @product.category %>
+    </li>
+    <li>
+      Description: <%=@product.description%>
+    </li>
+    <li>
+      Price: $<%=@product.price%>
+    </li>
+    <li>
+      Available Quantity: <%=@product.quantity%>
+    </li>
+  </ul>
+<% else %>
+  Page Not Found Placeholder
+<%end %>
