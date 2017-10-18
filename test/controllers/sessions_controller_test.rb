@@ -1,10 +1,6 @@
 require "test_helper"
 
 describe SessionsController do
-  it "should get login_form" do
-    get sessions_login_form_url
-    value(response).must_be :success?
-  end
 
   describe "auth_callback" do
     it "logs in an existing user and redirects to the root route" do
@@ -17,7 +13,7 @@ describe SessionsController do
       must_redirect_to root_path
 
       # Since we can read the session, check that the user ID was set as expected
-      session[:user_id].must_equal user.id
+      session[:user_id].must_equal users(:amy).id
 
       # Should *not* have created a new user
       User.count.must_equal start_count
@@ -26,7 +22,7 @@ describe SessionsController do
     it "creates an account for a new user and redirects to the root route" do
 
       start_count = User.count
-      user = User.new(oauth_provider: "github", oauth_uid: 99999, username: "test_user", email: "test@user.com")
+      user = User.new(provider: "github", uid: 99999, name: "test_user", email: "test@user.com")
 
       login(user)
       must_redirect_to root_path
