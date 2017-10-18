@@ -1,2 +1,17 @@
-<h1>Reviews#show</h1>
-<p>Find me in app/views/reviews/show.html.erb</p>
+<h2>Review Details</h2>
+
+<ul>
+  <li>
+    ID: <%= @review.id %>
+  </li>
+  <li>
+    Product: <%=@review.product.name%>
+  </li>
+  <li>
+    User: <%=@review.user.name%>
+  </li>
+  <li>
+    Description: <%= @review.text_review%>
+  </li>
+
+</ul>
