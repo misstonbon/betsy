@@ -1,15 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  category: MyString
-  description: MyText
-  price: 9.99
+yacht:
+  name: Weekend Yacht
+  category: transportation
+  description: for your luxurious weekend getaways
+  price: 9999.99
   quantity: 1
+  user: bubbles
 
-two:
-  name: MyString
-  category: MyString
-  description: MyText
-  price: 9.99
-  quantity: 1
+tears:
+  name: Devil's Tears
+  category: cosmetics
+  description: Perfect skin, for the price of your soul.
+  price: 666.00
+  quantity: 3
+  user: buttercup
+
+nail_polish:
+  name: Snake poison nail polish
+  category: cosmetics
+  description: Polish made from deadliest snake outshines all the rest
+  price: 150.70
+  quantity: 9
+  user: buttercup

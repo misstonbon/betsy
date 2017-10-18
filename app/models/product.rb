@@ -13,18 +13,22 @@ class Product < ApplicationRecord
     return self.where(category: category)
   end
 
+  def self.by_merchant(merchant)
+    return self.where(user: merchant)
+  end
+
   # def order_by_ratings(products)
   #   products.order(avg_rating: avg_rating(product)).limit(10)
   # end
 
-  def avg_rating(product)
-    if (product.reviews).count > 0
-      sum_ratings = (product.reviews).reduce(:+)
-      avg = sum_ratings/(product.reviews.count)
-      return avg
-    else
-      return nil
-    end
-  end
+  # def avg_rating(product)
+  #   if (product.reviews).count > 0
+  #     sum_ratings = (product.reviews).reduce(:+)
+  #     avg = sum_ratings/(product.reviews.count)
+  #     return avg
+  #   else
+  #     return nil
+  #   end
+  # end
 
 end
