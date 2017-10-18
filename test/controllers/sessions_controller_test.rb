@@ -34,7 +34,15 @@ describe SessionsController do
       session[:user_id].must_equal User.last.id
     end
 
-    it "redirects to the login route if given invalid user data" do
+    it "responds with bad request if given invalid user data" do
+
+      start_count = User.count
+      user = User.new(uid: 99999, name: "test_user", email: "test@user.com")
+
+      login(user)
+      must_respond_with :bad_request
+      User.count.must_equal start_count
+
     end
   end
 end
