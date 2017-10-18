@@ -3,26 +3,6 @@ class SessionsController < ApplicationController
   end
 
   def login
-    # name = params[:name]
-    # if name and user = User.find_by(name: name)
-    #   session[:user_id] = user.id
-    #   flash[:status] = :success
-    #   flash[:result_text] = "Successfully logged in as existing user #{user.name}"
-    #   user.merchant_status = false
-    # else
-    #   user = User.new(name: name)
-    #   if user.save
-    #     session[:user_id] = user.id
-    #     flash[:status] = :success
-    #     flash[:result_text] = "Successfully created new user #{user.user} with ID #{user.id}"
-    #   else
-    #     flash.now[:status] = :failure
-    #     flash.now[:result_text] = "Could not log in"
-    #     flash.now[:messages] = user.errors.messages
-    #     return
-    #   end
-    # end
-    # redirect_to root_path
   end
 
   def create
