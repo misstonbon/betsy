@@ -61,15 +61,12 @@ describe Product do
   describe "custom model methods " do
 
     describe "self.by_category(category)" do
-      before do
-        @categories = [ "cosmetics", "food", "clothing"]
-      end
 
       it "returns an array of products of the appropriate category" do
         Product.by_category("transportation").count.must_equal 1
         Product.by_category("transportation")[0].name.must_equal "Weekend Yacht"
 
-        Product.by_category("cosmetics").count.must_equal 2
+        Product.by_category("cosmetics").count.must_equal 3
 
       end
 
@@ -90,7 +87,7 @@ describe Product do
       end
 
       it "will not error out if there are no products of that category" do
-        Product.by_category("bamboozles").count.must_equal 0
+        Product.by_category("bamboozled").count.must_equal 0
       end
 
     end
