@@ -4,10 +4,10 @@ one:
   rating: 5
   text_review: MyText
   product: soap
-  user: Amy
+  user: amy
 
 two:
   rating: 1
   text_review: MyText
-  product: soap 
-  user: Amy
+  product: soap
+  user: amy
