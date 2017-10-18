@@ -2,10 +2,15 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  resources :products
+  resources :products do
+    resources :reviews, only: [:new]
+  end
+
   resources :carts, except: [:destroy, :index, :new]
   resources :users, only: [:index, :show, :edit, :update]
-  resources :reviews
+
+  resources :reviews, except: [:new]
+
   resources :orders
 
   get '/login', to: 'sessions#login_form', as: 'login'

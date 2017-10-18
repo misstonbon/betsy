@@ -14,3 +14,8 @@
     Available Quantity: <%=@product.quantity%>
   </li>
 </ul>
+
+<section>
+  <h3>Reviews</h3>
+  <%= link_to("Review Product", new_product_review_path(@product.id), :class => "button") %>
+</section>
