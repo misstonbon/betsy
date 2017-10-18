@@ -1,19 +1,45 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+amy:
+  name: Amy Lee
   email: MyString
-  mailing_address: MyString
-  cc_number: MyString
-  cc_expiration_date: 2017-10-17
-  cc_cvv: 1
+  mailing_address: amy@ada.com
+  cc_number: "1234123412341234"
+  cc_expiration_date: 2020-10-17
+  cc_cvv: 123
   zipcode: MyString
+  provider: github
+  uid: 1
 
-two:
-  name: MyString
+tanja:
+  name: Tanja Stroble
   email: MyString
-  mailing_address: MyString
-  cc_number: MyString
+  mailing_address: tanja@ada.com
+  cc_number: "4321432143214321"
+  cc_expiration_date: 2020-10-17
+  cc_cvv: 321
+  zipcode: MyString
+  provider: github
+  uid: 2
+
+bubbles:
+  name: Bubbles
+  email: bubbles@powerpuff.com
+  mailing_address: Powerpuff hq
+  cc_number: "10287"
   cc_expiration_date: 2017-10-17
   cc_cvv: 1
-  zipcode: MyString
+  zipcode: "102847"
+  uid: 9
+  provider: github
+
+buttercup:
+  name: buttercup
+  email: buttercup@powerpuff.com
+  mailing_address: HQ
+  cc_number: "0172"
+  cc_expiration_date: 2017-10-17
+  cc_cvv: 3
+  zipcode: "91727"
+  uid: 10
+  provider: github
