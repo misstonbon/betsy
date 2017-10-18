@@ -1,15 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  category: MyString
-  description: MyText
+soap:
+  name: "Fancy Soap"
+  category: cosmetics
+  description: The most expensive soap ever
   price: 9.99
-  quantity: 1
+  quantity: 5
+  user: tanja
 
-two:
-  name: MyString
-  category: MyString
-  description: MyText
+
+chocolate:
+  name: "Fancy Chocolate"
+  category: food
+  description: Chocolate with gold inside
   price: 9.99
-  quantity: 1
+  quantity: 10
+  user: tanja

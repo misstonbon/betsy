@@ -1,19 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+amy:
+  name: Amy Lee
   email: MyString
-  mailing_address: MyString
-  cc_number: MyString
-  cc_expiration_date: 2017-10-17
-  cc_cvv: 1
+  mailing_address: amy@ada.com
+  cc_number: "1234123412341234"
+  cc_expiration_date: 2020-10-17
+  cc_cvv: 123
   zipcode: MyString
+  provider: github
+  uid: 1
 
-two:
-  name: MyString
+tanja:
+  name: Tanja Stroble
   email: MyString
-  mailing_address: MyString
-  cc_number: MyString
-  cc_expiration_date: 2017-10-17
-  cc_cvv: 1
+  mailing_address: tanja@ada.com
+  cc_number: "4321432143214321"
+  cc_expiration_date: 2020-10-17
+  cc_cvv: 321
   zipcode: MyString
+  provider: github
+  uid: 2
