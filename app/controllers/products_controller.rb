@@ -1,15 +1,22 @@
 class ProductsController < ApplicationController
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
+    @products=  Product.all
   end
 
   def show
   end
 
   def new
+    @product = Product.new
   end
 
   def create
+    # @product = Product.new(product_params)
+    # if @product.save
+    #
+    # end
   end
 
   def edit
