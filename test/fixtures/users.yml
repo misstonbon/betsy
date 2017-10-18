@@ -21,3 +21,25 @@ tanja:
   zipcode: MyString
   provider: github
   uid: 2
+
+bubbles:
+  name: Bubbles
+  email: bubbles@powerpuff.com
+  mailing_address: Powerpuff hq
+  cc_number: "10287"
+  cc_expiration_date: 2017-10-17
+  cc_cvv: 1
+  zipcode: "102847"
+  uid: 9
+  provider: github
+
+buttercup:
+  name: buttercup
+  email: buttercup@powerpuff.com
+  mailing_address: HQ
+  cc_number: "0172"
+  cc_expiration_date: 2017-10-17
+  cc_cvv: 3
+  zipcode: "91727"
+  uid: 10
+  provider: github
