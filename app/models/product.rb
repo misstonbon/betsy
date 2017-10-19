@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_many :reviews
+  has_many :order_items
   belongs_to :user
   validates :name, presence: true
   validates_uniqueness_of :name, scope: [:category]
