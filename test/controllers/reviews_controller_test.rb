@@ -1,39 +1,24 @@
 require "test_helper"
 
 describe ReviewsController do
-  # it "should get index" do
-  #   get reviews_index_url
-  #   value(response).must_be :success?
-  # end
-  #
-  # it "should get create" do
-  #   get reviews_create_url
-  #   value(response).must_be :success?
-  # end
-  #
-  # it "should get destroy" do
-  #   get reviews_destroy_url
-  #   value(response).must_be :success?
-  # end
-  #
-  # it "should get edit" do
-  #   get reviews_edit_url
-  #   value(response).must_be :success?
-  # end
-  #
-  # it "should get new" do
-  #   get reviews_new_url
-  #   value(response).must_be :success?
-  # end
-  #
-  # it "should get show" do
-  #   get reviews_show_url
-  #   value(response).must_be :success?
-  # end
-  #
-  # it "should get update" do
-  #   get reviews_update_url
-  #   value(response).must_be :success?
-  # end
+  let(:product) { products(:soap) }
 
-end
+  describe "reviews#index" do
+    # #action
+    # get reviews_path
+    # #assert
+    # must_respond_with :success
+  end
+
+  describe "reviews#new" do
+    it "makes a new product review" do
+      get new_product_review_path(product.id)
+      must_respond_with :success
+    end
+  end
+
+  describe "reviews#create" do
+
+  end
+
+end#of_ReviewsController

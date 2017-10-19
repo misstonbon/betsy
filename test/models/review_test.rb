@@ -19,6 +19,10 @@ describe Review do
       review.valid?.must_equal false
       review.errors.messages.must_include :rating
     end
+
+    it "rates between 1 and 5" do
+      
+    end
   end
 
 end

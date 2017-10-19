@@ -3,6 +3,11 @@ class ReviewsController < ApplicationController
     @reviews= Review.all
   end
 
+  def new
+    @review = Review.new
+    @product = Product.find_by(id: params[:product_id])
+  end
+
   def create
     @product = Product.find_by(id: params[:product_id])
     @review = Review.new(review_params)
@@ -15,19 +20,11 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
-  def edit
+  def show
     @review = Review.find_by(id: params[:id])
   end
 
-  def new
-    @review = Review.new
-    @product = Product.find_by(id: params[:product_id])
-  end
-
-  def show
+  def edit
     @review = Review.find_by(id: params[:id])
   end
 
@@ -43,6 +40,12 @@ class ReviewsController < ApplicationController
       flash[:error] = "Access Denied: To edit, please log in as a user."
       redirect_to root_path
     end
+  end
+
+  def destroy
+    # @review = Review.find_by(id: params[:id]).destroy
+    #
+    # redirect_to root_path
   end
 
   private
