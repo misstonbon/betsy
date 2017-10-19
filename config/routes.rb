@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
+  get "/products/category/", to: "products#by_category", as: 'products_by_category'
+
   resources :products do
     resources :reviews, only: [:new]
   end
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
   post '/logout', to: 'sessions#logout', as: 'logout'
 
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,11 +1,14 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
+  # before_action :authenticate, except: [:index, :show]
+
   def index
     @products=  Product.all
   end
 
   def show
+    render_404 unless @product
   end
 
   def new
@@ -26,6 +29,10 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def by_category
+    @products_by_category = Product.to_category_hash
   end
 
   private
