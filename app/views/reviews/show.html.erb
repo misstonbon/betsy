@@ -11,10 +11,13 @@
     Rating: <%=@review.rating%> stars
   </li>
   <li>
-    User: <%=@review.user.name%>
-  </li>
-  <li>
     Description: <%= @review.text_review%>
   </li>
 
 </ul>
+
+<section>
+  <%= link_to("Edit Review", edit_review_path(@review.id), class: "button") %>
+  <%= link_to("Delete Review", review_path(@review.id), method: :delete, class: "button") %>
+  <%= link_to("Back to Product", product_path(@review.product.id), class: "button") %>
+</section>

@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   get "/products/category/", to: "products#by_category", as: 'products_by_category'
 
   resources :products do
-    resources :reviews, only: [:new]
+    resources :reviews, only: [:new, :create]
   end
 
   resources :carts, except: [:destroy, :index, :new]
   resources :users, only: [:index, :show, :edit, :update]
 
-  resources :reviews, except: [:new]
+  resources :reviews, except: [:new, :create]
 
   resources :orders
 
