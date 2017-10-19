@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :carts, except: [:destroy, :index, :new]
   resources :users, only: [:index, :show, :edit, :update]
 
-  resources :reviews, except: [:new, :create, :index]
+  resources :reviews, except: [:new, :create]
 
   resources :orders
 

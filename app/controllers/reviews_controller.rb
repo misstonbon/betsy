@@ -14,6 +14,7 @@ class ReviewsController < ApplicationController
     @review.product_id = @product.id
     @review.user_id = session[:user_id]
     if @review.save
+      flash[:result_text] = "Successfully created your review!"
       redirect_to review_path(@review.id)
     else
       render :new
@@ -30,11 +31,17 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find_by(id: params[:id])
-    if session[:user_id] == @review.user_id
-      # @review.product_id =
-      @review.update_attributes(review_params)
 
-      redirect_to review_path(@review.id)
+    if session[:user_id] == @review.user_id
+      if @review.update_attributes(review_params)
+        flash[:result_text] = "Successfully updated your review"
+
+        redirect_to review_path(@review.id)
+      else
+        flash.now[:status] = :failure
+        flash.now[:error] = "Error: Your review failed to save."
+        render :edit
+      end
     else
       flash[:status] = :failure
       flash[:error] = "Access Denied: To edit, please log in as a user."
@@ -43,9 +50,17 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    # @review = Review.find_by(id: params[:id]).destroy
-    #
-    # redirect_to root_path
+    @review = Review.find_by(id: params[:id])
+      if session[:user_id] == @review.user_id
+        @review = Review.find_by(id: params[:id]).destroy
+        flash[:status] = :success
+        flash[:result_text] = "Successfully deleted your review!"
+        redirect_to root_path
+      else
+        flash[:status] = :failure
+        flash[:error] = "Access Denied: To delete, please log in as a user."
+        redirect_to root_path
+      end
   end
 
   private

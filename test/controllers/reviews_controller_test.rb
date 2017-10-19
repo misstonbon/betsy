@@ -18,6 +18,23 @@ describe ReviewsController do
   end
 
   describe "reviews#create" do
+    it "creates a review with valid data for a real category" do
+      review_data = {
+        review: {
+          title: "test work"
+        }
+      }
+      CATEGORIES.each do |category|
+        review_data[:review][:category] = category
+
+        start_count = Work.count
+
+        post works_path(category), params: work_data
+        must_redirect_to work_path(Work.last)
+
+        Work.count.must_equal start_count + 1
+      end
+    end
 
   end
 
