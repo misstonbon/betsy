@@ -1,0 +1,21 @@
+<section>
+  <%= form_for @product do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name%>
+
+    <%= f.label :category %>
+    <%= f.text_field :category %>
+
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+
+    <%= f.submit class: "button" %>
+  <% end %>
+</section>

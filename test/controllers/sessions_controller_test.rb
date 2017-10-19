@@ -8,7 +8,6 @@ describe SessionsController do
       # a new user every time we get a login request
       start_count = User.count
 
-      # Get a user from the fixtures
       login(users(:amy))
       must_redirect_to root_path
 
@@ -17,6 +16,16 @@ describe SessionsController do
 
       # Should *not* have created a new user
       User.count.must_equal start_count
+    end
+
+    it "should not create a new user on repeated logins" do
+
+      proc{
+        3.times do
+          login(users(:amy))
+        end
+      }.wont_change "User.count"
+
     end
 
     it "creates an account for a new user and redirects to the root route" do
