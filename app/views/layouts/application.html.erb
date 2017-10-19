@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
+  <title id = "glitzy-title"><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
   <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
