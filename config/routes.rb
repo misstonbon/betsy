@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   resources :products do
-    resources :reviews, only: [:new]
+    resources :reviews, only: [:new, :create]
   end
 
   resources :carts, except: [:destroy, :index, :new]
   resources :users, only: [:index, :show, :edit, :update]
 
-  resources :reviews, except: [:new]
+  resources :reviews, except: [:new, :create]
 
   resources :orders
 
