@@ -66,6 +66,10 @@ describe Product do
         Product.by_category("transportation").count.must_equal 1
         Product.by_category("transportation")[0].name.must_equal "Weekend Yacht"
 
+        ###Test This commented out test
+
+        # Product.by_category("cosmetics").must_be_kind_of Enumerable
+
         Product.by_category("cosmetics").count.must_equal 3
 
       end

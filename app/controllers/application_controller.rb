@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
 
   before_action :find_user
 
+  def render_404
+    # DPR: supposedly this will actually render a 404 page in production
+    render file: "#{Rails.root}/public/404.html" , status: :not_found
+  end
+
   private
   def find_user
     if session[:user_id]
