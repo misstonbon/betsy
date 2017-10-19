@@ -5,7 +5,8 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :cart
   has_many :products
-
+  has_many :orderitems
+  
   validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
 
 
