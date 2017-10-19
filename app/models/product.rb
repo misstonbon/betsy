@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   has_many :reviews
   belongs_to :user
+
+  has_and_belongs_to_many :categories
   validates :name, presence: true
   validates_uniqueness_of :name, scope: [:category]
   validates :category, presence: true, allow_nil: false
