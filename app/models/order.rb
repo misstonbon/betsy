@@ -2,7 +2,7 @@ class Order < ApplicationRecord
 
   STATUS = ["pending", "paid"]
 
-  belongs_to :user
+  # belongs_to :user
   belongs_to :cart
   has_many :products
   has_many :orderitems
