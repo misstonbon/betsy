@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get "/products/category/", to: "products#by_category"
-  
+  get "/products/category/", to: "products#by_category", as: 'products_by_category'
+
   resources :products
   resources :carts, except: [:destroy, :index, :new]
   resources :users, only: [:index, :show, :edit, :update]
