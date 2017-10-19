@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 20171019165910) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "status"
     t.datetime "created_at", null: false
