@@ -27,13 +27,18 @@ describe Category do
   describe "validations" do
     let(:new_category) { Category.new }
 
-    it "must have a name to be valid" do
+    it "requires a name to be valid" do
       new_category.valid?.must_equal false
     end
 
     it "is valid if it has a name" do
       new_category.name = "transportation"
       new_category.valid?.must_equal true
+    end
+
+    it "requires a unique name to be valid" do
+      new_category.name = categories(:food).name
+      new_category.valid?.must_equal false
     end
 
 
