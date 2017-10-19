@@ -62,13 +62,13 @@ describe Product do
 
     describe "self.by_category(category)" do
 
-      it "returns an array of products of the appropriate category" do
+      it "returns a collection of Products of the appropriate category" do
         Product.by_category("transportation").count.must_equal 1
         Product.by_category("transportation")[0].name.must_equal "Weekend Yacht"
 
         ###Test This commented out test
 
-        # Product.by_category("cosmetics").must_be_kind_of Enumerable
+        Product.by_category("cosmetics").must_be_kind_of Enumerable
 
         Product.by_category("cosmetics").count.must_equal 3
 
@@ -95,6 +95,12 @@ describe Product do
       end
 
     end
+
+    describe "self.to_merchant_hash method" do
+
+
+    end
+
   end
 
 end

@@ -38,6 +38,93 @@ describe ProductsController do
 
   end
 
+  describe "edit" do
+    it "will get the edit form for an existing product" do
+      get edit_product_path(Product.first)
+
+      must_respond_with :success
+    end
+
+    it "renders bad_request and does not pull up an edit form for a nonexistant product" do
+      last_product_id = Product.last.id
+      p last_product_id
+      # nonexistant_product = Product.find_by(id: (last_product_id + 1) )
+      get edit_product_path((last_product_id + 1))
+      must_respond_with :not_found
+    end
+
+  end
+
+  describe "update" do
+    it "updates with valid data and an existing product " do
+      product = products(:chocolate)
+      product_data = {
+        product: {
+          name: product.name + " 2",
+          category: "food",
+          description: "Chocolate with gold inside",
+          price: 15.00,
+          quantity: 10,
+          user: users(:tanja),
+        }
+      }
+
+      patch product_path(product), params: product_data
+      must_redirect_to product_path(product)
+
+      # Verify the DB was really modified
+      Product.find(product.id).name.must_equal product_data[:product][:name]
+      Product.find(product.id).price.must_equal product_data[:product][:price]
+    end
+
+    it "does not update with bogus data and an existing product " do
+      product = products(:soap)
+      product_data = {
+        product: {
+          name: "",
+          category: "food",
+          description: "Chocolate with gold inside",
+          price: 15.00,
+          quantity: 10,
+          user: users(:tanja),
+        }
+      }
+
+      patch product_path(product), params: product_data
+      must_respond_with :not_found
+
+      # Verify the DB was really modified
+      Product.find(product.id).name.must_equal product.name
+
+    end
+
+    it "only allows the product owner to edit" do
+      p "Test and functionality must be implemented"
+
+      (3+1).must_equal 5
+    end
+
+    it "handles bogus product IDs" do
+      bogus_product_id = Product.last.id + 1
+      print "must implement"
+
+    end
+
+  end
+
+  describe "destroy" do
+    it "successfully destroys an existing work" do
+      product_id = Product.first.id
+
+      delete product_path(product_id)
+      must_redirect_to root_path
+
+      # The work should really be gone
+      Product.find_by(id: product_id).must_be_nil
+    end
+  end
+
+
   describe "guest" do
     it "allows guest to go to the index page" do
       get products_path

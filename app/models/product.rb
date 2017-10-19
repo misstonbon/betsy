@@ -18,6 +18,18 @@ class Product < ApplicationRecord
     return data
   end
 
+  # def self.to_merchant_hash
+  #   data = {}
+  #   merchants_with_products= (User.all).where(user.products.count > 0 )
+  #
+  #   merchants_with_products.each do |merchant|
+  #     data[merchant] = by_merchant(merchant)
+  #   end
+  #
+  #   return data
+  #
+  # end
+
   def self.by_category(category)
     return self.where(category: category)
   end
