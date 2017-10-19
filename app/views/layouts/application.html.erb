@@ -37,12 +37,14 @@
     </nav>
   </header>
 
+  <h1><%= session[:user_id] %></h1>
+
   <% if flash[:failure] %>
   <section class = "row status failure">
     <h3 class="<%= :failure %>"><%= flash[:failure] %></h3>
-    <% if flash[:errors] %>
+    <% if flash[:error] %>
     <ul class = "errors">
-      <% flash[:errors].each do |column, message| %>
+      <% flash[:error].each do |column, message| %>
       <li>
         <%= column.capitalize %>: <%= message %>
       </li>

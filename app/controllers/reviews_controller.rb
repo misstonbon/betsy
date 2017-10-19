@@ -4,6 +4,15 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    @product = Product.find_by(id: params[:product_id])
+    @review = Review.new(review_params)
+    @review.product_id = @product.id
+    @review.user_id = session[:user_id]
+    if @review.save
+      redirect_to review_path(@review.id)
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -15,6 +24,7 @@ class ReviewsController < ApplicationController
 
   def new
     @review = Review.new
+    @product = Product.find_by(id: params[:product_id])
   end
 
   def show
@@ -22,6 +32,17 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    @review = Review.find_by(id: params[:id])
+    if session[:user_id] == @review.user_id
+      # @review.product_id =
+      @review.update_attributes(review_params)
+
+      redirect_to review_path(@review.id)
+    else
+      flash[:status] = :failure
+      flash[:error] = "Access Denied: To edit, please log in as a user."
+      redirect_to root_path
+    end
   end
 
   private
