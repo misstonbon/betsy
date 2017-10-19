@@ -99,3 +99,43 @@ ActiveRecord::Base.connection.tables.each do |t|
 end
 
 puts "done"
+
+
+#---------------------------------------------------
+PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'categories.csv')
+puts "Loading raw work data from #{PRODUCT_FILE}"
+
+category_failures = []
+CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
+  category = Category.new
+  category.id = row['id']
+  category.name = row['name']
+
+  puts "Created work: #{category.inspect}"
+  successful = category.save
+  if !successful
+    category_failures << category
+    puts category.errors
+    puts "----------"
+    category.errors.each do |column, message|
+      puts "#{column}: #{message}"
+    end
+    puts "----------"
+  end
+
+end
+
+puts "Added #{Category.count} product records"
+puts "#{category_failures.length} products failed to save"
+
+
+# Since we set the primary key (the ID) manually on each of the
+# tables, we've got to tell postgres to reload the latest ID
+# values. Otherwise when we create a new record it will try
+# to start at ID 1, which will be a conflict.
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
+puts "done"
