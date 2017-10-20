@@ -11,19 +11,19 @@ class Product < ApplicationRecord
             :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
-  CATEGORIES = ["food", "cosmetics", "clothing"]
+  # CATEGORIES = ["food", "cosmetics", "clothing"]
 
   def self.to_category_hash
     data = {}
-    CATEGORIES.each do |cat|
-      data[cat] = by_category(cat)
+    Category.all.each do |cat|
+      data[cat.name] = by_category(cat.name)
     end
     return data
   end
 
   # def self.to_merchant_hash
   #   data = {}
-  #   merchants_with_products= (User.all).where(user.products.count > 0 )
+  #   merchants_with_products= (User.all).map
   #
   #   merchants_with_products.each do |merchant|
   #     data[merchant] = by_merchant(merchant)

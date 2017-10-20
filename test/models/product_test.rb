@@ -7,7 +7,6 @@ describe Product do
       prod.must_respond_to :user
       prod.must_be_kind_of Product
       prod.user.must_be_kind_of User
-
     end
   end
 
@@ -15,21 +14,12 @@ describe Product do
     let(:tanja) { users(:tanja) }
 
     it "allows valid categories" do
-      valid_categories = ['food', 'cosmetics', 'clothing']
-      valid_categories.each do |category|
-        product = Product.new(name: "test", category: category, price: 10.00, quantity: 5, user: tanja)
-        product.valid?.must_equal true
-      end
+
     end
 
-    # it "rejects not created categories" do
-    #   invalid_categories = ['cat', 'dog', 'phd thesis', 1337, nil]
-    #   invalid_categories.each do |category|
-    #     product = Product.new(name: "test", category: category)
-    #     product.valid?.must_equal false
-    #     product.errors.messages.must_include :category
-    #   end
-    # end
+    it "rejects not created categories" do
+
+    end
 
     it "requires a name" do
       product = Product.new(category: 'food', price: 10.00, quantity: 5, user: tanja)

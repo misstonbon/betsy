@@ -4,9 +4,13 @@ describe Category do
   let(:food_category) { categories(:food) }
 
   describe "relations" do
+
+    it "has products" do
+      food_category.must_respond_to :products
+    end
+
     it "can have many products" do
       food_category.products << products(:chocolate)
-      food_category.must_respond_to :products
       food_category.products.first.must_be_kind_of Product
 
       food_category.products << products(:tears)
@@ -20,6 +24,11 @@ describe Category do
     end
 
     it "can have zero products" do
+      new_category = Category.new(name: "services")
+      new_category.save
+
+      new_category.must_respond_to :products
+      new_category.products.count.must_equal 0
 
     end
   end
@@ -40,7 +49,6 @@ describe Category do
       new_category.name = categories(:food).name
       new_category.valid?.must_equal false
     end
-
 
   end
 end
