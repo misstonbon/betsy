@@ -2,7 +2,6 @@ class OrderItemsController < ApplicationController
 
   def new
     # try to get order out of session and if not there create one and put it in the session
-
     @order_item = OrderItem.new
     @product = Product.find_by(id: params[:product_id])
   end
@@ -18,6 +17,7 @@ class OrderItemsController < ApplicationController
     @product = Product.find_by(id: params[:product_id])
     @order_item = OrderItem.new(order_item_params)
     @order_item.product_id = @product.id
+    @order_item.order_id = @order.id
 
     # @order = current_order
     if @order_item.save
@@ -34,10 +34,10 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    @order = current_order
-    @order_item = @order.order_items.find(params[:id])
-    @order_item.update_attributes(order_item_params)
-    @order_items = @order.order_items
+    # # @order = current_order
+    # @order_item = @order.order_items.find(params[:id])
+    # @order_item.update_attributes(order_item_params)
+    # @order_items = @order.order_items
   end
 
   def destroy
