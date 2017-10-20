@@ -1,15 +1,36 @@
 class OrderItemsController < ApplicationController
 
   def new
+    # try to get order out of session and if not there create one and put it in the session
+
     @order_item = OrderItem.new
     @product = Product.find_by(id: params[:product_id])
   end
 
   def create
-    @order = current_order
-    @order_item = @order.order_items.new(order_item_params)
-    @order.save
-    session[:order_id] = @order.id
+    if session[:order_id] == nil
+      @order = Order.new
+      @order.save
+      session[:order_id] = @order.id
+    else
+      @order = Order.find_by(id: session[:order_id])
+    end
+    @product = Product.find_by(id: params[:product_id])
+    @order_item = OrderItem.new(order_item_params)
+    @order_item.product_id = @product.id
+
+    # @order = current_order
+    if @order_item.save
+      flash[:status] = :success
+      flash[:message] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
+      redirect_to products_path
+    else
+      # binding.pry
+      flash[:status] = :error
+      flash[:message] = "Error - products not added to your order"
+      render :new
+    end
+    # session[:order_id] = @order.id
   end
 
   def update
