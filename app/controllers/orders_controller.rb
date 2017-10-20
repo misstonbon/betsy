@@ -29,13 +29,17 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order = Order.find_by_id(params[:id])
-    @order.status = order_params[:status]
+    @order = Order.find_by_id(session[:order_id])
+    @order.update_attributes(order_params)
+    @order.user_id = session[:user_id]
+    @order.status = "paid"
+
     if @order.save
-      redirect_to order_path
+      redirect_to root_path
+      # TODO need to make view, controller method to send to confirmation page with all your order details instead of root_path
     else
       flash.now[:error] = "Error has occured!"
-      render "edit"
+      render :edit
     end
   end
 
@@ -46,6 +50,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:status, :total)
+    params.require(:order).permit(:status, :total, :customer_name, :email, :mailing_address, :zipcode, :cc_number, :cc_expiration_date, :cc_cvv)
   end
 end
