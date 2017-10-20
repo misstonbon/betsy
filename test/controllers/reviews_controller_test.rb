@@ -2,6 +2,7 @@ require "test_helper"
 
 describe ReviewsController do
   let(:product) { products(:soap) }
+  let(:review) { reviews(:one) }
 
   describe "reviews#index" do
     # #action
@@ -87,7 +88,6 @@ describe ReviewsController do
   describe "reviews#update" do
 
     it "successfuly updates existing review" do
-      review = Review.first
       review_data = {
         review: {
           product_id: product.id,
