@@ -4,10 +4,10 @@ one:
   rating: 5
   text_review: MyText
   product: soap
-  # user: amy
+  user_id: 1
 
 two:
   rating: 1
   text_review: MyText
   product: soap
-  # user: amy
+  user_id: 1
