@@ -14,4 +14,4 @@
   <% end %>
 </ul>
 
-<%= link_to "Place your Order", edit_order_path(@order.id), class: "button" %>
+<%= @order.order_items.count > 0 ? link_to("Place your Order", edit_order_path(@order.id), class: "button") : "Add items to cart to place order" %>
