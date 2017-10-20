@@ -1,14 +1,16 @@
 class Order < ApplicationRecord
 
-  STATUS = ["pending", "paid"]
+  # STATUS = ["pending", "paid"]
 
   # belongs_to :user
-  belongs_to :cart
-  has_many :products
-  has_many :orderitems
-  
-  validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
+  # belongs_to :cart
+  # has_many :products
+  has_many :order_items
 
+  # validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
+
+# TODO figre out status for orders
+# TODO checkout will change status and add user_id
 
   def total_cost
 

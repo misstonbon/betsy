@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :reviews, only: [:new, :create]
+    resources :order_items, only: [:new, :create]
   end
 
   resources :carts, except: [:destroy, :index, :new]
