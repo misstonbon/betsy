@@ -1,5 +1,5 @@
 Edit Order ?
-<%= form_for @order do |f| %>
+<%= form_for @order , :url => url_for(:controller => 'orders', :action => 'place_order') do |f| %>
 
   <%= f.label :name %>
   <%= f.text_field :customer_name, :placeholder => "Full name as it appears on card" %>

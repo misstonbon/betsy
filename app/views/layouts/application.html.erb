@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title id = "glitzy-title"><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
   <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -14,7 +14,7 @@
 <body>
   <header class = "page-header row">
     <h2 class = "columns small-12">
-      <%= link_to("GLITZY", root_path) %>
+      <%=link_to("GLITZY", root_path)%>
       <small>What budget ceiling?</small>
     </h2>
     <nav class= "small columns-12">

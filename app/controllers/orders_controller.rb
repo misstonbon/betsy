@@ -35,12 +35,16 @@ class OrdersController < ApplicationController
     @order.status = "paid"
 
     if @order.save
-      redirect_to root_path
+      redirect_to place_order_path
       # TODO need to make view, controller method to send to confirmation page with all your order details instead of root_path
     else
       flash.now[:error] = "Error has occured!"
       render :edit
     end
+  end
+
+  def place_order
+
   end
 
   def destroy

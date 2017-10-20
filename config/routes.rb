@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :reviews, except: [:new, :create]
 
   resources :orders
+  patch '/orders', to: 'orders#place_order', as: 'place_order'
 
   get '/login', to: 'sessions#login_form', as: 'login'
   post '/login', to: 'sessions#login'
