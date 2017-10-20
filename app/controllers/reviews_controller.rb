@@ -62,7 +62,7 @@ class ReviewsController < ApplicationController
   def destroy
     if session[:user_id].nil?
       flash[:status] = :failure
-      flash[:result_text] = "Access Denied: To edit, please log in as a user to edit your own review."
+      flash[:result_text] = "Access Denied: To edit, please log in as a user to delete your own review."
       redirect_to review_path(@review)
     elsif session[:user_id] == @review.user_id
       @review = Review.find_by(id: params[:id]).destroy

@@ -3,6 +3,7 @@ require "test_helper"
 describe ReviewsController do
   let(:product) { products(:soap) }
   let(:review) { reviews(:one) }
+  let(:guest_review) { reviews(:guest_review) }
 
   describe "reviews#index" do
     # #action
@@ -101,21 +102,40 @@ describe ReviewsController do
       Review.find(review.id).rating.must_equal review_data[:review][:rating]
     end
 
-    it "renders bad_request for bogus data (no rating)" do
+    it "does not allow non-authorized (not logged in) users to update a review" do
+
       review = Review.first
       review_data = {
         review: {
           product_id: product.id,
-          rating: ""
+          rating: "",
+          user_id: nil
         }
       }
 
       patch review_path(review), params: review_data
-      must_respond_with :not_found
+      must_redirect_to review_path(review)
 
       # Verify the DB was not modified
       Review.find(review.id).rating.must_equal review.rating
     end
+
+    # it "doesn't allow changes if invalid data" do
+    #
+    #   before_review = reviews(:two)
+    #   review_data = {
+    #     review: {
+    #       product_id: product.id,
+    #       rating: "this is bogus data"
+    #     }
+    #   }
+    #
+    #   after_review = patch review_path(before_review), params: review_data
+    #   before_review.must_equal after_review
+    #
+    #   # Verify the DB was not modified
+    #   Review.find(review.id).rating.must_equal review.rating
+    # end
 
     it "renders 404 not_found for a bogus review_id" do
       bogus_review_id = Review.last.id + 1
@@ -126,15 +146,34 @@ describe ReviewsController do
   end
 
   describe "reviews#destroy" do
-    it "successfuly deletes a review" do
-      review_id = Review.first.id
 
-      delete review_path(review_id)
-      must_redirect_to root_path
+    it "does not allow non-authorized (not logged in) users to delete a review" do
 
-      # The work should really be gone
-      Review.find_by(id: review_id).must_be_nil
+      review_data = {
+        review: {
+          product_id: product.id,
+          rating: 5,
+          user_id: nil
+        }
+      }
+
+      patch review_path(review), params: review_data
+      must_redirect_to review_path(review)
+
+      # Verify the DB was not modified
+      Review.find(review.id).rating.must_equal review.rating
     end
+
+    #HELP: SESSION OR LOGIN?
+    # it "successfuly deletes a review" do
+    #   review_id = Review.first.id
+    #
+    #   delete review_path(review_id)
+    #   must_redirect_to root_path
+    #
+    #   # The work should really be gone
+    #   Review.find_by(id: review_id).must_be_nil
+    # end
 
     it "renders 404 not_found and does not update the DB for a bogus review_id" do
       start_count = Review.count
