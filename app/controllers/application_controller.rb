@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   before_action :find_user
 
+  before_action :find_user
+
   def render_404
     # DPR: supposedly this will actually render a 404 page in production
     render file: "#{Rails.root}/public/404.html" , status: :not_found
@@ -33,12 +35,18 @@ class ApplicationController < ActionController::Base
 
   end
 
-  # def current_order
-  #   if !session[:order_id].nil?
-  #     Order.find(session[:order_id])
-  #   else
-  #     Order.new
-  #   end
-  # end
+  def current_order
+    if session[:order_id] == nil
+      @order = Order.new
+      @order.save
+      session[:order_id] = @order.id
+    else
+      @order = Order.find_by(id: session[:order_id])
+    # if !session[:order_id].nil?
+    #   Order.find(session[:order_id])
+    # else
+    #   Order.new
+    end
+  end
 
 end
