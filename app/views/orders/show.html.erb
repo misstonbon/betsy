@@ -1,0 +1,17 @@
+<h1> Your Cart </h1>
+
+<ul>
+  <% @order.order_items.each do |item| %>
+  <li>
+    Product Name: <%= item.product.name %>
+  </li>
+  <li>
+    Product Price: <%= item.product.price %>
+  </li>
+  <li>
+    Product Quanity: <%= item.quantity %>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to "Place your Order", edit_order_path(@order.id), class: "button" %>

@@ -4,11 +4,11 @@ class Order < ApplicationRecord
 
   # belongs_to :user
   # belongs_to :cart
-  has_many :products
-  has_many :orderitems
+  # has_many :products
+  has_many :order_items
 
   # validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
-# TODO order_item model -> re add belongs to order and update schema to include order id
+
 # TODO figre out status for orders
 # TODO checkout will change status and add user_id
 
