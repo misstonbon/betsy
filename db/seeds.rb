@@ -125,8 +125,8 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
 
 end
 
-puts "Added #{Category.count} product records"
-puts "#{category_failures.length} products failed to save"
+puts "Added #{Category.count} category records"
+puts "#{category_failures.length} category failed to save"
 
 
 # Since we set the primary key (the ID) manually on each of the
