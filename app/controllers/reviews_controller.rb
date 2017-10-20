@@ -1,25 +1,8 @@
 class ReviewsController < ApplicationController
+  before_action :find_review, only: [:show, :edit, :update, :destroy]
+
   def index
     @reviews= Review.all
-  end
-
-  def create
-    @product = Product.find_by(id: params[:product_id])
-    @review = Review.new(review_params)
-    @review.product_id = @product.id
-    @review.user_id = session[:user_id]
-    if @review.save
-      redirect_to review_path(@review.id)
-    else
-      render :new
-    end
-  end
-
-  def destroy
-  end
-
-  def edit
-    @review = Review.find_by(id: params[:id])
   end
 
   def new
@@ -27,20 +10,62 @@ class ReviewsController < ApplicationController
     @product = Product.find_by(id: params[:product_id])
   end
 
-  def show
-    @review = Review.find_by(id: params[:id])
-  end
+  def create
+    @product = Product.find_by(id: params[:product_id])
 
-  def update
-    @review = Review.find_by(id: params[:id])
-    if session[:user_id] == @review.user_id
-      # @review.product_id =
-      @review.update_attributes(review_params)
-
+    @review = Review.new(review_params)
+    @review.product_id = @product.id
+    @review.user_id = session[:user_id]
+    if @review.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created your review!"
       redirect_to review_path(@review.id)
     else
       flash[:status] = :failure
-      flash[:error] = "Access Denied: To edit, please log in as a user."
+      flash[:result_text] = "Error: Could not create your review.}"
+      flash[:messages] = @review.errors.messages
+      render :new, status: :bad_request
+    end
+  end
+
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+
+    if session[:user_id] == @review.user_id
+      @review.update_attributes(review_params)
+      #if @review.update_attributes(review_params)
+      if @review.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully updated your review."
+
+        redirect_to review_path(@review.id)
+      else
+        flash.now[:status] = :failure
+        flash.now[:error] = "Error: Coudl not successfully update your review."
+        render :edit, status: :not_found
+      end
+    else
+      flash[:status] = :failure
+      flash[:error] = "Access Denied: To edit, please log in as a user to edit your own review."
+      redirect_to review_path(@review)
+    end
+  end#of_update
+
+  def destroy
+
+    if session[:user_id] == @review.user_id
+      @review = Review.find_by(id: params[:id]).destroy
+      flash[:status] = :success
+      flash[:result_text] = "Successfully deleted your review!"
+      redirect_to root_path
+    else
+      flash[:status] = :failure
+      flash[:error] = "Access Denied: To delete, please log in as a user."
       redirect_to root_path
     end
   end
@@ -49,6 +74,9 @@ class ReviewsController < ApplicationController
 
   def find_review
     @review = Review.find_by_id(params[:id])
+    # above same as:
+    # @review = Review.find_by(id: params[:id])
+    render_404 unless @review
   end
 
   def review_params
