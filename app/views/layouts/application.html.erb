@@ -20,7 +20,7 @@
     <nav class= "small columns-12">
       <%= link_to("Home", root_path, :class => "button") %>
       <%= link_to("Shop All Items", products_path,:class => "button") %>
-      <%= link_to("Shop By Merchant", products_path, :class => "button") %>
+      <%= link_to("Shop By Merchant", products_by_merchant_path, :class => "button") %>
       <%= link_to("Shop By Category", products_by_category_path, :class => "button") %>
       <%= link_to("Your Cart", session[:order_id] != nil ? order_path(session[:order_id]) : products_path, :class => "button") %>
       <div class = "float_right">
