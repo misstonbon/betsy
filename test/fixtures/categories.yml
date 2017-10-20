@@ -14,4 +14,7 @@ clothing:
 
 cosmetics:
   name: cosmetics
+
+transportation:
+  name: transportation
 # column: value

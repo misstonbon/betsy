@@ -8,6 +8,11 @@ describe Product do
       prod.must_be_kind_of Product
       prod.user.must_be_kind_of User
     end
+
+    it "has a category" do
+      prod = products(:tears)
+      prod.must_respond_to :categories
+    end
   end
 
   describe "validations" do
@@ -51,10 +56,11 @@ describe Product do
   describe "custom model methods " do
 
     describe "self.by_category(category)" do
+      let(:transportation) { categories(:transportation) }
 
       it "returns a collection of Products of the appropriate category" do
-        Product.by_category("transportation").count.must_equal 1
-        Product.by_category("transportation")[0].name.must_equal "Weekend Yacht"
+        Product.by_category(transportation).count.must_equal 1
+        Product.by_category(transportation)[0].name.must_equal "Weekend Yacht"
 
         ###Test This commented out test
 

@@ -12,8 +12,6 @@ class Product < ApplicationRecord
             :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
-  # CATEGORIES = ["food", "cosmetics", "clothing"]
-
   def self.to_category_hash
     data = {}
     Category.all.each do |cat|
@@ -35,7 +33,11 @@ class Product < ApplicationRecord
   # end
 
   def self.by_category(category)
-    return category.products
+    if !Category.all.include?(category)
+      return []
+    else
+      return category.products
+    end
   end
 
   def self.by_merchant(merchant)

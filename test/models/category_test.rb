@@ -41,7 +41,7 @@ describe Category do
     end
 
     it "is valid if it has a name" do
-      new_category.name = "transportation"
+      new_category.name = "service"
       new_category.valid?.must_equal true
     end
 
