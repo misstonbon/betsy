@@ -20,17 +20,18 @@ class Product < ApplicationRecord
     return data
   end
 
-  # def self.to_merchant_hash
-  #   data = {}
-  #   merchants_with_products= (User.all).map
-  #
-  #   merchants_with_products.each do |merchant|
-  #     data[merchant] = by_merchant(merchant)
-  #   end
-  #
-  #   return data
-  #
-  # end
+  def self.to_merchant_hash
+    data = {}
+    merchants_with_products= (User.all).select{|merchant| merchant.products.count > 1}
+
+    binding.pry
+    merchants_with_products.each do |merchant|
+      data[merchant.name] = by_merchant(merchant)
+    end
+
+    return data
+
+  end
 
   def self.by_category(category)
     if !Category.all.include?(category)
@@ -41,7 +42,12 @@ class Product < ApplicationRecord
   end
 
   def self.by_merchant(merchant)
-    return self.where(user: merchant)
+    if !User.all.include?(merchant)
+      return []
+    else
+      return merchant.products
+    end
+    # return self.where(user: merchant)
 
     # return merchant.products
   end

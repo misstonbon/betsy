@@ -1,4 +1,5 @@
 require "test_helper"
+require "pry"
 
 describe Product do
   describe "relations" do
@@ -86,14 +87,19 @@ describe Product do
 
       end
 
-      it "will not error out if there are no products of that category" do
+      it "will not error out if there are no products from that merchant" do
         Product.by_category("bamboozled").count.must_equal 0
       end
 
     end
 
     describe "self.to_merchant_hash method" do
+      it "returns a hash with user names as keys and product arrays as values" do
+        merchant_hash = Product.to_merchant_hash
+        merchant_hash.must_be_kind_of Hash
+        merchant_hash.keys.count.must_equal 3
 
+      end
 
     end
 
