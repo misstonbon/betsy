@@ -7,7 +7,11 @@ describe Product do
       prod.must_respond_to :user
       prod.must_be_kind_of Product
       prod.user.must_be_kind_of User
+    end
 
+    it "has a category" do
+      prod = products(:tears)
+      prod.must_respond_to :categories
     end
   end
 
@@ -15,21 +19,12 @@ describe Product do
     let(:tanja) { users(:tanja) }
 
     it "allows valid categories" do
-      valid_categories = ['food', 'cosmetics', 'clothing']
-      valid_categories.each do |category|
-        product = Product.new(name: "test", category: category, price: 10.00, quantity: 5, user: tanja)
-        product.valid?.must_equal true
-      end
+
     end
 
-    # it "rejects not created categories" do
-    #   invalid_categories = ['cat', 'dog', 'phd thesis', 1337, nil]
-    #   invalid_categories.each do |category|
-    #     product = Product.new(name: "test", category: category)
-    #     product.valid?.must_equal false
-    #     product.errors.messages.must_include :category
-    #   end
-    # end
+    it "rejects not created categories" do
+
+    end
 
     it "requires a name" do
       product = Product.new(category: 'food', price: 10.00, quantity: 5, user: tanja)
@@ -61,16 +56,24 @@ describe Product do
   describe "custom model methods " do
 
     describe "self.by_category(category)" do
-
+      let(:transportation) { categories(:transportation) }
+      let(:weekend_yacht) {products(:yacht)}
+      let(:cosmetics_cat) { categories(:cosmetics)}
       it "returns a collection of Products of the appropriate category" do
-        Product.by_category("transportation").count.must_equal 1
-        Product.by_category("transportation")[0].name.must_equal "Weekend Yacht"
+        weekend_yacht.categories << transportation
+        Product.by_category(transportation).count.must_equal 1
+        Product.by_category(transportation)[0].must_be_kind_of Product
 
-        ###Test This commented out test
+        ###REFACTOR tests below ####
+        cosmetics = Product.where(category: "cosmetics")
 
-        Product.by_category("cosmetics").must_be_kind_of Enumerable
+        cosmetics.each do |cosmetic|
+          cosmetic.categories << cosmetics_cat
+        end
 
-        Product.by_category("cosmetics").count.must_equal 3
+        Product.by_category(cosmetics_cat).must_be_kind_of Enumerable
+
+        Product.by_category(cosmetics_cat).count.must_equal 3
 
       end
 
@@ -90,14 +93,20 @@ describe Product do
 
       end
 
-      it "will not error out if there are no products of that category" do
+      it "will not error out if there are no products from that merchant" do
         Product.by_category("bamboozled").count.must_equal 0
       end
 
     end
 
     describe "self.to_merchant_hash method" do
+      it "returns a hash with user names as keys and product arrays as values" do
+        merchant_hash = Product.to_merchant_hash
 
+        merchant_hash.must_be_kind_of Hash
+        merchant_hash.keys.count.must_equal 3
+
+      end
 
     end
 

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get "/products/category/", to: "products#by_category", as: 'products_by_category'
 
+  get "/products/merchant/", to: "products#by_merchant", as: 'products_by_merchant'
+
   resources :products do
     resources :reviews, only: [:new, :create]
     resources :order_items, only: [:new, :create]
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
   resources :reviews, except: [:new, :create]
 
   resources :orders
+  patch '/orders', to: 'orders#place_order', as: 'place_order'
 
   get '/login', to: 'sessions#login_form', as: 'login'
   post '/login', to: 'sessions#login'

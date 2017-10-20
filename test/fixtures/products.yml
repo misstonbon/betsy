@@ -19,7 +19,6 @@ chocolate:
 
 yacht:
   name: Weekend Yacht
-  category: transportation
   description: for your luxurious weekend getaways
   price: 9999.99
   quantity: 1

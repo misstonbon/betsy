@@ -72,7 +72,7 @@ class ProductsController < ApplicationController
 
   def by_merchant
     # @products_by_merchant = Product.to_merchant_hash
-    @products=  Product.all #placeholder for now
+    @products_by_merchant=  Product.to_merchant_hash #placeholder for now
   end
 
 
