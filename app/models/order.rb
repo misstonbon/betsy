@@ -9,16 +9,16 @@ class Order < ApplicationRecord
 
   # validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
 
-  # TODO figre out status for orders
-  # TODO checkout will change status and add user_id
+# TODO figre out status for orders
+# TODO checkout will change status and add user_id
 
   def total_cost
 
     total = 0.0
 
-    self.cart_items.each do |cart_item|
-      product = Product.find_by_id(cart_item.product_id)
-      total += (product.price * product.quantity)
+    self.order_items.each do |item|
+      product = Product.find_by_id(item.product_id)
+      total += (product.price * item.quantity)
     end
     return total.round(2)
   end
@@ -29,7 +29,7 @@ class Order < ApplicationRecord
   #   order.status = "paid"
   #   order.save
   # end
-  #
+
   # def quantity_adjust
   #   #after order has been placed, cart items are subrtacted from original quantity of items
   #   self.cart_items.each do |cart_item|
