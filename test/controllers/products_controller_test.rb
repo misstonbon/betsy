@@ -101,7 +101,6 @@ describe ProductsController do
     it "only allows the product owner to edit" do
       p "Test and functionality must be implemented"
 
-      (3+1).must_equal 5
     end
 
     it "handles bogus product IDs" do

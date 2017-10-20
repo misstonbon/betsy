@@ -57,16 +57,23 @@ describe Product do
 
     describe "self.by_category(category)" do
       let(:transportation) { categories(:transportation) }
-
+      let(:weekend_yacht) {products(:yacht)}
+      let(:cosmetics_cat) { categories(:cosmetics)}
       it "returns a collection of Products of the appropriate category" do
+        weekend_yacht.categories << transportation
         Product.by_category(transportation).count.must_equal 1
-        Product.by_category(transportation)[0].name.must_equal "Weekend Yacht"
+        Product.by_category(transportation)[0].must_be_kind_of Product
 
-        ###Test This commented out test
+        ###REFACTOR tests below ####
+        cosmetics = Product.where(category: "cosmetics")
 
-        Product.by_category("cosmetics").must_be_kind_of Enumerable
+        cosmetics.each do |cosmetic|
+          cosmetic.categories << cosmetics_cat
+        end
 
-        Product.by_category("cosmetics").count.must_equal 3
+        Product.by_category(cosmetics_cat).must_be_kind_of Enumerable
+
+        Product.by_category(cosmetics_cat).count.must_equal 3
 
       end
 
@@ -95,6 +102,7 @@ describe Product do
     describe "self.to_merchant_hash method" do
       it "returns a hash with user names as keys and product arrays as values" do
         merchant_hash = Product.to_merchant_hash
+
         merchant_hash.must_be_kind_of Hash
         merchant_hash.keys.count.must_equal 3
 

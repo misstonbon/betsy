@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get "/products/category/", to: "products#by_category", as: 'products_by_category'
 
+  get "/products/merchant/", to: "products#by_merchant", as: 'products_by_merchant'
+
   resources :products do
     resources :reviews, only: [:new, :create]
     resources :order_items, only: [:new, :create]

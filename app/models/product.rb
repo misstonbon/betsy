@@ -21,8 +21,9 @@ class Product < ApplicationRecord
   end
 
   def self.to_merchant_hash
+    #refactor needed
     data = {}
-    merchants_with_products= (User.all).select{|merchant| merchant.products.count > 1}
+    merchants_with_products= (User.all).select{|merchant| merchant.products.count > 0}
 
     merchants_with_products.each do |merchant|
       data[merchant.name] = by_merchant(merchant)

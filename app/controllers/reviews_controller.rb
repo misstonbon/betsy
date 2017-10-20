@@ -35,8 +35,11 @@ class ReviewsController < ApplicationController
   end
 
   def update
-
-    if session[:user_id] == @review.user_id
+    if session[:user_id].nil?
+      flash[:status] = :failure
+      flash[:result_text] = "Access Denied: To edit, please log in as a user to edit your own review."
+      redirect_to review_path(@review)
+    elsif session[:user_id] == @review.user_id
       @review.update_attributes(review_params)
       #if @review.update_attributes(review_params)
       if @review.save
@@ -46,26 +49,29 @@ class ReviewsController < ApplicationController
         redirect_to review_path(@review.id)
       else
         flash.now[:status] = :failure
-        flash.now[:error] = "Error: Coudl not successfully update your review."
+        flash.now[:result_text] = "Error: Could not successfully update your review."
         render :edit, status: :not_found
       end
     else
       flash[:status] = :failure
-      flash[:error] = "Access Denied: To edit, please log in as a user to edit your own review."
+      flash[:result_text] = "Access Denied: To edit, please log in as a user to edit your own review."
       redirect_to review_path(@review)
     end
   end#of_update
 
   def destroy
-
-    if session[:user_id] == @review.user_id
+    if session[:user_id].nil?
+      flash[:status] = :failure
+      flash[:result_text] = "Access Denied: To edit, please log in as a user to edit your own review."
+      redirect_to review_path(@review)
+    elsif session[:user_id] == @review.user_id
       @review = Review.find_by(id: params[:id]).destroy
       flash[:status] = :success
       flash[:result_text] = "Successfully deleted your review!"
       redirect_to root_path
     else
       flash[:status] = :failure
-      flash[:error] = "Access Denied: To delete, please log in as a user."
+      flash[:result_text] = "Access Denied: To delete, please log in as a user."
       redirect_to root_path
     end
   end
