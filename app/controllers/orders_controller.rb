@@ -24,6 +24,10 @@ class OrdersController < ApplicationController
    end
   end
 
+  def edit
+    @order = Order.find(params[:id])
+  end
+
   def update
     @order = Order.find_by_id(params[:id])
     @order.status = order_params[:status]
