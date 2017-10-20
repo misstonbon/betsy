@@ -7,7 +7,7 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: [:category]
-  # validates :category, presence: true, allow_nil: false
+  validates :category, presence: true, allow_nil: false
   validates :price, presence: true, numericality: true,
             :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
@@ -36,6 +36,7 @@ class Product < ApplicationRecord
 
   def self.by_category(category)
     return self.where(category: category)
+    # return @product.categories.where(name: category)
   end
 
   def self.by_merchant(merchant)
