@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_action :find_review, only: [:show, :edit]
 
   def index
     @reviews= Review.all
@@ -28,15 +29,9 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review.find_by(id: params[:id])
-
-    render_404 unless @review
   end
 
   def edit
-    @review = Review.find_by(id: params[:id])
-
-    render_404 unless @review
   end
 
   def update
@@ -77,6 +72,8 @@ class ReviewsController < ApplicationController
 
   def find_review
     @review = Review.find_by_id(params[:id])
+    # @review = Review.find_by(id: params[:id])
+    render_404 unless @review
   end
 
   def review_params
