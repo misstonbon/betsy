@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20171019230724) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: true 
+    t.bigint "user_id"
   end
 
   create_table "products", force: :cascade do |t|

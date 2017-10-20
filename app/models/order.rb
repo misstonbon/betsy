@@ -8,7 +8,9 @@ class Order < ApplicationRecord
   has_many :orderitems
 
   # validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
-
+# TODO order_item model -> re add belongs to order and update schema to include order id
+# TODO figre out status for orders
+# TODO checkout will change status and add user_id
 
   def total_cost
 

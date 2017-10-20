@@ -2,6 +2,8 @@
 
 orderitem1:
   quantity: 1
+  product: chocolate
 
 orderitemtwo:
   quantity: 1
+  product: soap
