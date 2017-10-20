@@ -22,7 +22,7 @@
       <%= link_to("Shop All Items", products_path,:class => "button") %>
       <%= link_to("Shop By Merchant", products_path, :class => "button") %>
       <%= link_to("Shop By Category", products_by_category_path, :class => "button") %>
-      <%= link_to("Your Cart", order_path(session[:order_id]), :class => "button") %>
+      <%= link_to("Your Cart", session[:order_id] != nil ? order_path(session[:order_id]) : products_path, :class => "button") %>
       <div class = "float_right">
         <% if @login_user %>
         <%= link_to "Log Out", logout_path, method: :post, class: "button float-right" %>
