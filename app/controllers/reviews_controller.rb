@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :find_review, only: [:show, :edit]
+  before_action :find_review, only: [:show, :edit, :update, :destroy]
 
   def index
     @reviews= Review.all
@@ -35,27 +35,29 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review = Review.find_by(id: params[:id])
 
     if session[:user_id] == @review.user_id
-      if @review.update_attributes(review_params)
-        flash[:result_text] = "Successfully updated your review"
+      @review.update_attributes(review_params)
+      #if @review.update_attributes(review_params)
+      if @review.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully updated your review."
 
         redirect_to review_path(@review.id)
       else
         flash.now[:status] = :failure
-        flash.now[:error] = "Error: Your review failed to save."
-        render :edit
+        flash.now[:error] = "Error: Coudl not successfully update your review."
+        render :edit, status: :not_found
       end
     else
       flash[:status] = :failure
-      flash[:error] = "Access Denied: To edit, please log in as a user."
-      redirect_to root_path
+      flash[:error] = "Access Denied: To edit, please log in as a user to edit your own review."
+      redirect_to review_path(@review)
     end
-  end
+  end#of_update
 
   def destroy
-    @review = Review.find_by(id: params[:id])
+
     if session[:user_id] == @review.user_id
       @review = Review.find_by(id: params[:id]).destroy
       flash[:status] = :success
@@ -72,6 +74,7 @@ class ReviewsController < ApplicationController
 
   def find_review
     @review = Review.find_by_id(params[:id])
+    # above same as:
     # @review = Review.find_by(id: params[:id])
     render_404 unless @review
   end
