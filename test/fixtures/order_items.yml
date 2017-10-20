@@ -4,6 +4,6 @@ orderitem1:
   quantity: 1
   product: chocolate
 
-orderitemtwo:
+orderitem2:
   quantity: 1
   product: soap
