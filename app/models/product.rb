@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  has_many :reviews, dependent: :destroy
+  has_many :reviews
   has_many :order_items
   belongs_to :user
 
@@ -24,7 +24,6 @@ class Product < ApplicationRecord
     data = {}
     merchants_with_products= (User.all).select{|merchant| merchant.products.count > 1}
 
-    binding.pry
     merchants_with_products.each do |merchant|
       data[merchant.name] = by_merchant(merchant)
     end
