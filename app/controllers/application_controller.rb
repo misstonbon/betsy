@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :find_user
 
-  before_action :find_user
+  before_action :current_order
 
   def render_404
     # DPR: supposedly this will actually render a 404 page in production
@@ -38,14 +38,18 @@ class ApplicationController < ActionController::Base
   def current_order
     if session[:order_id] == nil
       @order = Order.new
+      @order.status = "incomplete"
       @order.save
       session[:order_id] = @order.id
     else
       @order = Order.find_by(id: session[:order_id])
-    # if !session[:order_id].nil?
-    #   Order.find(session[:order_id])
-    # else
-    #   Order.new
+        if @order.status == "paid"
+          @order = Order.new
+          # @order_items = nil
+          @order.status = "incomplete"
+          @order.save
+          session[:order_id] = @order.id
+        end
     end
   end
 

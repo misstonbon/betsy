@@ -56,14 +56,19 @@ class Product < ApplicationRecord
   #   products.order(avg_rating: avg_rating(product)).limit(10)
   # end
 
-  # def avg_rating(product)
-  #   if (product.reviews).count > 0
-  #     sum_ratings = (product.reviews).reduce(:+)
-  #     avg = sum_ratings/(product.reviews.count)
-  #     return avg
-  #   else
-  #     return nil
-  #   end
-  # end
+  def avg_rating
+    if (self.reviews).count > 0
+      product_reviews = self.reviews
+      sum_ratings = 0
+      product_reviews.each do |review|
+        sum_ratings += review.rating
+      end
+      # sum_ratings = (self.reviews.rating).reduce(:+)
+      avg = sum_ratings/(product_reviews.count)
+      return avg
+    else
+      return 0
+    end
+  end
 
 end

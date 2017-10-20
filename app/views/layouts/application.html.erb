@@ -39,6 +39,8 @@
   </header>
 
   <h1><%= session[:user_id] %></h1>
+  <h1><%= session[:order_id] %></h1>
+
 
 <% if flash[:status] == :success || flash[:status] == :failure %>
     <section class="row status <%= flash[:status] %>">

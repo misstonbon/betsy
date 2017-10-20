@@ -1,8 +1,22 @@
-<h1>This page is a order summary  page after it has been placed.
-Page works , but no logic yet. Cart needs to be emptied and quantities updated. </h1>
+<h1>Order Confirmation </h1>
 
+<ul>
+  <% @order.order_items.each do |item| %>
+  <li>
+    Product Name: <%= item.product.name %>
+  </li>
+  <li>
+    Product Price: <%= item.product.price %>
+  </li>
+  <li>
+    Product Quanity: <%= item.quantity %>
+  </li>
+  <% end %>
+</ul>
 
- Thank you for shopping at Glitzy !
+<h4>Total Cost: <%= @order.total_cost %></h4>
+
+ <h1>Thank you for shopping at Glitzy !</h1>
 
 <button>
   <%= link_to "Home", root_path %>

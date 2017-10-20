@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-  @order = Order.find(params[:id])
+    @order = Order.find(params[:id])
   end
 
   def new
@@ -13,15 +13,19 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-   if @order.id != nil && @order.save
-     flash[:success] = "Order placed!"
-     redirect_to orders_path
-     #logic for displaying in the index.erb
-   else
-     flash.now[:error] = "Unable to place order"
-     render "new"
-   end
+    @order = Order.new
+    @order.user_id = session[:user_id]
+    @order.status = "incomplete"
+    if @order.save
+
+    # if @order.id != nil && @order.save
+    #   flash[:success] = "Order placed!"
+    #   redirect_to orders_path
+    #   #logic for displaying in the index.erb
+    # else
+    #   flash.now[:error] = "Unable to place order"
+    #   render "new"
+    end
   end
 
   def edit
@@ -33,10 +37,21 @@ class OrdersController < ApplicationController
     @order.update_attributes(order_params)
     @order.user_id = session[:user_id]
     @order.status = "paid"
-
+    @order.order_items.each do |item|
+      quantity = item.quantity
+      product = Product.find_by_id(item.product_id)
+      if product
+        if product.quanity < quantity
+          flash[:status] = :failure
+          flash[:message] = "Error - quantity sought exceed quantity available. Please revise your order"
+          render :edit
+        else
+          product.quantity -= quantity
+        end
+      end
+    end
     if @order.save
       redirect_to place_order_path
-      # TODO need to make view, controller method to send to confirmation page with all your order details instead of root_path
     else
       flash.now[:error] = "Error has occured!"
       render :edit
@@ -44,6 +59,31 @@ class OrdersController < ApplicationController
   end
 
   def place_order
+    @order = Order.find_by_id(session[:order_id])
+    @order.update_attributes(order_params)
+    @order.user_id = session[:user_id]
+    @order.status = "paid"
+    @order.order_items.each do |item|
+      quantity = item.quantity
+      product = Product.find_by_id(item.product_id)
+      if product
+        if product.quantity < quantity
+          flash[:status] = :failure
+          flash[:message] = "Error - quantity sought exceed quantity available. Please revise your order"
+          render :edit
+        else
+          product.quantity -= quantity
+          product.save
+        end
+      end
+    end
+    if @order.save
+      render :place_order
+    else
+      flash.now[:error] = "Error has occured!"
+      render :edit
+    end
+
 
   end
 
