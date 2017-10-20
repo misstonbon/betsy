@@ -120,6 +120,7 @@ describe ReviewsController do
       Review.find(review.id).rating.must_equal review.rating
     end
 
+    #HELP: SESSION OR LOGIN?
     # it "doesn't allow changes if invalid data" do
     #
     #   before_review = reviews(:two)
