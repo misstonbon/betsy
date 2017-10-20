@@ -10,14 +10,21 @@ class ReviewsController < ApplicationController
 
   def create
     @product = Product.find_by(id: params[:product_id])
+
+    # unless @product render_404
+
     @review = Review.new(review_params)
     @review.product_id = @product.id
     @review.user_id = session[:user_id]
     if @review.save
+      flash[:status] = :success
       flash[:result_text] = "Successfully created your review!"
       redirect_to review_path(@review.id)
     else
-      render :new
+      flash[:status] = :failure
+      flash[:result_text] = "Error: Could not create your review.}"
+      flash[:messages] = @review.errors.messages
+      render :new, status: :bad_request
     end
   end
 
@@ -51,16 +58,16 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review = Review.find_by(id: params[:id])
-      if session[:user_id] == @review.user_id
-        @review = Review.find_by(id: params[:id]).destroy
-        flash[:status] = :success
-        flash[:result_text] = "Successfully deleted your review!"
-        redirect_to root_path
-      else
-        flash[:status] = :failure
-        flash[:error] = "Access Denied: To delete, please log in as a user."
-        redirect_to root_path
-      end
+    if session[:user_id] == @review.user_id
+      @review = Review.find_by(id: params[:id]).destroy
+      flash[:status] = :success
+      flash[:result_text] = "Successfully deleted your review!"
+      redirect_to root_path
+    else
+      flash[:status] = :failure
+      flash[:error] = "Access Denied: To delete, please log in as a user."
+      redirect_to root_path
+    end
   end
 
   private
