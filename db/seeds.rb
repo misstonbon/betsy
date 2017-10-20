@@ -9,6 +9,46 @@
 require 'csv'
 
 #---------------------------------------------------
+CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories.csv')
+puts "Loading raw work data from #{CATEGORY_FILE}"
+
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+  category.id = row['id']
+  category.name = row['name']
+
+  puts "Created work: #{category.inspect}"
+  successful = category.save
+  if !successful
+    category_failures << category
+    puts category.errors
+    puts "----------"
+    category.errors.each do |column, message|
+      puts "#{column}: #{message}"
+    end
+    puts "----------"
+  end
+
+end
+
+puts "Added #{Category.count} category records"
+puts "#{category_failures.length} category failed to save"
+
+
+# Since we set the primary key (the ID) manually on each of the
+# tables, we've got to tell postgres to reload the latest ID
+# values. Otherwise when we create a new record it will try
+# to start at ID 1, which will be a conflict.
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
+puts "done"
+
+
+#---------------------------------------------------
 USER_FILE = Rails.root.join('db', 'seed_data', 'users.csv')
 puts "Loading raw work data from #{USER_FILE}"
 
@@ -70,8 +110,10 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.price = row['price']
   product.quantity = row['quantity']
   product.description = row['description']
+
   puts "Created work: #{product.inspect}"
   successful = product.save
+  product.categories << Category.find_by(name: product.category)
   if !successful
     product_failures << product
     puts product.errors

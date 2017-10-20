@@ -1,7 +1,10 @@
 class Product < ApplicationRecord
-  has_many :reviews, dependent: :destroy
+  has_many :reviews
   has_many :order_items
   belongs_to :user
+
+  has_and_belongs_to_many :categories
+
   validates :name, presence: true
   validates_uniqueness_of :name, scope: [:category]
   validates :category, presence: true, allow_nil: false
@@ -9,34 +12,43 @@ class Product < ApplicationRecord
             :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
-  CATEGORIES = ["food", "cosmetics", "clothing"]
-
   def self.to_category_hash
     data = {}
-    CATEGORIES.each do |cat|
-      data[cat] = by_category(cat)
+    Category.all.each do |cat|
+      data[cat.name] = by_category(cat)
     end
     return data
   end
 
-  # def self.to_merchant_hash
-  #   data = {}
-  #   merchants_with_products= (User.all).where(user.products.count > 0 )
-  #
-  #   merchants_with_products.each do |merchant|
-  #     data[merchant] = by_merchant(merchant)
-  #   end
-  #
-  #   return data
-  #
-  # end
+  def self.to_merchant_hash
+    data = {}
+    merchants_with_products= (User.all).select{|merchant| merchant.products.count > 1}
+
+    merchants_with_products.each do |merchant|
+      data[merchant.name] = by_merchant(merchant)
+    end
+
+    return data
+
+  end
 
   def self.by_category(category)
-    return self.where(category: category)
+    if !Category.all.include?(category)
+      return []
+    else
+      return category.products
+    end
   end
 
   def self.by_merchant(merchant)
-    return self.where(user: merchant)
+    if !User.all.include?(merchant)
+      return []
+    else
+      return merchant.products
+    end
+    # return self.where(user: merchant)
+
+    # return merchant.products
   end
 
   # def order_by_ratings(products)
