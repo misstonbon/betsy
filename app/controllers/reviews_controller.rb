@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+
   def index
     @reviews= Review.all
   end
@@ -10,8 +11,6 @@ class ReviewsController < ApplicationController
 
   def create
     @product = Product.find_by(id: params[:product_id])
-
-    # unless @product render_404
 
     @review = Review.new(review_params)
     @review.product_id = @product.id
@@ -30,10 +29,14 @@ class ReviewsController < ApplicationController
 
   def show
     @review = Review.find_by(id: params[:id])
+
+    render_404 unless @review
   end
 
   def edit
     @review = Review.find_by(id: params[:id])
+
+    render_404 unless @review
   end
 
   def update

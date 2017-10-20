@@ -49,13 +49,38 @@ describe ReviewsController do
       must_respond_with :bad_request
       Review.count.must_equal start_count
     end
+
+    it "cannot create a review for an non-existing product (no product_id)" do
+
+    end
   end
 
   describe "reviews#show" do
 
+    it "successfully shows a review page (using review_id)" do
+      get review_path(Review.first)
+      must_respond_with :success
+    end
+
+    it "renders 404 not_found for a bogus review_id" do
+      bogus_review_id = Review.last.id + 1
+      get review_path(bogus_review_id)
+      must_respond_with :not_found
+    end
   end
 
   describe "reviews#edit" do
+
+    it "successfully loads edit review page" do
+      get edit_review_path(Review.first)
+      must_respond_with :success
+    end
+
+    it "renders 404 not_found for a bogus review_id" do
+      bogus_review_id = Review.last.id + 1
+      get edit_review_path(bogus_review_id)
+      must_respond_with :not_found
+    end
 
   end
 
