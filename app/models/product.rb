@@ -17,7 +17,7 @@ class Product < ApplicationRecord
   def self.to_category_hash
     data = {}
     Category.all.each do |cat|
-      data[cat.name] = by_category(cat.name)
+      data[cat.name] = by_category(cat)
     end
     return data
   end
@@ -35,12 +35,13 @@ class Product < ApplicationRecord
   # end
 
   def self.by_category(category)
-    return self.where(category: category)
-    # return @product.categories.where(name: category)
+    return category.products
   end
 
   def self.by_merchant(merchant)
     return self.where(user: merchant)
+
+    # return merchant.products
   end
 
   # def order_by_ratings(products)
