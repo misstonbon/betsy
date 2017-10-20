@@ -33,29 +33,30 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order = Order.find_by_id(session[:order_id])
-    @order.update_attributes(order_params)
-    @order.user_id = session[:user_id]
-    @order.status = "paid"
-    @order.order_items.each do |item|
-      quantity = item.quantity
-      product = Product.find_by_id(item.product_id)
-      if product
-        if product.quanity < quantity
-          flash[:status] = :failure
-          flash[:message] = "Error - quantity sought exceed quantity available. Please revise your order"
-          render :edit
-        else
-          product.quantity -= quantity
-        end
-      end
-    end
-    if @order.save
-      redirect_to place_order_path
-    else
-      flash.now[:error] = "Error has occured!"
-      render :edit
-    end
+    # @order = Order.find_by_id(session[:order_id])
+    # @order.update_attributes(order_params)
+    # @order.user_id = session[:user_id]
+    # @order.status = "paid"
+    # @order.order_items.each do |item|
+    #   quantity = item.quantity
+    #   product = Product.find_by_id(item.product_id)
+    #   if product
+    #     if product.quanity < quantity
+    #       flash[:status] = :failure
+    #       flash[:message] = "Error - quantity sought exceed quantity available. Please revise your order"
+    #       render :edit
+    #     else
+    #       product.quantity -= quantity
+    #       product.save
+    #     end
+    #   end
+    # end
+    # if @order.save
+    #   render :place_order
+    # else
+    #   flash.now[:error] = "Error has occured!"
+    #   render :edit
+    # end
   end
 
   def place_order
