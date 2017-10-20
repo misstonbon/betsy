@@ -19,6 +19,7 @@
   <section>
     <h3>Reviews</h3>
     <%= link_to("Review Product", new_product_review_path(@product.id), :class => "button") %>
+    <%= link_to("Add to Order", new_product_order_item_path(@product.id), :class => "button") %>
   </section>
 <% else %>
   <h2>404 placeholder</h2>
