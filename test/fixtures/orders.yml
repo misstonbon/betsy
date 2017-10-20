@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 order_one:
-  status: MyString
+  status: pending
 
 order_two:
-  status: MyString
+  status: paid
