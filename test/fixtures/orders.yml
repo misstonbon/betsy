@@ -1,7 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-order_one:
-  status: pending
+pending_order:
+  status: incomplete
+  customer_name: Amy Lee
+  email: MyString
+  mailing_address: amy@ada.com
+  cc_number: "1234123412341234"
+  cc_expiration_date: 2020-10-17
+  cc_cvv: 123
+  zipcode: MyString
 
-order_two:
+paid_order:
   status: paid
+  customer_name: Jan E
+  email: MyString
+  mailing_address: je@ada.com
+  cc_number: "9999000099990000"
+  cc_expiration_date: 2030-10-17
+  cc_cvv: 123
+  zipcode: MyString
