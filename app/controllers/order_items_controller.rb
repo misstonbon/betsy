@@ -41,18 +41,26 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find_by(id: params[:id])
     @order = @order_item.order
-    @order_item.update_attributes(order_item_params)
 
-    if @order_item.save
-      flash[:status] = :success
-      flash[:result_text] = "Order Item has updated."
-      redirect_to order_path(@order.id)
+    if @order.status == "incomplete"
+      @order_item.update_attributes(order_item_params)
+
+      if @order_item.save
+        flash[:status] = :success
+        flash[:result_text] = "Order Item has updated."
+        redirect_to order_path(@order.id)
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "Error: Could not update your order_item.}"
+        flash[:messages] = @review.errors.messages
+        render :edit, status: :bad_request
+      end
     else
       flash[:status] = :failure
-      flash[:result_text] = "Error: Could not update your order_item.}"
-      flash[:messages] = @review.errors.messages
-      render :edit, status: :bad_request
+      flash[:result_text] = "Your order cannot be edited as its status is already paid."
+      redirect_to root_path
     end
+
   end
 
   def destroy

@@ -3,11 +3,9 @@
 <section>
   <%= form_for @order_item do |f| %>
 
-    <%= f.label :quantity %>
-    <% num = 0 %>
-    <% @product.quantity < 20 ? num = @product.quantity : num = 20 %>
-    <%= f.select :quantity, options_for_select((1..num).to_a)%>
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity, min: 1, max: @product.quantity %>
 
-    <%= f.submit class: "button" %>
+  <%= f.submit class: "button" %>
   <% end %>
 </section>

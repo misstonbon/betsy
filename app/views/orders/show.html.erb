@@ -9,8 +9,12 @@
     Product Price: <%= item.product.price %>
   </li>
   <li>
-    Product Quanity: <%= item.quantity %> | <%= link_to("Edit Quantity", edit_order_item_path(item.id)) %>
+    Product Quanity: <%= item.quantity %> |
+    <% if  @order.status == "incomplete"%>
+    <%= link_to("Edit Quantity", edit_order_item_path(item.id)) %>
+    <% end %>
   </li>
+  
   <% end %>
 </ul>
 
