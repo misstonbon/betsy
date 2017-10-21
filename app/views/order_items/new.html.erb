@@ -3,7 +3,9 @@
   <%= form_for [@product, @order_item], :url => url_for(:controller => 'order_items', :action => 'create') do |f| %>
 
     <%= f.label :quantity %>
-    <%= f.select :quantity, options_for_select([1,2,3,4,5])%>
+    <% num = 0 %>
+    <% @product.quantity < 20 ? num = @product.quantity : num = 20 %>
+    <%= f.select :quantity, options_for_select((1..num).to_a)%>
 
     <%= f.submit class: "button" %>
   <% end %>
