@@ -1,7 +1,7 @@
-<h1>New Order Item </h1>
+<h1> Edit Order Item Quantity </h1>
 
 <section>
-  <%= form_for [@product, @order_item], :url => url_for(:controller => 'order_items', :action => 'create') do |f| %>
+  <%= form_for @order_item do |f| %>
 
     <%= f.label :quantity %>
     <% num = 0 %>

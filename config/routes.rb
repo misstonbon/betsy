@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   end
 
   resources :carts, except: [:destroy, :index, :new]
+
+  resources :order_items, except: [:new, :create]
+
   resources :users, only: [:index, :show, :edit, :update]
 
   resources :reviews, except: [:new, :create]

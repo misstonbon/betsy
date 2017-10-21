@@ -33,6 +33,11 @@ class OrderItemsController < ApplicationController
     # session[:order_id] = @order.id
   end
 
+  def edit
+    @order_item = OrderItem.find_by(id: params[:id])
+    @product = @order_item.product
+  end
+
   def update
     # # @order = current_order
     # @order_item = @order.order_items.find(params[:id])
