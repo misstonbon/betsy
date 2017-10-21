@@ -22,7 +22,7 @@ class OrderItemsController < ApplicationController
     # @order = current_order
     if @order_item.save
       flash[:status] = :success
-      flash[:message] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
+      flash[:result_text] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
       redirect_to products_path
     else
       # binding.pry
@@ -39,10 +39,20 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    # # @order = current_order
-    # @order_item = @order.order_items.find(params[:id])
-    # @order_item.update_attributes(order_item_params)
-    # @order_items = @order.order_items
+    @order_item = OrderItem.find_by(id: params[:id])
+    @order = @order_item.order
+    @order_item.update_attributes(order_item_params)
+
+    if @order_item.save
+      flash[:status] = :success
+      flash[:result_text] = "Order Item has updated."
+      redirect_to order_path(@order.id)
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Error: Could not update your order_item.}"
+      flash[:messages] = @review.errors.messages
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy
