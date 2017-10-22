@@ -3,7 +3,9 @@
 orderitem1:
   quantity: 1
   product: chocolate
+  order: pending_order
 
 orderitem2:
-  quantity: 1
+  quantity: 2
   product: soap
+  order: paid_order

@@ -60,14 +60,14 @@ class OrderItemsController < ApplicationController
       flash[:result_text] = "Your order cannot be edited as its status is already paid."
       redirect_to root_path
     end
-
   end
 
   def destroy
-    @order = current_order
-    @order_item = @order.order_items.find(params[:id])
+    @order_item = OrderItem.find_by(id: params[:id])
+    @order = @order_item.order
     @order_item.destroy
-    @order_items = @order.order_items
+
+    redirect_to to order_path(@order.id)
   end
 
   private
