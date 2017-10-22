@@ -65,7 +65,16 @@ class OrderItemsController < ApplicationController
   def destroy
     @order_item = OrderItem.find_by(id: params[:id])
     @order = @order_item.order
-    @order_item.destroy
+
+    if @order.status == "incomplete"
+      @order_item.destroy
+      flash[:status] = :success
+      flash[:result_text] = "Order Item has been removed from cart."
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Error: Could not update your order_item.}"
+      flash[:messages] = @order.errors.messages
+    end
 
     redirect_to order_path(@order.id)
   end

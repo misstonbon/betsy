@@ -9,9 +9,9 @@
     Product Price: <%= item.product.price %>
   </li>
   <li>
-    Product Quanity: <%= item.quantity %> |
+    Product Quanity: <%= item.quantity %>
     <% if  @order.status == "incomplete"%>
-    <%= link_to("Edit Quantity", edit_order_item_path(item.id)) %> |
+    | <%= link_to("Edit Quantity", edit_order_item_path(item.id)) %> |
     <%= link_to("Remove Product from Cart", order_item_path(item.id), method: :delete, data: {confirm: "Are you sure you would like to remove this item from your cart?"}) %>
     <% end %>
   </li>
