@@ -66,15 +66,15 @@ h1, h2, h3, h4, h5 {
    color: $dark-teal;
  }
 
- .button {
-   background-color: $primary-teal;
-   display: inline-block;
-   height: 3em;
- }
+.button {
+  background-color: $primary-teal;
+  display: inline-block;
+  height: 3em;
 
- .button:hover {
-   background-color: $dark-teal;
- }
+  &:hover {
+    background-color: $dark-teal;
+  }
+}
 
 .main-content {
   padding-left: 20px;

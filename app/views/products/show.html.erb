@@ -15,11 +15,11 @@
       Available Quantity: <%=@product.quantity%>
     </li>
   </ul>
+  <h4>Average Rating: <%= @product.avg_rating %> </h4>
 
   <section>
-    <h3>Reviews for <%= @product.name %></h4>
-      <h4>Average Rating for <%= @product.name %> <%= @product.avg_rating %> </h4>
-        <% @product.reviews.each do |review| %>
+    <h3>Reviews:</h3>
+    <% @product.reviews.each do |review| %>
       <ul>
         <li>
           Rating: <%= review.rating %>
@@ -27,8 +27,8 @@
         <li>
           Review: <%= review.text_review %>
         </li>
-        <% end %>
       </ul>
+    <% end %>
     <%= link_to("Review Product", new_product_review_path(@product.id), :class => "button") %>
     <%= link_to("Add to Order", new_product_order_item_path(@product.id), :class => "button") %>
   </section>
