@@ -67,7 +67,7 @@ class OrderItemsController < ApplicationController
     @order = @order_item.order
     @order_item.destroy
 
-    redirect_to to order_path(@order.id)
+    redirect_to order_path(@order.id)
   end
 
   private
