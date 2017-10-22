@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
     if @user
       @user.merchant_status = true
       session[:user_id] = @user.id
+      session[:user_name] = @user.name
       flash[:success] = "#{@user.name} is logged in"
     else
       @user = User.new uid: @auth_hash['uid'], provider: @auth_hash['provider'], name: @auth_hash['info']['nickname'], email: @auth_hash['info']['email']
@@ -20,6 +21,7 @@ class SessionsController < ApplicationController
     end
     if @user.save
       session[:user_id] = @user.id
+      session[:user_name] = @user.name
       flash[:success] = "Welcome #{@user.name}"
     else
       flash[:error] = "Unable to save user!"
@@ -31,6 +33,7 @@ class SessionsController < ApplicationController
 
   def logout
     session[:user_id] = nil
+    session[:user_name] = nil
     flash[:status] = :success
     flash[:result_text] = "Successfully logged out"
     redirect_to root_path
