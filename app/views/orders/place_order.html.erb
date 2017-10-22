@@ -1,29 +1,33 @@
+<section id="content-receipt" class="clearfix">
+  <div id="receipt-container">
+    <div class="dotmatrix left"></div>
+    <div id="receipt-content">
+      <h4 id="receipt-title">Order Confirmation</h4>
+      <div class="receipt-details-container">
+        <% @order.order_items.each do |item| %>
+        <div class="receipt-details" class="row clearfix">
 
-<h1>Order Confirmation </h1>
-<ul>
-  <% @order.order_items.each do |item| %>
-  <li>
-    Product Name: <%= item.product.name %>
-  </li>
-  <li>
-    Product Price: <%= item.product.price %>
-  </li>
-  <li>
-    Product Quanity: <%= item.quantity %>
-  </li>
-  <% end %>
-</ul>
+          <div class="col-sm-8 receipt-left">
 
+            <p><strong class="font-weight-heavy"><%= item.product.name %></strong></p>
+          </div>
+          <div class="col-sm-4">
+            <%= item.quantity %> x
+            $<%= '%.02f' % (item.product.price) %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      <footer id="receipt-footer">
+        <p><h4>Total Cost: $<%= '%.02f' % (@order.total_cost) %></h4> You can do better than that!</p>
+      </footer>
+    </div>
+    <div class="dotmatrix right"></div>
+  </div>
+  <div id="receipt-shadow"></div>
+</section>
 
-<h4>Total Cost: <%= '%.02f' % (@order.total_cost) %></h4>
+<h1 class="thank-you"><small>Thank you for shopping at Glitzy!</small></h1>
 
-<h1>Thank you for shopping at Glitzy !</h1>
-
-
-<button>
-  <%= link_to "Home", root_path %>
-</button>
-
-<button>
-  <%= link_to "View all orders", orders_path %> if merchant !!
-</button>
+<%= link_to "Home", root_path, class: "button" %>
+<%= link_to "View all orders", orders_path, class: "button"%>
