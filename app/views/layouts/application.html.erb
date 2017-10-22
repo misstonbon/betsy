@@ -11,7 +11,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body>
+<body class=<%= content_for?(:background_image_class) ? yield(:background_image_class) : "shopper-bg" %>>
   <header class = "page-header row">
     <h1 class = "columns small-12">
       <%=link_to("GLITZY", root_path)%>

@@ -8,9 +8,18 @@ html, body {
   margin:0;
   padding:0;
   height:100%;
+}
+
+.shopper-bg {
   background-image: image-url("shopper.jpeg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+}
+
+.thank-you-bg {
+  background-image: image-url("thankyou.jpeg");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
