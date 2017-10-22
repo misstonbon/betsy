@@ -37,20 +37,22 @@ class ApplicationController < ActionController::Base
 
   def current_order
     if session[:order_id] == nil
-      @order = Order.new
-      @order.status = "incomplete"
-      @order.save
-      session[:order_id] = @order.id
+      create_new_order
     else
       @order = Order.find_by(id: session[:order_id])
-        if @order.status == "paid"
-          @order = Order.new
-          # @order_items = nil
-          @order.status = "incomplete"
-          @order.save
-          session[:order_id] = @order.id
-        end
+      if @order.status == "paid"
+        create_new_order
+      else
+        session[:order_items_count] = @order.order_items.count
+      end
     end
   end
 
+  def create_new_order
+    @order = Order.new
+    @order.status = "incomplete"
+    @order.save
+    session[:order_id] = @order.id
+    session[:order_items_count] = 0
+  end
 end

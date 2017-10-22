@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])    
+    @order = Order.find(params[:id])
   end
 
   def new
@@ -79,6 +79,8 @@ class OrdersController < ApplicationController
       end
     end
     if @order.save
+      # Reset order count
+      session[:order_items_count] = 0
       render :place_order
     else
       flash.now[:error] = "Error has occured!"
