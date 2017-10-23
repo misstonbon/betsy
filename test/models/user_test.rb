@@ -62,7 +62,7 @@ describe User do
     end
 
     it "rejects new user with invalid provider info" do
-      invalid_provider = [nil, "", 'gmail', 12, -0.5]
+      invalid_provider = [nil, "", 'gmail', 12, -0.5, "githublogin"]
 
       invalid_provider.each do |provider|
         invalid_user = User.new(name: 'Grace H', provider: provider)
