@@ -7,6 +7,8 @@ class Order < ApplicationRecord
   # has_many :products
   has_many :order_items
 
+  validates :status, presence: true
+
   # validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
 
 # TODO figre out status for orders
