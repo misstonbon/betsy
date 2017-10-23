@@ -43,3 +43,14 @@ buttercup:
   zipcode: "91727"
   uid: 10
   provider: github
+
+je:
+  name: Jan E
+  email: je@ada.com
+  mailing_address: HQ
+  cc_number: "9999000099990000"
+  cc_expiration_date: 2030-10-17
+  cc_cvv: 123
+  zipcode: MyString
+  uid: 11
+  provider: github

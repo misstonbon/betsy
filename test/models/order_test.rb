@@ -5,6 +5,9 @@ describe Order do
   let(:order1) {orders(:pending_order)}
   let(:product) { products(:soap)}
 
+  let(:user) { users(:je)}
+  let(:order_w_tcost) {orders(:paid_order)}
+
   describe "relations" do
     it "has many order_items" do
       order1.must_respond_to :order_items
@@ -46,8 +49,21 @@ describe Order do
     end
   end
 
-  it "quantity in order cannot exceed quantity available" do
+  describe "Order#total_cost" do
 
+    it "order's total cost defaults to 0" do
+      new_order = Order.create!(user_id: user.id, status: "incomplete")
+      new_order.must_respond_to :total_cost
+      new_order.total_cost.must_equal 0
+    end
 
+    it "calculates the correct total" do
+      order_w_tcost.total_cost.must_equal 69.98
+    end
   end
+
+  # it "quantity in order cannot exceed quantity available" do
+  #
+  #
+  # end
 end
