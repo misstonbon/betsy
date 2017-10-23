@@ -16,14 +16,36 @@ describe Order do
   end
 
   describe "validations" do
-    # it "requires a status" do
-    #   valid_categories = ['album', 'book', 'movie']
-    #   valid_categories.each do |category|
-    #     work = Work.new(title: "test", category: category)
-    #     work.valid?.must_equal true
-    #   end
-    # end
+
+    it "an order requires a status" do
+      order_no_status = Order.new
+      order_no_status.valid?.must_equal false
+      order_no_status.errors.messages.must_include :status
+    end
+
+    it "requires that the status is either incomplete or paid" do
+      order1.status.must_be_kind_of String
+      order1.status.must_equal "incomplete"
+    end
+
+    it "accepts valid status" do
+      valid_status = ["paid", "incomplete", "shipped"]
+      valid_status.each do |status|
+        valid_order = Order.new(user_id: order1.user_id, status: status)
+        valid_order.valid?.must_equal true
+      end
+    end
+
+    it "rejects invalid status" do
+      invalid_status = [1, nil, "no status", 0.5]
+      invalid_status.each do |status|
+        invalid_order = Order.new(user_id: order1.user_id, status: status)
+        invalid_order.valid?.must_equal false
+        invalid_order.errors.messages.must_include :status
+      end
+    end
   end
+
   it "quantity in order cannot exceed quantity available" do
 
 
