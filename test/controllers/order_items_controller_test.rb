@@ -4,10 +4,84 @@ describe OrderItemsController do
   let(:chocolate1) { order_items(:orderitem1) }
   let(:soap2) { order_items(:orderitem2)}
 
+  describe "OrderItem#index" do
+    it "succeeds when there are OrderItems" do
+      chocolate1
+      OrderItem.count.must_be :>, 0, "No OrderItems in the test fixtures"
+      get order_items_path
+      must_respond_with :success
+    end
+
+    it "succeeds when there are no OrderItems" do
+      OrderItem.destroy_all
+      get order_items_path
+      must_respond_with :success
+    end
+  end
+
+  describe "OrderItem#new" do
+    it "works" do
+      get new_product_order_item_path(products(:tears).id)
+      must_respond_with :success
+    end
+  end
+
+  describe "OrderItem#create" do
+
+    let(:order) { orders(:pending_order) }
+
+    it "creates an OrderItem with valid data" do
+      order_item_data = {
+        order_item: {
+          quantity: 1,
+          order: order
+        }
+      }
+
+      start_count = OrderItem.count
+      post product_order_items_path(products(:tears).id), params: order_item_data
+
+      must_redirect_to products_path
+
+      OrderItem.count.must_equal start_count + 1
+    end
+
+    it "renders bad_request and does not update the DB for missing data" do
+      order_item_data = {
+        order_item: {
+          quantity: -1,
+          order: order
+        }
+      }
+
+      start_count = OrderItem.count
+      post product_order_items_path(products(:tears).id), params: order_item_data
+
+      must_respond_with :bad_request
+      OrderItem.count.must_equal start_count
+    end
+
+    it "renders 400 bad_request for bogus categories" do
+      order_item_data = {
+        order_item: {
+          product: "",
+          quantity: -1,
+          order: order
+        }
+      }
+
+      start_count = OrderItem.count
+      post product_order_items_path(products(:tears).id), params: order_item_data
+
+      must_respond_with :bad_request
+      OrderItem.count.must_equal start_count
+  end
+end
+
   describe "OrderItem#update" do
 
     it "allows order_item updates for an order with an 'incomplete' status" do
-    #Arrange
+      #Arrange
       chocolate1.order.status.must_equal "incomplete"
       new_quantity = 3
       oi_update_data = {
@@ -18,10 +92,10 @@ describe OrderItemsController do
         }
       }
 
-    #Action
+      #Action
       patch order_item_path(chocolate1.id), params: oi_update_data
 
-    #Assert
+      #Assert
       must_respond_with :redirect
       must_redirect_to order_path(chocolate1.order.id)
 
@@ -42,16 +116,12 @@ describe OrderItemsController do
       }
 
       #Action
-        patch order_item_path(chocolate1.id), params: oi_update_data
+      patch order_item_path(chocolate1.id), params: oi_update_data
 
       #Assert
-        must_respond_with :bad_request
+      must_respond_with :bad_request
 
-        OrderItem.find(chocolate1.id).quantity.must_equal original_quantity
-
-    end
-
-    it "does not allow you to choose a product quantity greater than 20 or the number available" do
+      OrderItem.find(chocolate1.id).quantity.must_equal original_quantity
 
     end
 
@@ -79,7 +149,7 @@ describe OrderItemsController do
     end
 
     it "does not allow order_item updates for an order with a 'paid' status" do
-    #Arrange
+      #Arrange
       soap2.order.status.must_equal "paid"
 
       old_quantity = soap2.quantity
@@ -91,11 +161,11 @@ describe OrderItemsController do
           order: soap2.order
         }
       }
-    #Action
+      #Action
 
       patch order_item_path(soap2.id), params: oi_update_data
 
-    #Assert
+      #Assert
 
       must_respond_with :redirect
 
