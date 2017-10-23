@@ -104,10 +104,12 @@ describe ProductsController do
 
     end
 
-    it "handles bogus product IDs" do
-      bogus_product_id = Product.last.id + 1
-      print "must implement"
-
+    it "handles bad data" do
+      valid_name = products(:yacht).name
+      put product_path(products(:yacht).id), params: { product: {name: "",category: :food ,description: "Great yacht!",quantity: 100,price: 12400.00, user: users(:tanja)}}
+      yacht = Product.find_by_id(products(:yacht).id)
+        new_name = yacht.name
+        new_name.must_equal valid_name
     end
 
   end
