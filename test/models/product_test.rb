@@ -1,8 +1,7 @@
 require "test_helper"
 
 describe Product do
-  let(:item1) {order_items(:orderitem1)}
-  let(:order1) {orders(:pending_order)}
+
   let(:product) { products(:soap)}
 
   describe "relations" do
