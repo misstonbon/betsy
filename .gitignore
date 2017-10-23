@@ -6,6 +6,9 @@
 
 .env
 
+#Ignore simplecov coverage results
+coverage
+
 # Ignore bundler config.
 /.bundle
 
