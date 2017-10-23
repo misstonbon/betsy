@@ -2,7 +2,9 @@ require "test_helper"
 
 describe Order do
   let(:item1) {order_items(:orderitem1)}
+  let(:item2) {order_items(:orderitem2)}
   let(:order1) {orders(:pending_order)}
+  let(:order2) {orders(:paid_order)}
   let(:product) { products(:soap)}
 
   describe "relations" do
@@ -46,8 +48,10 @@ describe Order do
     end
   end
 
-  it "quantity in order cannot exceed quantity available" do
+  it "accurately calculates total cost" do
+    order1.total_cost.must_equal (order1.order_items.first.product.price * order1.order_items.first.quantity)
 
-
+    order2.total_cost.must_equal (order2.order_items.first.product.price * order2.order_items.first.quantity)
   end
+
 end
