@@ -49,6 +49,10 @@ describe OrderItem do
       end
     end
 
+    # it "quantity in order cannot exceed quantity available" do
+    #
+    #
+    # end
   end
 
 end
