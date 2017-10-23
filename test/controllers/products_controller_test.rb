@@ -56,6 +56,7 @@ describe ProductsController do
   end
 
   describe "update" do
+
     it "updates with valid data and an existing product " do
       product = products(:chocolate)
       product_data = {
@@ -132,7 +133,12 @@ describe ProductsController do
     end
 
     it "allows guest to go to a product's show page" do
+      product = products(:soap)
+      get product_path(product)
+
+      must_respond_with :success
 
     end
+
   end
 end
