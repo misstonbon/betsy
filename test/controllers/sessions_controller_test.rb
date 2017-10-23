@@ -28,6 +28,19 @@ describe SessionsController do
 
     end
 
+    it "logged in user has a name" do
+      amy = users(:amy)
+      login(amy)
+      amy.name.must_equal "Amy Lee"
+
+    end
+
+    it "logged in user has an email address" do
+      amy = users(:amy)
+      login(amy)
+      amy.email.must_equal "amy@ada.com"
+    end
+
     it "creates an account for a new user and redirects to the root route" do
 
       start_count = User.count

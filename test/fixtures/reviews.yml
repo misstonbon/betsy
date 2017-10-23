@@ -4,16 +4,13 @@ one:
   rating: 5
   text_review: MyText
   product: soap
-  user_id: 1
 
 two:
   rating: 1
   text_review: MyText
   product: soap
-  user_id: 1
 
 guest_review:
   rating: 5
   text_review: MyText
   product: shoes
-  user_id: nil

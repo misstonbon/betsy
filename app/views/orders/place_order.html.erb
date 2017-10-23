@@ -4,14 +4,14 @@
   <div id="receipt-container">
     <div class="dotmatrix left"></div>
     <div id="receipt-content">
-      <h4 id="receipt-title">Order Confirmation</h4>
+      <h4 id="receipt-title">Order Confirmation:</h4>
       <div class="receipt-details-container">
         <% @order.order_items.each do |item| %>
         <div class="receipt-details" class="row clearfix">
 
           <div class="col-sm-8 receipt-left">
 
-            <p><strong class="font-weight-heavy"><%= item.product.name %></strong></p>
+            <p><strong class="font-weight-heavy"><%= link_to "#{item.product.name}", product_path(item.product.id) %></strong></p>
           </div>
           <div class="col-sm-4">
             <%= item.quantity %> x
@@ -21,7 +21,11 @@
         <% end %>
       </div>
       <footer id="receipt-footer">
-        <p><h4>Total Cost: $<%= '%.02f' % (@order.total_cost) %></h4> You can do better than that!</p>
+        <p><h4>Total: $<%= '%.02f' % (@order.total_cost) %>
+        </h4>
+        <p>
+          <%= @order.created_at.strftime(" ******* GLITZY ~ %B %d %Y *******")%>
+        </p>
       </footer>
     </div>
     <div class="dotmatrix right"></div>
