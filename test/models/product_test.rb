@@ -1,17 +1,34 @@
 require "test_helper"
 
 describe Product do
+  let(:item1) {order_items(:orderitem1)}
+  let(:order1) {orders(:pending_order)}
+  let(:product) { products(:soap)}
+
   describe "relations" do
     it "has a user" do
-      prod = products(:soap)
-      prod.must_respond_to :user
-      prod.must_be_kind_of Product
-      prod.user.must_be_kind_of User
+      product.must_respond_to :user
+      product.must_be_kind_of Product
+      product.user.must_be_kind_of User
     end
 
     it "has a category" do
       prod = products(:tears)
       prod.must_respond_to :categories
+    end
+
+    it "has a list (can have many) reviews" do
+      product.must_respond_to :reviews
+      product.reviews.each do |review|
+        review.must_be_kind_of Review
+      end
+    end
+
+    it "has a list (can have many) order items" do
+      product.must_respond_to :order_items
+      product.order_items.each do |item|
+        item.must_be_kind_of OrderItem
+      end
     end
   end
 
@@ -24,6 +41,28 @@ describe Product do
 
     it "rejects not created categories" do
 
+    end
+
+    it "requires a price greater than 0" do
+      product.price.must_be_kind_of BigDecimal
+      product.price.must_be :>, 0
+    end
+
+    it "accepts valid price" do
+      valid_price = [1, 5.00, 200.99]
+      valid_price.each do |price|
+        valid_product = Product.new(category: 'food', name: 'good-food', price: price, quantity: 5, user: tanja)
+        valid_product.valid?.must_equal true
+      end
+    end
+
+    it "rejects invalid price" do
+      invalid_price = [-1.00, nil, "1 dollar"]
+      invalid_price.each do |price|
+        invalid_product = Product.new(category: 'food', name: 'cool-food', price: price, quantity: 5, user: tanja)
+        invalid_product.valid?.must_equal false
+        invalid_product.errors.messages.must_include :price
+      end
     end
 
     it "requires a name" do
@@ -85,8 +124,9 @@ describe Product do
     end
 
     describe "self.by_merchant(merchant)" do
+      let(:user) {users(:bubbles)}
       it "returns an array of products by the given merchant" do
-        Product.by_merchant(users(:bubbles)).count.must_equal 1
+        Product.by_merchant(user).count.must_equal user.products.count
         Product.by_merchant(users(:bubbles))[0].name.must_equal "Weekend Yacht"
 
         Product.by_merchant(users(:buttercup)).count.must_equal 2
