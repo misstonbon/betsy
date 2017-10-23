@@ -55,6 +55,29 @@ describe OrderItemsController do
 
     end
 
+    it "must have a valid quantity to update" do
+
+      invalid = [-1,0]
+      original_quantity= chocolate1.quantity
+
+      invalid.each do |num|
+
+        oi_update_data = {
+          order_item: {
+            quantity: num,
+            product: chocolate1.product,
+            order: chocolate1.order
+          }
+        }
+
+        patch order_item_path(chocolate1.id), params: oi_update_data
+
+        must_respond_with :bad_request
+        OrderItem.find(chocolate1.id).quantity.must_equal original_quantity
+      end
+
+    end
+
     it "does not allow order_item updates for an order with a 'paid' status" do
     #Arrange
       soap2.order.status.must_equal "paid"

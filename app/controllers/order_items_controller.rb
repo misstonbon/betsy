@@ -62,7 +62,7 @@ class OrderItemsController < ApplicationController
       else
         flash[:status] = :failure
         flash[:result_text] = "Error: Could not update your order_item"
-        flash[:messages] = @review.errors.messages
+        flash[:messages] = @order_item.errors.messages
         render :edit, status: :bad_request
       end
     end
