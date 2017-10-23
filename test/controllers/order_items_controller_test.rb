@@ -1,8 +1,8 @@
 require "test_helper"
-require 'pry'
 
 describe OrderItemsController do
   let(:chocolate1) { order_items(:orderitem1) }
+  let(:soap2) { order_items(:orderitem2)}
 
   describe "OrderItem#update" do
 
@@ -31,6 +31,7 @@ describe OrderItemsController do
 
     it "does not allow you to choose a product quantity greater than the number available" do
       product = chocolate1.product
+      original_quantity= chocolate1.quantity
 
       oi_update_data = {
         order_item: {
@@ -46,7 +47,7 @@ describe OrderItemsController do
       #Assert
         must_respond_with :bad_request
 
-        OrderItem.find(chocolate1.id).quantity.must_equal chocolate1.quantity
+        OrderItem.find(chocolate1.id).quantity.must_equal original_quantity
 
     end
 
@@ -56,10 +57,27 @@ describe OrderItemsController do
 
     it "does not allow order_item updates for an order with a 'paid' status" do
     #Arrange
+      soap2.order.status.must_equal "paid"
 
+      old_quantity = soap2.quantity
+      new_quantity = 3
+      oi_update_data = {
+        order_item: {
+          quantity: new_quantity,
+          product: soap2.product,
+          order: soap2.order
+        }
+      }
     #Action
 
+      patch order_item_path(soap2.id), params: oi_update_data
+
     #Assert
+
+      must_respond_with :redirect
+
+      OrderItem.find_by_id(soap2.id).quantity.must_equal old_quantity
+
     end
 
   end

@@ -25,7 +25,6 @@ class OrderItemsController < ApplicationController
       flash[:result_text] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
       redirect_to products_path
     else
-      # binding.pry
       flash[:status] = :error
       flash[:message] = "Error - products not added to your order"
       render :new
@@ -47,6 +46,7 @@ class OrderItemsController < ApplicationController
       flash[:status] = :failure
       flash[:result_text] = "Your order cannot be edited as its status is already paid."
       redirect_to root_path
+      return #need to refactor, this may break
     end
 
     if order_item_params[:quantity].to_i > @product.quantity
