@@ -2,8 +2,8 @@
 
 amy:
   name: Amy Lee
-  email: MyString
-  mailing_address: amy@ada.com
+  email: amy@ada.com
+  mailing_address: "12345 Big Street, Seattle, WA 12121"
   cc_number: "1234123412341234"
   cc_expiration_date: 2020-10-17
   cc_cvv: 123
@@ -13,8 +13,8 @@ amy:
 
 tanja:
   name: Tanja Stroble
-  email: MyString
-  mailing_address: tanja@ada.com
+  email: tanja@ada.com
+  mailing_address: "12345 Big Street, Seattle, WA 12121"
   cc_number: "4321432143214321"
   cc_expiration_date: 2020-10-17
   cc_cvv: 321
