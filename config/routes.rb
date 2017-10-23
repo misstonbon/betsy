@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get "/products/merchant/", to: "products#by_merchant", as: 'products_by_merchant'
 
+  get "/users/:id/orders", to: "orders#order_fulfillment", as: 'order_fulfillment' #order_fulfillment_path
+
   resources :products do
     resources :reviews, only: [:new, :create]
     resources :order_items, only: [:new, :create]

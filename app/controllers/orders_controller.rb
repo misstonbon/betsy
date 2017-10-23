@@ -95,6 +95,11 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def order_fulfillment
+    @user = User.find_by_id(params[:id])
+    @user_orders = Order.by_user(@user)
+  end
+
   private
   def order_params
     params.require(:order).permit(:status, :total, :customer_name, :email, :mailing_address, :zipcode, :cc_number, :cc_expiration_date, :cc_cvv)

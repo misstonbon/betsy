@@ -23,6 +23,26 @@ class Order < ApplicationRecord
     return total.round(2)
   end
 
+  def self.by_user(user)
+    #same logic as order.by_merchantn
+    if !User.all.include?(user)
+      return []
+    else
+      #
+      # user_products_ids = user.products.map{|product| product.id }
+      #
+      # orders = []
+      # Order.all.each do |order|
+      #   order.order_items.each do |order_item|
+      #     orders << order if user_products_ids.include? order_item.product_id
+      #   end
+      # end
+      #
+      # return orders
+    end
+
+  end
+
   # def self.change_status_to_paid(order_id)
   #   order = Order.find_by_id(order_id)
   #   # when i put order.id, it complains , does rails know to look by id this way?
