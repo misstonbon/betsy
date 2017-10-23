@@ -9,7 +9,9 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    unless @order = Order.new
+      render_404
+    end
   end
 
   def create
@@ -17,19 +19,13 @@ class OrdersController < ApplicationController
     @order.user_id = session[:user_id]
     @order.status = "incomplete"
     if @order.save
-
-    # if @order.id != nil && @order.save
-    #   flash[:success] = "Order placed!"
-    #   redirect_to orders_path
-    #   #logic for displaying in the index.erb
-    # else
-    #   flash.now[:error] = "Unable to place order"
-    #   render "new"
     end
   end
 
   def edit
-    @order = Order.find(params[:id])
+    unless @order = Order.find_by(id: params[:id])
+      render_404
+    end
   end
 
   def update

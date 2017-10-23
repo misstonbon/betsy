@@ -33,6 +33,15 @@ describe OrdersController do
       get edit_order_path(order1.id)
       must_respond_with :success
     end
+
+    it "renders 404 not_found for a non-existent order" do
+      bogus_order_id = Order.last.id + 1
+      get edit_order_path(bogus_order_id)
+      must_respond_with :not_found
+    end
   end
 
+  describe "OrderItem#create" do
+
+  end
 end
