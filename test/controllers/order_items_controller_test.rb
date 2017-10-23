@@ -1,15 +1,41 @@
 require "test_helper"
+require 'pry'
 
 describe OrderItemsController do
 
   describe "OrderItem#update" do
+    let(:chocolate1) { order_items(:orderitem1) }
 
-    it "only allows order_item updates for an order with an 'incomplete' status" do
+    it "allows order_item updates for an order with an 'incomplete' status" do
     #Arrange
+      chocolate1.order.status.must_equal "incomplete"
+      new_quantity = 3
+
+      oi_update_data = {
+        order_item: {
+          quantity: new_quantity,
+          product: chocolate1.product,
+          order: chocolate1.order
+        }
+      }
 
     #Action
+      patch order_item_path(chocolate1.id), params: oi_update_data
 
     #Assert
+      must_respond_with :redirect
+      must_redirect_to order_path(chocolate1.order.id)
+
+      OrderItem.find(chocolate1.id).quantity.must_equal new_quantity
+
+    end
+
+    it "does not allow you to choose a product quantity greater than the number available" do
+
+    end
+
+    it "does not allow you to choose a product quantity greater than 20 or the number available" do
+
     end
 
     it "does not allow order_item updates for an order with a 'paid' status" do
