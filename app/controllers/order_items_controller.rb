@@ -23,14 +23,13 @@ class OrderItemsController < ApplicationController
     # @order = current_order
     if @order_item.save
       status = :success
-      flash[:result_text] = "#{@order_item.quantity} #{@order_item.product.name} have been added o your order!"
+      flash[:result_text] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
       redirect_to products_path
     else
       status = :bad_request
       flash[:result_text] = "Error - products not added to your order"
       render :new, status: status
     end
-    # session[:order_id] = @order.id
   end
 
   def edit
