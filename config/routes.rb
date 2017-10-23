@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
   resources :order_items, except: [:new, :create]
 
+  resources :users do
+    resources :orders, only: [:index, :show]
+    resources :order_items, only: [:index, :show, :edit, :update]
+  end
+
   resources :users, only: [:index, :show, :edit, :update]
 
   resources :reviews, except: [:new, :create]
