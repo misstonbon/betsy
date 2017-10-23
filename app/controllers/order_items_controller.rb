@@ -25,7 +25,6 @@ class OrderItemsController < ApplicationController
       flash[:result_text] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
       redirect_to products_path
     else
-      # binding.pry
       flash[:status] = :error
       flash[:message] = "Error - products not added to your order"
       render :new
@@ -41,24 +40,31 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find_by(id: params[:id])
     @order = @order_item.order
+    @product = @order_item.product
 
-    if @order.status == "incomplete"
+    unless @order.status == "incomplete"
+      flash[:status] = :failure
+      flash[:result_text] = "Your order cannot be edited as its status is already paid."
+      redirect_to root_path
+      return #need to refactor, this may break
+    end
+
+    if order_item_params[:quantity].to_i > @product.quantity
+      flash[:status] = :failure
+      flash[:result_text] = "Error: You must choose a quantity less than or equal to the available quantity (#{@product.quantity})"
+      render :edit, status: :bad_request
+    else
       @order_item.update_attributes(order_item_params)
-
       if @order_item.save
         flash[:status] = :success
         flash[:result_text] = "Order Item has updated."
         redirect_to order_path(@order.id)
       else
         flash[:status] = :failure
-        flash[:result_text] = "Error: Could not update your order_item.}"
-        flash[:messages] = @review.errors.messages
+        flash[:result_text] = "Error: Could not update your order_item"
+        flash[:messages] = @order_item.errors.messages
         render :edit, status: :bad_request
       end
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Your order cannot be edited as its status is already paid."
-      redirect_to root_path
     end
   end
 
