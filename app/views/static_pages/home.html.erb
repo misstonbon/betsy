@@ -1,1 +1,5 @@
-Home page 
+<h1>Featured :</h1>
+<% @showcase.each do |item| %>
+<h2 class="featured-item"><%= item.name %></h2>
+<%= item.description %>
+<% end %>

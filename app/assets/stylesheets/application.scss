@@ -15,8 +15,8 @@
 //= require_self
  */
 
-$primary-font: 'Bungee Shade', cursive;
-$secondary-font:'Ubuntu', sans-serif;
+$primary-font: 'Playfair Display', serif;
+$secondary-font:'Raleway', serif;
 
 $primary-teal: 2268d8;
 $pink: #d469e5;
@@ -27,11 +27,11 @@ $gold: #FF5722;
 
 $default-border: 2px solid;
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400i');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 @import url('https://fonts.googleapis.com/css?family=Leckerli+One');
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
-
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700');
 .cart {
   display: inline-block;
   height: 4em;
@@ -75,7 +75,12 @@ h1, h2, h3, h4, h5 {
     background-color: $pink;
   }
 }
+.featured-item {
+  font-family: 'Leckerli One';
+  color: #233a75;
+  text-shadow: 6px 6px 10px snow;
 
+}
 .main-content {
   padding-left: 20px;
   padding-right: 20px;
