@@ -97,7 +97,8 @@ class OrdersController < ApplicationController
 
   def order_fulfillment
     @user = User.find_by_id(params[:id])
-    @user_orders = Order.by_user(@user)
+    render_404 unless @user
+    @user_orders = Order.all
   end
 
   private

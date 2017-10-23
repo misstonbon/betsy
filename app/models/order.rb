@@ -28,6 +28,8 @@ class Order < ApplicationRecord
     if !User.all.include?(user)
       return []
     else
+
+      user.order_items.map {|order_item| order_item.order > 0}
       #
       # user_products_ids = user.products.map{|product| product.id }
       #
