@@ -19,7 +19,7 @@ $primary-font: 'Bungee Shade', cursive;
 $secondary-font:'Ubuntu', sans-serif;
 
 $primary-teal: 2268d8;
-$dark-teal: #d469e5;
+$pink: #d469e5;
 $secondary-color: #405b7a;
 $light-gray: #EEEEEE;
 $dark-gray: #424242;
@@ -47,7 +47,7 @@ body, h3, h4, h5 {
 
 small {
   font-family: 'Leckerli One', cursive;
-  text-shadow: 0 0 4px #FF0000;
+  text-shadow: 0 0 4px $pink;
 }
 
 h1, h2, h3, h4, h5 {
@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5 {
  }
 
  a:hover {
-   color: $dark-teal;
+   color: $pink;
  }
 
 .button {
@@ -72,13 +72,39 @@ h1, h2, h3, h4, h5 {
   height: 3em;
 
   &:hover {
-    background-color: $dark-teal;
+    background-color: $pink;
   }
 }
 
 .main-content {
   padding-left: 20px;
   padding-right: 20px;
+
+}
+.cart-page li {
+  list-style-type: none;
+  text-align: left;
+  margin: 5px;
+  font-weight: bold;
+  color: white;
+  h4{
+    font-family: 'Leckerli One';
+    font-weight: lighter;
+    color: $pink;
+  }
+
+  }
+
+.cart-page ul {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #405b7a;
+  background-color:rgba(0, 0, 0, 0.6);
+  max-width: 450px;
+  border-radius: 15px 50px 30px;
+  height: 500px;
+  overflow: scroll;
+  padding-left: 25px;
 }
 
  .page-header {

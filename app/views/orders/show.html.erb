@@ -1,22 +1,20 @@
 <h1> Your Cart </h1>
-
+<section class="cart-page">
 <ul>
   <% @order.order_items.each do |item| %>
   <li>
-    Product Name: <%= item.product.name %>
+   <h4><%= item.product.name %></h4>
   </li>
   <li>
-    Product Price: <%= item.product.price %>
+    Price: $<%= item.product.price %>
   </li>
   <li>
-    Product Quanity: <%= item.quantity %>
+    Quantity: <%= item.quantity %> |
     <% if  @order.status == "incomplete"%>
-    | <%= link_to("Edit Quantity", edit_order_item_path(item.id)) %> |
-    <%= link_to("Remove Product from Cart", order_item_path(item.id), method: :delete, data: {confirm: "Are you sure you would like to remove this item from your cart?"}) %>
+    <%= link_to("Adjust", edit_order_item_path(item.id)) %> |
+    <%= link_to("Remove", order_item_path(item.id), method: :delete, data: {confirm: "Are you sure you would like to remove this item from your cart?"}) %>
     <% end %>
-  </li>
-
   <% end %>
 </ul>
-
-<%= @order.order_items.count > 0 ? link_to("Place your Order", edit_order_path(@order.id), class: "button") : "Add items to cart to place order" %>
+<%= @order.order_items.count > 0 ? link_to("Proceed to Payment", edit_order_path(@order.id), class: "button") : link_to("Shop All Items", products_path) %>
+</section>
