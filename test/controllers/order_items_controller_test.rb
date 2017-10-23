@@ -2,15 +2,14 @@ require "test_helper"
 require 'pry'
 
 describe OrderItemsController do
+  let(:chocolate1) { order_items(:orderitem1) }
 
   describe "OrderItem#update" do
-    let(:chocolate1) { order_items(:orderitem1) }
 
     it "allows order_item updates for an order with an 'incomplete' status" do
     #Arrange
       chocolate1.order.status.must_equal "incomplete"
       new_quantity = 3
-
       oi_update_data = {
         order_item: {
           quantity: new_quantity,
@@ -31,6 +30,23 @@ describe OrderItemsController do
     end
 
     it "does not allow you to choose a product quantity greater than the number available" do
+      product = chocolate1.product
+
+      oi_update_data = {
+        order_item: {
+          quantity: (product.quantity + 1),
+          product: chocolate1.product,
+          order: chocolate1.order
+        }
+      }
+
+      #Action
+        patch order_item_path(chocolate1.id), params: oi_update_data
+
+      #Assert
+        must_respond_with :bad_request
+
+        OrderItem.find(chocolate1.id).quantity.must_equal chocolate1.quantity
 
     end
 
