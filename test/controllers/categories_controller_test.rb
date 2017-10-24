@@ -1,35 +1,43 @@
 require "test_helper"
 
-  describe CategoriesController do
+describe CategoriesController do
+  describe "when user is logged in" do
 
-    it " Should get index" do
-
+    before do
+      login(users(:tanja))
     end
+
+    it "should show the new form" do
+      get new_category_path
+      must_respond_with :success
+    end
+
+    it "after create, redirects" do
+      post categories_path, params: { category: {name: "funky"}}
+      must_respond_with :redirect
+      must_redirect_to user_account_path(users(:tanja).id)
+    end
+
+    it " Data should reflect newly created category" do
+      proc {
+        post categories_path, params: { category: {name: "some cat"}}
+      }.must_change 'Category.count', 1
+    end
+
+
+    it " Should render template and not affect the data if failed " do
+      proc {
+        post categories_path, params: { category: {name: ""}}
+      }.must_change 'Category.count', 0
+    end
+  end
+
+  describe "when user is not logged in" do
 
     it " should redirect if user not logged in " do
       get new_category_path
       must_respond_with :redirect
     end
 
-    it " Data should reflect newly created category" do
-
-      end
-
-    it " Should redirect after create" do
-
-    end
-
-    it " Should flash error, render template and not affect the data if failed " do
-
-    end
-
-
-    it " Should get a list of items for a secific category" do
-
-    end
-
-    it "  Should render 404 if category could not be found" do
-
-    end
-
   end
+end
