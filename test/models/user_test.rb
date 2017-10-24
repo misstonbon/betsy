@@ -113,7 +113,9 @@ describe User do
     end
 
     describe "total_revenue" do
-      user.total_revenue.must_equal user.total_revenue_by_status("paid") + user.total_revenue_by_status("incomplete")
+      it "returns the correct value" do
+        user.total_revenue.must_equal user.total_revenue_by_status("paid") + user.total_revenue_by_status("incomplete")
+      end
     end
   end
 
