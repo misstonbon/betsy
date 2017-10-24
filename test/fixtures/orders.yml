@@ -2,9 +2,9 @@
 
 pending_order:
   status: incomplete
-  customer_name: Amy Lee
-  email: MyString
-  mailing_address: amy@ada.com
+  customer_name: amy
+  email: amy@ada.com
+  mailing_address: "12345 Main Street, Anytown, USA"
   cc_number: "1234123412341234"
   cc_expiration_date: 2020-10-17
   cc_cvv: 123
@@ -13,8 +13,8 @@ pending_order:
 paid_order:
   status: paid
   customer_name: Jan E
-  email: MyString
-  mailing_address: je@ada.com
+  email: je@ada.com
+  mailing_address: "12345 Main Street, Anytown, USA"
   cc_number: "9999000099990000"
   cc_expiration_date: 2030-10-17
   cc_cvv: 123
