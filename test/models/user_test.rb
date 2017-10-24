@@ -81,26 +81,39 @@ describe User do
   end
 
   describe "custom model methods" do
+    let(:user) {users(:tanja)}
+    let(:order_item) {order_items(:orderitem2)}
+    let(:pending_order_item) {order_items(:orderitem1)}
+    let(:status) {"paid"}
+
+    describe "total_revenue_by_status" do
+
+      it "returns a float" do
+        user.total_revenue_by_status(status).must_be_kind_of BigDecimal
+      end
+
+      it "returns a correct value for paid order" do
+        user.total_revenue_by_status(status).must_equal order_item.product.price * order_item.quantity
+      end
+
+      it "doesn't crash if user has no order items" do
+        newuser = User.new(name: "Bob")
+        newuser.must_respond_to :total_revenue_by_status
+      end
+
+      it "calculates revenue for zero value" do
+        newuser = User.new(name: "Bob")
+        newuser.total_revenue_by_status(status).must_equal 0.0
+      end
+
+      it "returns correct value for incomplete order" do
+        user.total_revenue_by_status("incomplete").must_equal pending_order_item.product.price * pending_order_item.quantity
+      end
+
+    end
 
     describe "total_revenue" do
-
-      let(:user) {users(:tanja)}
-      it "returns an array of orders" do
-        orders = Order.by_user(user).select { |order| order.status == "paid"}
-        orders.must_be_kind_of Array
-      end
-
-      it "order(s) returned must be paid" do
-        orders = Order.by_user(user).select { |order| order.status == "paid"}
-        orders.each do |order|
-          order.status.must_equal "paid"
-        end
-
-        it "returns the right number of orders" do
-          orders = Order.by_user(user).select { |order| order.status == "paid"}
-          orders.count.must_equal 1
-        end
-      end
+      user.total_revenue.must_equal user.total_revenue_by_status("paid") + user.total_revenue_by_status("incomplete")
     end
   end
 
