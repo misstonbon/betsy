@@ -32,6 +32,10 @@ class OrdersController < ApplicationController
     end
     @order.update_attributes(order_params)
     @order.user_id = session[:user_id]
+    unless @order.order_items.count > 0
+      flash.now[:error] = "You must add items to your cart in order to checkout"
+      redirect_to root_path
+    end 
     @order.status = "paid"
     inventory_adjust(@order)
     if @order.save

@@ -75,7 +75,6 @@ describe OrdersController do
 
     end
 
-#TODO - FAILING
     it "does not change order status to paid with invalid inputs" do
       id = order1.id
       order_data = {
@@ -89,19 +88,15 @@ describe OrdersController do
           zipcode: order1.zipcode,
         }
       }
-
+      # order has 0 order items
       get root_path
       order_id = session[:order_id]
-      post product_order_items_path(chocolate.id), params: { order_item: {quantity: 2, product_id: chocolate.id} }
-
-      my_order_item = OrderItem.find_by(order_id: order_id)
-
-      my_order_item.wont_be_nil
       order = Order.find_by(id: order_id)
+      puts "ORDER HAS #{order.order_items.count}"
+      puts "order status is #{order.status}"
       order.status.must_equal "incomplete"
       patch place_order_path, params: order_data
-      Order.find_by(id: order_id).status.must_equal "incomplete"
-
+      order.status.must_equal "incomplete"
     end
 
     it "deletes quantity of order_item from inventory" do
@@ -137,8 +132,37 @@ describe OrdersController do
 
     end
 
-# TODO
+    # TODO
     it "does not delete if quantity of order_item is more than inventory" do
+      product = Product.find_by_id(chocolate.id)
+      count = product.quantity
+
+      id = order1.id
+      order_data = {
+        order: {
+          customer_name: order1.customer_name,
+          email: order1.email,
+          mailing_address: order1.mailing_address,
+          cc_number: order1.cc_number,
+          cc_expiration_date: order1.cc_expiration_date,
+          cc_cvv: order1.cc_cvv,
+          zipcode: order1.zipcode,
+        }
+      }
+
+      get root_path
+      order_id = session[:order_id]
+      post product_order_items_path(chocolate.id), params: { order_item: {quantity: 100, product_id: chocolate.id} }
+
+      my_order_item = OrderItem.find_by(order_id: order_id)
+
+      order = Order.find_by(id: order_id)
+
+      patch place_order_path, params: order_data
+
+      product_after = Product.find_by_id(chocolate.id)
+
+      product_after.quantity.must_equal count
 
     end
 
