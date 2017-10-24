@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # before_action :authenticate, except: [:index, :show]
 
   def index
-    @products=  Product.all
+    @products = find_instock
   end
 
   def show
@@ -18,6 +18,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.user_id = session[:user_id]
+
+    id = @product.category.to_i
+    cat = Category.find_by_id(id)
+    @product.categories << cat
 
     if @product.save
       flash[:status] = :success
@@ -34,8 +38,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # render_404 unless @product
-
     @product.update_attributes(product_params)
 
     if @product.save
@@ -48,16 +50,6 @@ class ProductsController < ApplicationController
       flash.now[:messages] = @product.errors.messages
       render :edit, status: :not_found
     end
-
-    ###dummy logic for product owner validation below
-    # if session[:user_id] == @product.user_id
-    #   # @product.product_id =
-    #   #update product
-    # else
-    #   flash[:status] = :failure
-    #   flash[:error] = "Access Denied: To edit, please log in as a user."
-    #   redirect_to root_path
-    # end
   end
 
   def destroy
@@ -68,12 +60,19 @@ class ProductsController < ApplicationController
   end
 
   def by_category
+
     @products_by_category = Product.to_category_hash
   end
 
   def by_merchant
     # @products_by_merchant = Product.to_merchant_hash
-    @products_by_merchant=  Product.to_merchant_hash #placeholder for now
+   #placeholder for now
+
+
+    # @products = find_instock
+
+    @products_by_merchant =  Product.to_merchant_hash
+
   end
 
 
@@ -85,6 +84,16 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:category, :name, :description, :price, :quantity, :stock, :photo_url)
+  end
+
+  def find_instock
+    @products = []
+    Product.all.each do |prod|
+      if prod.quantity > 0 && prod.stock == "In Stock"
+        @products << prod
+      end
+    end
+    return @products
   end
 
 end

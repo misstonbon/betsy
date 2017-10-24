@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  STOCK = ["in stock", "out of stock"]
+  STOCK = ["In Stock", "Out of Stock"]
 
   has_many :reviews
   has_many :order_items
@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates_uniqueness_of :name, scope: [:category]
   validates :category, presence: true, allow_nil: false
   validates :price, presence: true, numericality: true,
-            :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
+  :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   def self.to_category_hash
@@ -39,7 +39,7 @@ class Product < ApplicationRecord
     if !Category.all.include?(category)
       return []
     else
-      return category.products
+      return category.products.select {|prod| prod.instock }
     end
   end
 
@@ -47,7 +47,7 @@ class Product < ApplicationRecord
     if !User.all.include?(merchant)
       return []
     else
-      return merchant.products
+      return merchant.products.select {|prod| prod.instock }
     end
     # return self.where(user: merchant)
 
@@ -72,5 +72,35 @@ class Product < ApplicationRecord
       return 0
     end
   end
+
+  # def find_instock
+  #   @products = []
+  #   Product.all.each do |prod|
+  #     if prod.quantity > 0 && prod.stock == "In Stock"
+  #       @products << prod
+  #     end
+  #   end
+  #   return @products
+  # end
+
+  def instock
+    if self.quantity > 0 && self.stock == "In Stock"
+      return true
+    else
+      return false
+    end
+  end
+
+  # def self.in_stock_products
+  #   @in_stock = Product.where("quantity > ?", 0)
+  #   return @in_stock
+  # end
+
+  # def inventory_check
+  #   if self.quantity == 0
+  #     self.stock = "Out of Stock"
+  #   end
+  #   return self
+  # end
 
 end
