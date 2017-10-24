@@ -8,7 +8,7 @@ describe Order do
   let(:product) { products(:soap)}
 
   let(:user) { users(:je)}
-  let(:order_w_tcost) {orders(:paid_order)}
+
 
   describe "relations" do
     it "has many order_items" do
@@ -63,8 +63,11 @@ describe Order do
     it "accurately calculates total cost" do
       order1.total_cost.must_equal (order1.order_items.first.product.price * order1.order_items.first.quantity)
 
-      order2.total_cost.must_equal (order2.order_items.first.product.price * order2.order_items.first.quantity)
-
+      test_total = 0
+      order2.order_items.each do |order|
+        test_total += (order.product.price * order.quantity)
+      end
+      order2.total_cost.must_equal test_total
     end
   end
 end
