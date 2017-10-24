@@ -1,1 +1,99 @@
 <h3> <%= "#{@user.name}'s Order Fulfillment Page" %></h3>
+
+<section>
+  <h3><strong>Total Revenue:</strong> <%="$#{@user.total_revenue}"%></h3>
+    <%statuses = ["paid", "incomplete", "complete"]%>
+    <h4>Revenue by Status</h4>
+    <% statuses.each do |status|%>
+    <section>
+      <ul>
+        <li>
+          <%= "#{status.capitalize}: $#{@user.total_revenue_by_status(status)}"%>
+        </li>
+      </ul>
+    </section>
+    <%end %>
+</section>
+
+<section>
+  <h3>My Orders</h3>
+  <%@user.user_orders.each do |order|%>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Order ID
+        </th>
+        <th>
+          Order Date
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <!-- #user order path view will need to update to limited view for users -->
+          <%= link_to "#{order.id}", user_order_path(@user.id, order.id)%>
+        </td>
+        <td>
+          <%= order.created_at %>
+        </td>
+        <td>
+          <%= order.status %>
+        </td>
+      </tr>
+      <%order.order_items.each do |item|%>
+        <% if @user.order_items.include?(item) %>
+      <tr>
+        <th>
+          Order Item ID
+        </th>
+        <th>
+          Order Item Product
+        </th>
+        <th>
+          Order Item Price
+        </th>
+        <th>
+          Order Item Quantity
+        </th>
+        <th>
+          Subtotal
+        </th>
+        <th>
+          Shipped?
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <%= item.id%>
+        </td>
+        <td>
+          <%= link_to "#{item.product.name}", product_path(item.product.id)%>
+        </td>
+        <td>
+          <%= item.product.price %>
+        </td>
+        <td>
+          <%= item.quantity%>
+        </td>
+        <td>
+          <%= "$#{item.quantity * item.product.price}" %>
+        </td>
+        <td>
+          <%= "Will be link to change order item status to shipped"%>
+        </td>
+      </tr>
+
+
+      <% end %>
+    <% end %>
+    </tbody>
+
+  </table>
+<% end %>
+
+</section>

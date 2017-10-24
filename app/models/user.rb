@@ -26,7 +26,11 @@ class User < ApplicationRecord
     statuses.each do |status|
       @total_revenue += self.total_revenue_by_status(status)
     end
-    return @total_revenue    
+    return @total_revenue
+  end
+
+  def user_orders
+    self.order_items.map {|order_item| order_item.order}
   end
 
 end
