@@ -98,6 +98,9 @@ class OrdersController < ApplicationController
   def order_fulfillment
     @user = User.find_by_id(params[:id])
     render_404 unless @user
+    if session[:user_id] != @user.id
+      redirect_to root_path
+
     @user_orders = Order.all
   end
 
