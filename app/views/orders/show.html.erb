@@ -1,4 +1,7 @@
 <h1> Your Cart </h1>
+<% if  @order.order_items.size == 0 %>
+Your cart is empty!
+<% else %>
 <section class="cart-page">
 <ul>
   <% @order.order_items.each do |item| %>
@@ -18,3 +21,4 @@
 </ul>
 <%= @order.order_items.count > 0 ? link_to("Proceed to Payment", edit_order_path(@order.id), class: "button") : link_to("Shop All Items", products_path) %>
 </section>
+<% end %>
