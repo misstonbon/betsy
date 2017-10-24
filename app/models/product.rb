@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  STOCK = %w[instock outofstock]
+  
   has_many :reviews
   has_many :order_items
   belongs_to :user
