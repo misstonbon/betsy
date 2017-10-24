@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  STOCK = %w(instock outstock)
+  STOCK = ["in stock", "out of stock"]
 
   has_many :reviews
   has_many :order_items
