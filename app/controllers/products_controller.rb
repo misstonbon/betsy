@@ -24,6 +24,7 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     else
       flash[:status] = :failure
+      flash.now[:result_text] = "Error: You must be logged in to add a product!"
       render :new
     end
   end
@@ -83,7 +84,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:category, :name, :description, :price, :quantity)
+    params.require(:product).permit(:category, :name, :description, :price, :quantity, :stock, :photo_url)
   end
 
 end
