@@ -28,9 +28,7 @@ Rails.application.routes.draw do
 
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
 
-  resources :categories, only: [:create, :new, :index] do
-      get '/products', to: 'product#index'
-    end
+  get '/users/:id/products', to: 'users#account', as: 'user_account'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

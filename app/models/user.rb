@@ -5,4 +5,6 @@ class User < ApplicationRecord
   validates :uid, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
   validates :provider, presence: true, inclusion: { in: %w(github) }
+
+  
 end
