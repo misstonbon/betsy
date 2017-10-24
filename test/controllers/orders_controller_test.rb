@@ -71,20 +71,73 @@ describe OrdersController do
       order = Order.find_by(id: order_id)
       order.status.must_equal "incomplete"
       patch place_order_path, params: order_data
-      # order1.status.must_equal "paid"
       Order.find_by(id: order_id).status.must_equal "paid"
 
     end
 
-    it "does not change order status to paid with valid inputs" do
+#TODO - FAILING
+    it "does not change order status to paid with invalid inputs" do
+      id = order1.id
+      order_data = {
+        order: {
+          customer_name: order1.customer_name,
+          email: order1.email,
+          mailing_address: order1.mailing_address,
+          cc_number: order1.cc_number,
+          cc_expiration_date: order1.cc_expiration_date,
+          cc_cvv: order1.cc_cvv,
+          zipcode: order1.zipcode,
+        }
+      }
+
+      get root_path
+      order_id = session[:order_id]
+      post product_order_items_path(chocolate.id), params: { order_item: {quantity: 2, product_id: chocolate.id} }
+
+      my_order_item = OrderItem.find_by(order_id: order_id)
+
+      my_order_item.wont_be_nil
+      order = Order.find_by(id: order_id)
+      order.status.must_equal "incomplete"
+      patch place_order_path, params: order_data
+      Order.find_by(id: order_id).status.must_equal "incomplete"
 
     end
 
     it "deletes quantity of order_item from inventory" do
+      product = Product.find_by_id(chocolate.id)
+      count = product.quantity
+
+      id = order1.id
+      order_data = {
+        order: {
+          customer_name: order1.customer_name,
+          email: order1.email,
+          mailing_address: order1.mailing_address,
+          cc_number: order1.cc_number,
+          cc_expiration_date: order1.cc_expiration_date,
+          cc_cvv: order1.cc_cvv,
+          zipcode: order1.zipcode,
+        }
+      }
+
+      get root_path
+      order_id = session[:order_id]
+      post product_order_items_path(chocolate.id), params: { order_item: {quantity: 2, product_id: chocolate.id} }
+
+      my_order_item = OrderItem.find_by(order_id: order_id)
+
+      order = Order.find_by(id: order_id)
+
+      patch place_order_path, params: order_data
+
+      product_after = Product.find_by_id(chocolate.id)
+
+      product_after.quantity.must_equal count - 2
 
     end
 
-
+# TODO
     it "does not delete if quantity of order_item is more than inventory" do
 
     end
