@@ -3,8 +3,8 @@
 
   <ul>
     <li>
-      Category: <% @product.categories.each do |product| %>
-         <%= product.capitalize %>
+      Category: <% @product.categories.each do |category| %>
+         <%= category.name.capitalize %>
          <% end %>
     </li>
     <li>
