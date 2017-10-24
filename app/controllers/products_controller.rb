@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user_id = session[:user_id]
 
-    id = @product.category.to_i 
+    id = @product.category.to_i
     cat = Category.find_by_id(id)
     @product.categories << cat
 
@@ -52,16 +52,6 @@ class ProductsController < ApplicationController
       flash.now[:messages] = @product.errors.messages
       render :edit, status: :not_found
     end
-
-    ###dummy logic for product owner validation below
-    # if session[:user_id] == @product.user_id
-    #   # @product.product_id =
-    #   #update product
-    # else
-    #   flash[:status] = :failure
-    #   flash[:error] = "Access Denied: To edit, please log in as a user."
-    #   redirect_to root_path
-    # end
   end
 
   def destroy
