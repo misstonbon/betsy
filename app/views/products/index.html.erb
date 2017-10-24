@@ -28,7 +28,7 @@
           <%= link_to "#{product.name}", product_path(product.id)%>
         </td>
         <td>
-          <%= product.category %>
+          <%= print_categories(product) %>
         </td>
         <td>
           <%= product.description %>

@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # before_action :authenticate, except: [:index, :show]
 
   def index
-    @products = Product.where("quantity > ?", 0)
+    @products = find_instock
   end
 
   def show
@@ -38,8 +38,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # render_404 unless @product
-
     @product.update_attributes(product_params)
 
     if @product.save
@@ -62,12 +60,19 @@ class ProductsController < ApplicationController
   end
 
   def by_category
+
     @products_by_category = Product.to_category_hash
   end
 
   def by_merchant
     # @products_by_merchant = Product.to_merchant_hash
-    @products_by_merchant=  Product.to_merchant_hash #placeholder for now
+   #placeholder for now
+
+
+    # @products = find_instock
+
+    @products_by_merchant =  Product.to_merchant_hash
+
   end
 
 
@@ -79,6 +84,16 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:category, :name, :description, :price, :quantity, :stock, :photo_url)
+  end
+
+  def find_instock
+    @products = []
+    Product.all.each do |prod|
+      if prod.quantity > 0 && prod.stock == "In Stock"
+        @products << prod
+      end
+    end
+    return @products
   end
 
 end
