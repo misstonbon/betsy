@@ -80,5 +80,28 @@ describe User do
 
   end
 
+  describe "custom model methods" do
+
+    describe "total_revenue" do
+
+      let(:user) {users(:tanja)}
+      it "returns an array of orders" do
+        orders = Order.by_user(user).select { |order| order.status == "paid"}
+        orders.must_be_kind_of Array
+      end
+
+      it "order(s) returned must be paid" do
+        orders = Order.by_user(user).select { |order| order.status == "paid"}
+        orders.each do |order|
+          order.status.must_equal "paid"
+        end
+
+        it "returns the right number of orders" do
+          orders = Order.by_user(user).select { |order| order.status == "paid"}
+          orders.count.must_equal 1
+        end
+      end
+    end
+  end
 
 end
