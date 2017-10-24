@@ -3,7 +3,9 @@
 
   <ul>
     <li>
-      Category: <%= @product.category.capitalize %>
+      Category: <% @product.categories.each do |product| %>
+         <%= product.capitalize %>
+         <% end %>
     </li>
     <li>
       Description: <%=@product.description%>

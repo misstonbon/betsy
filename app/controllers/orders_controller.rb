@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     unless @order.order_items.count > 0
       flash.now[:error] = "You must add items to your cart in order to checkout"
       redirect_to root_path
-    end 
+    end
     @order.status = "paid"
     inventory_adjust(@order)
     if @order.save
@@ -75,4 +75,20 @@ class OrdersController < ApplicationController
     end
   end
 
+  def order_fulfillment
+    @user = User.find_by_id(params[:id])
+    render_404 unless @user
+    if session[:user_id] != @user.id
+      flash[:status] = :failure
+      flash[:message] = "Error - You do not have permission to view this page"
+      redirect_to root_path
+    end
+
+    @user_orders = Order.by_user(@user)
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:status, :total, :customer_name, :email, :mailing_address, :zipcode, :cc_number, :cc_expiration_date, :cc_cvv)
+  end
 end

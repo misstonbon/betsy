@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get "/products/merchant/", to: "products#by_merchant", as: 'products_by_merchant'
 
+  get "/users/:id/orders", to: "orders#order_fulfillment", as: 'order_fulfillment' #order_fulfillment_path
+
   resources :products do
     resources :reviews, only: [:new, :create]
     resources :order_items, only: [:new, :create]
@@ -14,6 +16,11 @@ Rails.application.routes.draw do
   resources :carts, except: [:destroy, :index, :new]
 
   resources :order_items, except: [:new, :create]
+
+  resources :users do
+    resources :orders, only: [:index, :show]
+    resources :order_items, only: [:index, :show, :edit, :update]
+  end
 
   resources :users, only: [:index, :show, :edit, :update]
 
