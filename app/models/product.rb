@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  STOCK = ["in stock", "out of stock"]
+  STOCK = ["In Stock", "Out of Stock"]
 
   has_many :reviews
   has_many :order_items
@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates_uniqueness_of :name, scope: [:category]
   validates :category, presence: true, allow_nil: false
   validates :price, presence: true, numericality: true,
-            :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
+  :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   def self.to_category_hash
@@ -72,5 +72,17 @@ class Product < ApplicationRecord
       return 0
     end
   end
+
+  # def self.in_stock_products
+  #   @in_stock = Product.where("quantity > ?", 0)
+  #   return @in_stock
+  # end
+
+  # def inventory_check
+  #   if self.quantity == 0
+  #     self.stock = "Out of Stock"
+  #   end
+  #   return self
+  # end
 
 end

@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # before_action :authenticate, except: [:index, :show]
 
   def index
-    @products=  Product.all
+    @products = Product.where("quantity > ?", 0)
   end
 
   def show

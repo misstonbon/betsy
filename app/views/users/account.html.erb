@@ -14,9 +14,7 @@
   <tbody>
     <% @login_user.products.each do |product| %>
     <tr>
-      <td><% product.categories.each do |category| %>
-        <%= category.name %>
-        <% end %>
+      <td> <%= print_categories(product) %>
       </td>
       <td><%= product.name %></td>
       <td><%= (product.created_at).strftime('%b %m, %Y') %></td>
