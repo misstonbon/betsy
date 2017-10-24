@@ -19,6 +19,10 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user_id = session[:user_id]
 
+    id = @product.category.to_i 
+    cat = Category.find_by_id(id)
+    @product.categories << cat
+
     if @product.save
       flash[:status] = :success
       redirect_to product_path(@product.id)

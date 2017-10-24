@@ -7,11 +7,22 @@
       <th width="50">Product Category</th>
       <th width="100">Product Name</th>
       <th width="100">Date Added</th>
+      <th width="100">Status</th>
       <th width="100">Edit Product</th>
     </tr>
   </thead>
-
   <tbody>
-
+    <% @login_user.products.each do |product| %>
+    <tr>
+      <td><% product.categories.each do |category| %>
+        <%= category.name %>
+        <% end %>
+      </td>
+      <td><%= product.name %></td>
+      <td><%= (product.created_at).strftime('%b %m, %Y') %></td>
+      <td><%= product.stock == "in stock" ? "In Stock" : "Out of Stock" %></td>
+      <td><%= link_to "Edit Product", edit_product_path(product.id), alt: "link to edit product page", class: "button" %></td>
+    </tr>
+    <% end %>
   </tbody>
 </table>
