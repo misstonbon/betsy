@@ -9,3 +9,8 @@ orderitem2:
   quantity: 2
   product: soap
   order: paid_order
+
+orderitem3:
+  quantity: 1
+  product: scarves
+  order: paid_order

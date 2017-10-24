@@ -4,16 +4,17 @@ class OrderItemsController < ApplicationController
     # try to get order out of session and if not there create one and put it in the session
     @order_item = OrderItem.new
     @product = Product.find_by(id: params[:product_id])
+
   end
 
   def create
-    if session[:order_id] == nil
-      @order = Order.new
-      @order.save
-      session[:order_id] = @order.id
-    else
-      @order = Order.find_by(id: session[:order_id])
-    end
+    # if session[:order_id] == nil
+    #   @order = Order.new
+    #   @order.save
+    #   session[:order_id] = @order.id
+    # else
+    #   @order = Order.find_by(id: session[:order_id])
+    # end
     @product = Product.find_by(id: params[:product_id])
     @order_item = OrderItem.new(order_item_params)
     @order_item.product_id = @product.id
@@ -21,15 +22,14 @@ class OrderItemsController < ApplicationController
 
     # @order = current_order
     if @order_item.save
-      flash[:status] = :success
+      status = :success
       flash[:result_text] = "#{@order_item.quantity} #{@order_item.product.name} have been added to your order!"
       redirect_to products_path
     else
-      flash[:status] = :error
-      flash[:message] = "Error - products not added to your order"
-      render :new
+      status = :bad_request
+      flash[:result_text] = "Error - products not added to your order"
+      render :new, status: status
     end
-    # session[:order_id] = @order.id
   end
 
   def edit

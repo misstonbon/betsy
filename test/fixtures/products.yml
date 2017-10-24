@@ -39,3 +39,10 @@ nail_polish:
   price: 150.70
   quantity: 9
   user: buttercup
+
+scarves:
+  name: Merino Wool Scarf
+  description: Bundle Up with soft merino wool scarves
+  price: 50.00
+  quantity: 20
+  user: bubbles
