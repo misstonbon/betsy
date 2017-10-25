@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    
+
     categories = product_params[:categories].map do |c|
       Category.find_by(id: c)
     end.compact
@@ -34,7 +34,6 @@ class ProductsController < ApplicationController
       flash[:status] = :success
       redirect_to product_path(@product.id)
     else
-      puts @product.errors.inspect
       flash[:status] = :failure
       flash.now[:result_text] = "Error: You must be logged in to add a product!"
       render :new
