@@ -82,16 +82,6 @@ class Product < ApplicationRecord
     end
   end
 
-  # def find_instock
-  #   @products = []
-  #   Product.all.each do |prod|
-  #     if prod.quantity > 0 && prod.stock == "In Stock"
-  #       @products << prod
-  #     end
-  #   end
-  #   return @products
-  # end
-
   def instock
     if self.quantity > 0 && self.stock == "In Stock"
       return true
@@ -99,17 +89,5 @@ class Product < ApplicationRecord
       return false
     end
   end
-
-  # def self.in_stock_products
-  #   @in_stock = Product.where("quantity > ?", 0)
-  #   return @in_stock
-  # end
-
-  # def inventory_check
-  #   if self.quantity == 0
-  #     self.stock = "Out of Stock"
-  #   end
-  #   return self
-  # end
 
 end

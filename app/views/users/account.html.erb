@@ -18,7 +18,7 @@
       </td>
       <td><%= product.name %></td>
       <td><%= (product.created_at).strftime('%b %m, %Y') %></td>
-      <td><%= product.stock == "in stock" ? "In Stock" : "Out of Stock" %></td>
+      <td><%= product.stock == "In Stock" ? "In Stock" : "Out of Stock" %></td>
       <td><%= link_to "Edit Product", edit_product_path(product.id), alt: "link to edit product page", class: "button" %></td>
     </tr>
     <% end %>
