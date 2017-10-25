@@ -149,6 +149,16 @@ describe Product do
 
     end
 
+    describe "self.to_category_hash method" do
+      it "returns a hash with categories as keys and product arrays as values" do
+        category_hash = Product.to_category_hash
+
+        category_hash.must_be_kind_of Hash
+        category_hash.keys.count.must_equal 4
+
+      end
+    end
+
   end
 
 end
