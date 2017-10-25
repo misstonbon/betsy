@@ -94,8 +94,8 @@ config.paperclip_defaults = {
   storage: :s3,
   s3_credentials: {
     bucket: ENV.fetch('glitzy'),
-    access_key_id: ENV.fetch('AKIAJMB4647LP7SBA62Q'),
-    secret_access_key: ENV.fetch('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'),
+    access_key_id: ENV.fetch('AKIAIBPC4XWBSSECFZQA'),
+    secret_access_key: ENV.fetch('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'),
     s3_region: ENV.fetch('us-east-1'),
   }
 }
