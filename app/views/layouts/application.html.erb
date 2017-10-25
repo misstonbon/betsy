@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "GLITZY" %></title>
   <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -30,6 +29,23 @@
       <div class = "float_right">
         <% if @login_user %>
         <%= link_to "Log Out", logout_path, method: :post, class: "button float-right" %>
+
+
+
+
+        <ul class="nav site-nav">
+          <li class=flyout>
+            <a>Your Account <small>&#9660</small></a>
+            <!-- Flyout -->
+            <ul class="flyout-content nav stacked">
+              <li><%= link_to "Add Product to Sell", new_product_path, alt: "link to add product for merchant", class: "button" %>
+              </li>
+              <li><%= link_to "Add New Category", new_category_path, alt: "link to add category for merchant", class: "button" %>
+              </li>
+            </ul>
+          </ul>
+        </ul>
+
         <% else %>
         <%= link_to "Log In with Github", "/auth/github", class: "button float-right" %>
         <% end %>
