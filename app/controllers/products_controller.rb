@@ -83,7 +83,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:category, :name, :description, :price, :quantity, :stock, :photo_url)
+    params.require(:product).permit(:category, :name, :description, :price, :quantity, :stock, :photo)
   end
 
   def find_instock

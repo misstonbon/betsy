@@ -19,6 +19,9 @@
         <th>
           Available Quantity
         </th>
+        <th>
+
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -38,6 +41,9 @@
         </td>
         <td>
           <%= product.quantity %>
+        </td>
+        <td>
+          <%= image_tag product.photo(:medium) %>
         </td>
       </tr>
       <% end %>
