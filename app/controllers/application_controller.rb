@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :find_user
-  
+
   before_action :current_order
 
   def render_404
@@ -39,11 +39,16 @@ class ApplicationController < ActionController::Base
     if session[:order_id] == nil
       create_new_order
     else
+
       @order = Order.find_by(id: session[:order_id])
-      if @order.status == "paid"
-        create_new_order
+      if @order
+        if @order.status == "paid"
+          create_new_order
+        end
+        return
       else
-        session[:order_items_count] = @order.order_items.count
+        # session[:order_items_count] = @order.order_items.count
+        create_new_order
       end
     end
   end
