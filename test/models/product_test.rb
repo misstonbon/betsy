@@ -146,7 +146,7 @@ describe Product do
         merchant_hash = Product.to_merchant_hash
 
         merchant_hash.must_be_kind_of Hash
-        merchant_hash.keys.count.must_equal 3
+        merchant_hash.keys.count.must_equal 4
 
       end
 

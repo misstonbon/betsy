@@ -52,3 +52,19 @@ scarves:
   quantity: 20
   user: bubbles
   stock: "In Stock"
+
+candy1:
+  name: RainbowLand Candy
+  description: Colorful candy
+  price: 50.00
+  quantity: 0
+  stock: In Stock
+  user: je
+
+candy2:
+  name: Cloud Candy
+  description: Airy Delicious Cotton Cloud Candy
+  price: 50.00
+  quantity: 10
+  stock: Out of Stock
+  user: je

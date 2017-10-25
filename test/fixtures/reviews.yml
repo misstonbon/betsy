@@ -14,3 +14,8 @@ guest_review:
   rating: 5
   text_review: MyText
   product: shoes
+
+candy2_review:
+  rating: 5
+  text_review: MyText
+  product: candy2
