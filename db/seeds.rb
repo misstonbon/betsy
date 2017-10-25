@@ -95,6 +95,7 @@ puts "done"
 PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'product_seeds.csv')
 puts "Loading raw work data from #{PRODUCT_FILE}"
 
+
 i = 1000
 product_failures = []
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
@@ -111,6 +112,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   puts "Created work: #{product.inspect}"
   successful = product.save
   product.categories << Category.find_by(name: product.category)
+
   if !successful
     product_failures << product
     puts product.errors
