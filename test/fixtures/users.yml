@@ -3,54 +3,29 @@
 amy:
   name: Amy Lee
   email: amy@ada.com
-  mailing_address: "12345 Big Street, Seattle, WA 12121"
-  cc_number: "1234123412341234"
-  cc_expiration_date: 2020-10-17
-  cc_cvv: 123
-  zipcode: MyString
   provider: github
   uid: 1
 
 tanja:
   name: Tanja Stroble
   email: tanja@ada.com
-  mailing_address: "12345 Big Street, Seattle, WA 12121"
-  cc_number: "4321432143214321"
-  cc_expiration_date: 2020-10-17
-  cc_cvv: 321
-  zipcode: MyString
   provider: github
   uid: 2
 
 bubbles:
   name: Bubbles
   email: bubbles@powerpuff.com
-  mailing_address: Powerpuff hq
-  cc_number: "10287"
-  cc_expiration_date: 2017-10-17
-  cc_cvv: 1
-  zipcode: "102847"
   uid: 9
   provider: github
 
 buttercup:
   name: buttercup
   email: buttercup@powerpuff.com
-  mailing_address: HQ
-  cc_number: "0172"
-  cc_expiration_date: 2017-10-17
-  cc_cvv: 3
-  zipcode: "91727"
   uid: 10
   provider: github
 
 je:
   name: Jan E
   email: je@ada.com
-  mailing_address: HQ
-  cc_number: "9999000099990000"
-  cc_expiration_date: 2030-10-17
-  cc_cvv: 123
-  zipcode: MyString
   uid: 11
   provider: github
