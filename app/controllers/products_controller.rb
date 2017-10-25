@@ -1,3 +1,4 @@
+
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
@@ -16,12 +17,18 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    @product.user_id = session[:user_id]
 
-    id = @product.category.to_i
-    cat = Category.find_by_id(id)
-    @product.categories << cat
+    categories = product_params[:categories].map do |c|
+      Category.find_by(id: c)
+    end.compact
+
+    new_params = product_params.except(:categories)
+
+    @product= Product.new new_params
+    @product.user_id = session[:user_id]
+    categories.each do |category|
+      @product.categories << category
+    end
 
     if @product.save
       flash[:status] = :success
@@ -31,6 +38,7 @@ class ProductsController < ApplicationController
       flash.now[:result_text] = "Error: You must be logged in to add a product!"
       render :new
     end
+
   end
 
   def edit
@@ -83,7 +91,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:category, :name, :description, :price, :quantity, :stock, :photo)
+    params.require(:product).permit(:name, :description, :price, :quantity, :stock, :photo, categories: [])
   end
 
   def find_instock
