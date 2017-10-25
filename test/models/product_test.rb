@@ -126,7 +126,10 @@ describe Product do
       let(:user) {users(:bubbles)}
       it "returns an array of products by the given merchant" do
         Product.by_merchant(user).count.must_equal user.products.count
-        Product.by_merchant(users(:bubbles))[0].name.must_equal "Weekend Yacht"
+
+        user.products.each do |product|
+          Product.by_merchant(user).must_include product
+        end
 
         Product.by_merchant(users(:buttercup)).count.must_equal 2
 
