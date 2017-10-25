@@ -1,5 +1,5 @@
 <section>
-  <%= form_for @product do |f| %>
+  <%= form_for(@product, multipart: true) do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name%>
 
