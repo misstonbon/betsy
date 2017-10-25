@@ -85,6 +85,7 @@ describe User do
     let(:order_item) {order_items(:orderitem2)}
     let(:pending_order_item) {order_items(:orderitem1)}
     let(:status) {"paid"}
+    let(:buttercup) {users(:buttercup)}
 
     describe "total_revenue_by_status" do
 
@@ -116,6 +117,25 @@ describe User do
       it "returns the correct value" do
         user.total_revenue.must_equal user.total_revenue_by_status("paid") + user.total_revenue_by_status("incomplete")
       end
+    end
+
+    describe "user_orders" do
+      it "returns an array of order items" do
+        user.user_orders.must_be_kind_of Array
+        user.user_orders.each do |order|
+          order.must_be_kind_of Order
+        end
+      end
+
+      it "returns an empty array if user has no orders" do
+        buttercup.user_orders.must_be_kind_of Array
+        buttercup.user_orders.count.must_equal 0
+      end
+
+      it "returns the correct value" do
+        user.user_orders.count.must_equal 2
+      end
+
     end
   end
 

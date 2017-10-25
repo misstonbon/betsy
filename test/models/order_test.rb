@@ -34,7 +34,7 @@ describe Order do
     end
 
     it "accepts valid status" do
-      valid_status = ["paid", "incomplete", "shipped"]
+      valid_status = ["paid", "incomplete", "complete"]
       valid_status.each do |status|
         valid_order = Order.new(user_id: order1.user_id, status: status)
         valid_order.valid?.must_equal true
