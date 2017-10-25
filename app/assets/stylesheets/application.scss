@@ -15,10 +15,13 @@
 //= require_self
  */
 
-
+ #glitzy {
+   font-family: 'Bungee Shade', cursive;
+ }
 /*------------------------------------*\
     $NAV
 \*------------------------------------*/
+
 
 .nav{
     list-style:none;
@@ -129,7 +132,7 @@
 $primary-font: 'Playfair Display', serif;
 $secondary-font:'Raleway', serif;
 
-$primary-teal: 2268d8;
+
 $pink: #d469e5;
 $secondary-color: #405b7a;
 $light-gray: #EEEEEE;
@@ -143,6 +146,7 @@ $default-border: 2px solid;
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:700');
+
 .cart {
   display: inline-block;
   height: 4em;
@@ -159,6 +163,7 @@ body, h3, h4, h5 {
 small {
   font-family: 'Leckerli One', cursive;
   text-shadow: 0 0 4px $pink;
+  color: white;
 }
 
 h1, h2, h3, h4, h5 {
@@ -170,7 +175,7 @@ h1, h2, h3, h4, h5 {
  }
 
  a, h3 {
-   color: $primary-teal;
+   color: black;
  }
 
  a:hover {
@@ -254,7 +259,7 @@ h1, h2, h3, h4, h5 {
        margin-right: 15px;
        border-right: white 2px solid;
      }
-     small {
+     small  {
        color: white;
      }
    }
@@ -315,9 +320,38 @@ main {
 .all-products  section table {
   background-color: #405b7a;
 
+
 }
 
 .medium-image  img {
   display: block;
   padding: 10px;
+}
+
+.items {
+  width: 400px;
+  height: 400px;
+  margin: 20px;
+  border: 3px solid #0c0c0c;
+  display: inline-table;
+  text-align: center;
+  padding: 10px;
+  background-color: #405b7a;
+  opacity: 0.9;
+  color: snow;
+
+}
+
+.items a {
+  text-decoration: none;
+  color: white;
+}
+
+.items img {
+    width: 70%;
+    max-height: 230px;
+}
+
+.items img:hover {
+  -webkit-filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
 }
