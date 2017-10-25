@@ -24,6 +24,7 @@ describe Order do
 
     it "an order requires a status" do
       order_no_status = Order.new
+      order_no_status.status = ""
       order_no_status.valid?.must_equal false
       order_no_status.errors.messages.must_include :status
     end
