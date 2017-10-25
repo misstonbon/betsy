@@ -58,11 +58,7 @@ CSV.foreach(USER_FILE, :headers => true) do |row|
   user.id = row['id']
   user.name = row['name']
   user.email = row['email']
-  user.mailing_address = row['mailing_address']
-  user.cc_number = row['cc_number']
-  user.cc_expiration_date = row['cc_expiration_date']
-  user.cc_cvv = row['cc_cvv']
-  user.zipcode = row['zipcode']
+  user.merchant_status = row['merchant_status']
   user.uid = row['uid']
   user.provider = row['provider']
   puts "Created work: #{user.inspect}"
@@ -110,6 +106,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.price = row['price']
   product.quantity = row['quantity']
   product.description = row['description']
+  product.stock = row['stock']
 
   puts "Created work: #{product.inspect}"
   successful = product.save

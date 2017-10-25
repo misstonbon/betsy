@@ -1,3 +1,4 @@
-id,name,email,mailing_address,cc_number,cc_expiration_date,cc_cvv,zipcode,uid,provider
-999,Nina Hintz,hintz@ada.com,1334 St. Address WA,1234123412341234,1019,987,98111,999999,github
-1000,Florence Fisher,fisher@ada.com,5674 St. Address VT,5678567856785678,1121,789,54679,999998,github
+id,name,email,merchant_status,uid,provider
+999,Nina Hintz,hintz@ada.com,true,999999,github
+1000,Florence Fisher,fisher@ada.com,true,999998,github
+1001,Glitzy Team, glitzy@ada.com,true,999997,github
