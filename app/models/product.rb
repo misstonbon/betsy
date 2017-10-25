@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+
+  # This is a test comment
+
   STOCK = ["In Stock", "Out of Stock"]
   # This method associates the attribute ":avatar" with a file attachment
   has_attached_file :photo,
@@ -19,7 +22,7 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: [:category]
-  validates :category, presence: true, allow_nil: false
+  # validates :category, presence: true, allow_nil: false
   validates :price, presence: true, numericality: true,
   :format => { :with => /^\d{1,4}(\.\d{0,2})?$/, multiline: true }
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}

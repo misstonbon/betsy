@@ -1,10 +1,16 @@
 <section>
+
   <%= form_for(@product, multipart: true) do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name%>
 
-    <%= f.label :category %>
-    <%= f.select :category, options_from_collection_for_select(Category.all, "id", "name")%>
+    <%= f.label :categories %>
+    <%= f.collection_check_boxes :categories, Category.all, :id, :name do |b|%>
+    <div>
+      <%= b.label %>
+      <%= b.check_box %>
+    </div>
+    <% end %>
 
     <%= f.label :price %>
     <%= f.text_field :price %>

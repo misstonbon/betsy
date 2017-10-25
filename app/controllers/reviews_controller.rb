@@ -12,6 +12,11 @@ class ReviewsController < ApplicationController
 
   def create
     @product = Product.find_by(id: params[:product_id])
+    if session[:user_id] == @product.user.id
+      flash[:status] = :failure
+      flash[:result_text] = "Edit Permissions Denied: As a merchant, you cannot review your own products."
+      redirect_to product_path(@product.id) and return
+    end
 
     @review = Review.new(review_params)
     @review.product_id = @product.id
@@ -22,7 +27,7 @@ class ReviewsController < ApplicationController
       redirect_to review_path(@review.id)
     else
       flash[:status] = :failure
-      flash[:result_text] = "Error: Could not create your review.}"
+      flash[:result_text] = "Error: Could not create your review."
       flash[:messages] = @review.errors.messages
       render :new, status: :bad_request
     end
@@ -41,7 +46,7 @@ class ReviewsController < ApplicationController
       redirect_to review_path(@review)
     elsif session[:user_id] == @review.product.user_id
       flash[:status] = :failure
-      flash[:result_text] = "Edit Permissions Denied: As a merchant, you cannot edit your own products."
+      flash[:result_text] = "Edit Permissions Denied: As a merchant, you cannot review your own products."
       redirect_to review_path(@review)
     elsif session[:user_id] == @review.user_id
       @review.update_attributes(review_params)
@@ -53,11 +58,11 @@ class ReviewsController < ApplicationController
       else
         flash.now[:status] = :failure
         flash.now[:result_text] = "Error: Could not successfully update your review."
-        render :edit, status: :not_found
+        render :edit, status: :bad_request
       end
     else
       flash[:status] = :failure
-      flash[:result_text] = "Access Denied: To edit, please log in as a user to edit your own review."
+      flash[:result_text] = "Access Denied: You may not edit another user's review."
       redirect_to review_path(@review)
     end
   end#of_update
@@ -65,7 +70,7 @@ class ReviewsController < ApplicationController
   def destroy
     if session[:user_id].nil?
       flash[:status] = :failure
-      flash[:result_text] = "Access Denied: To edit, please log in as a user to delete your own review."
+      flash[:result_text] = "Access Denied: To delete, please log in as a user to delete your own review."
       redirect_to review_path(@review)
     elsif session[:user_id] == @review.user_id
       @review = Review.find_by(id: params[:id]).destroy
@@ -74,7 +79,7 @@ class ReviewsController < ApplicationController
       redirect_to root_path
     else
       flash[:status] = :failure
-      flash[:result_text] = "Access Denied: To delete, please log in as a user."
+      flash[:result_text] = "Access Denied: You may not delete another user's review."
       redirect_to root_path
     end
   end
