@@ -14,6 +14,8 @@ describe UsersController do
     let (:buttercup) {users(:buttercup)}
 
     it "shows a user's order fulfillment page " do
+      login(buttercup)
+
       get user_orders_path(buttercup.id)
 
       must_respond_with :success

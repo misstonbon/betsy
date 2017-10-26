@@ -51,8 +51,6 @@
   </header>
 
   <div class="main-content">
-    <!-- <h1><%= session[:user_name] %></h1> -->
-
     <% if flash[:result_text] or flash[:messages] %>
       <section class="row status <%= flash[:status] %>">
         <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>

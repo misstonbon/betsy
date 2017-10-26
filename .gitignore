@@ -22,4 +22,3 @@ coverage
 /yarn-error.log
 
 .byebug_history
-/config/environments/production.rb

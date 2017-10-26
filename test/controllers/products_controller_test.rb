@@ -23,6 +23,52 @@ describe ProductsController do
     end
   end
 
+  describe "create" do
+    let(:tanja) {users(:tanja)}
+
+    it "for logged in user, will create a new product with valid input" do
+      start_count = Product.count
+      login(tanja)
+
+
+      product_data = {
+        product: {
+        name: "Snakeskin pants",
+        categories: [categories(:clothing).id, categories(:food).id],
+        price: 999.99,
+        quantity: 2,
+        stock: "In Stock",
+        user: tanja
+      }
+    }
+
+      post products_path, params: product_data
+      new_product = Product.last
+      # puts new_product.name
+      must_redirect_to product_path(new_product.id)
+      Product.count.must_equal start_count + 1
+    end
+
+    it "will not create a product if user is not logged in" do
+      start_count = Product.count
+
+      product_data = {
+        product: {
+        name: "Snakeskin pants",
+        categories: [categories(:clothing).id, categories(:food).id],
+        price: 999.99,
+        quantity: 2,
+        stock: "In Stock",
+        user: tanja
+      }
+    }
+
+      post products_path, params: product_data
+      Product.count.must_equal start_count
+      flash[:result_text].must_equal "Error: You must be logged in to add a product!"
+    end
+  end
+
   describe "show" do
     it "will go to an existing product's page" do
       get product_path(Product.first.id)
@@ -108,8 +154,8 @@ describe ProductsController do
       valid_name = products(:yacht).name
       put product_path(products(:yacht).id), params: { product: {name: "",categories: [categories(:food), categories(:transportation)] ,description: "Great yacht!",quantity: 100,price: 12400.00, user: users(:tanja)}}
       yacht = Product.find_by_id(products(:yacht).id)
-        new_name = yacht.name
-        new_name.must_equal valid_name
+      new_name = yacht.name
+      new_name.must_equal valid_name
     end
 
   end

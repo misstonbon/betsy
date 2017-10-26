@@ -85,6 +85,19 @@ class OrderItemsController < ApplicationController
     redirect_to order_path(@order.id)
   end
 
+  def mark_shipped
+    item = OrderItem.find_by_id(params[:id])
+    if item.shipped == "not shipped"
+      item.shipped = "shipped"
+    else
+      item.shipped = "not shipped"
+    end
+
+    if item.save
+      redirect_to order_fulfillment_path(item.product.user_id)
+    end
+  end
+
   private
   def order_item_params
     params.require(:order_item).permit(:quantity, :product_id)

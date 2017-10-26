@@ -23,18 +23,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_order
-    #### Order: new order is created with default status :PENDING
-    ### order is complete when status is changed to :PAID
-    ####
-    if @login_user
-      #@login_user.orders.where(order_status: :PENDING)
-    else
-      # @order = Order.new
-    end
-
-  end
-
   def current_order
     if session[:order_id] == nil
       create_new_order

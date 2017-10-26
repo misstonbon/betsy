@@ -43,5 +43,7 @@ Rails.application.routes.draw do
     get '/products', to: 'product#index'
   end
 
+  patch '/order_item/:id/mark_shipped', to: 'order_items#mark_shipped', as: 'item_shipped'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
