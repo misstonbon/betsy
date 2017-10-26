@@ -22,7 +22,7 @@ class User < ApplicationRecord
   def total_revenue
     @total_revenue = 0.0
 
-    statuses = ["incomplete", "paid", "complete"]
+    statuses = Order::STATUS #["incomplete", "paid", "complete"]
     statuses.each do |status|
       @total_revenue += self.total_revenue_by_status(status)
     end

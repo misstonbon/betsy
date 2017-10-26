@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-    render_404 unless @order  
+    render_404 unless @order
     if @order.status == "paid"
       create_new_order
     end
@@ -19,7 +19,8 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    unless @order = Order.find_by(id: params[:id])
+    @order = Order.find_by(id: params[:id])
+    unless @order
       render_404
     end
   end
@@ -28,16 +29,19 @@ class OrdersController < ApplicationController
   end
 
   def place_order
-    unless
-      @order = Order.find_by_id(session[:order_id])
-      render 404
+    @order = Order.find_by_id(session[:order_id])
+    unless @order
+      render_404
     end
     @order.update_attributes(order_params)
     @order.user_id = session[:user_id]
-    unless @order.order_items.count > 0
+
+    if @order.order_items.empty?
       flash.now[:error] = "You must add items to your cart in order to checkout"
       redirect_to root_path
+      return
     end
+
     @order.status = "paid"
     inventory_adjust(@order)
     if @order.save
@@ -56,7 +60,7 @@ class OrdersController < ApplicationController
     unless @user.id = session[:user_id] && Order.by_user(@user).include?(@user_order)
       flash[:error] = "You are not authorized to see this page!"
       redirect_to root_path
-    end 
+    end
   end
   # def destroy
   #   Order.destroy(params[:id])

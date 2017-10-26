@@ -25,31 +25,30 @@
       <%= link_to(image_tag("cart.png", :class => "cart"), session[:order_id] != nil ? order_path(session[:order_id]) : products_path, class: "button") %>
 
       <% if @login_user %>
-    <div class = "float-right">
-      <ul class="nav site-nav">
-        <li class=flyout>
-          <a class = "button float-right">Your Account <small>&#9660</small></a>
-          <ul class="flyout-content nav stacked">
-            <li>
-              <%= link_to "Account Dashboard", user_account_path(@login_user.id), class: "button" %>
-            </li>
-          </li>
-          <li> <%= link_to("Order Fulfillment", order_fulfillment_path(@login_user.id), :class => "button") %>
-          </li>
-            <li><%= link_to "Add Product to Sell", new_product_path, alt: "link to add product for merchant", class: "button" %>
-            </li>
-            <li><%= link_to "Add New Category", new_category_path, alt: "link to add category for merchant", class: "button" %>
-            </li>
+        <div class = "float-right">
+          <ul class="nav site-nav">
+            <li class=flyout>
+              <a class = "button float-right">Your Account <small>&#9660</small></a>
+              <ul class="flyout-content nav stacked">
+                <li>
+                  <%= link_to "Account Dashboard", user_account_path(@login_user.id), class: "button" %>
+                </li>
+              </li>
+              <li> <%= link_to("Order Fulfillment", order_fulfillment_path(@login_user.id), :class => "button") %>
+              </li>
+                <li><%= link_to "Add Product to Sell", new_product_path, alt: "link to add product for merchant", class: "button" %>
+                </li>
+                <li><%= link_to "Add New Category", new_category_path, alt: "link to add category for merchant", class: "button" %>
+                </li>
+              </ul>
+            </ul>
           </ul>
-        </ul>
-      </ul>
 
-    <%= link_to "Log Out #{session[:user_name]}", logout_path, method: :post, class: "button float-right" %>
-      </div>
-
-        <% else %>
+          <%= link_to "Log Out #{session[:user_name]}", logout_path, method: :post, class: "button float-right" %>
+        </div>
+      <% else %>
         <%= link_to "Log In with Github", "/auth/github", class: "button float-right" %>
-        <% end %>
+      <% end %>
     </nav>
   </header>
 

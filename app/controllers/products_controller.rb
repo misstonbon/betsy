@@ -69,13 +69,11 @@ class ProductsController < ApplicationController
   end
 
   def by_category
-
     @products_by_category = Product.to_category_hash
   end
 
   def by_merchant
     @products_by_merchant =  Product.to_merchant_hash
-
   end
 
   private
