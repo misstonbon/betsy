@@ -16,45 +16,37 @@
       <h1 id="glitzy"><%=link_to("GLITZY", root_path)%>
       <small>&nbsp&nbsp&nbsp&nbsp&nbspWhat budget ceiling?</small>
     </h1>
+
     <nav class= "small columns-12">
       <%= link_to("Home", root_path, :class => "button") %>
       <%= link_to("Shop All Items", products_path,:class => "button") %>
       <%= link_to("Shop By Merchant", products_by_merchant_path, :class => "button") %>
       <%= link_to("Shop By Category", products_by_category_path, :class => "button") %>
-      <% if @login_user %>
-       <%= link_to("Merchant Account", user_account_path(@login_user.id), :class => "button") %>
-       <% end %>
       <%= link_to(image_tag("cart.png", :class => "cart"), session[:order_id] != nil ? order_path(session[:order_id]) : products_path, class: "button") %>
-      <!-- <%= session[:order_items_count] %> -->
-      <div class = "float_right">
-        <% if @login_user %>
-        <%= link_to "Log Out #{session[:user_name]}", logout_path, method: :post, class: "button float-right" %>
 
-
-
-
-        <ul class="nav site-nav">
-          <li class=flyout>
-            <a>Your Account <small>&#9660</small></a>
-            <!-- Flyout -->
-            <ul class="flyout-content nav stacked">
-              <li><%= link_to "Add Product to Sell", new_product_path, alt: "link to add product for merchant", class: "button" %>
-              </li>
-              <li><%= link_to "Add New Category", new_category_path, alt: "link to add category for merchant", class: "button" %>
-              </li>
-            </ul>
+      <% if @login_user %>
+    <div class = "float-right">
+      <ul class="nav site-nav">
+        <li class=flyout>
+          <a class = "button float-right">Your Account <small>&#9660</small></a>
+          <ul class="flyout-content nav stacked">
+            <li>
+              <%= link_to "Account Dashboard", user_account_path(@login_user.id), class: "button" %>
+            </li>
+            <li><%= link_to "Add Product to Sell", new_product_path, alt: "link to add product for merchant", class: "button" %>
+            </li>
+            <li><%= link_to "Add New Category", new_category_path, alt: "link to add category for merchant", class: "button" %>
+            </li>
           </ul>
         </ul>
+      </ul>
+
+    <%= link_to "Log Out #{session[:user_name]}", logout_path, method: :post, class: "button float-right" %>
+      </div>
 
         <% else %>
         <%= link_to "Log In with Github", "/auth/github", class: "button float-right" %>
         <% end %>
-        <!-- <%= link_to('Log Out', logout_path, :class => "button float-right") %>
-
-        <%= link_to('Log In', "/auth/github", :class => "button float-right")  %> -->
-        <!-- <%= link_to('Sign Up',"/auth/:provider/callback" , :class => "button float-right")  %> -->
-
-      </div>
     </nav>
   </header>
 
