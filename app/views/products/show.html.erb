@@ -1,26 +1,35 @@
 <% if @product %>
-  <h2><%= @product.name %></h2>
-  <article class="medium-image"><%= image_tag @product.photo(:medium) %></article>
 
-  <ul>
-    <li>
-      Category: <% @product.categories.each do |category| %>
-         <%= category.name.capitalize %>
-         <% end %>
-    </li>
-    <li>
-      Description: <%=@product.description%>
-    </li>
-    <li>
-      Price: $<%=@product.price%>
-    </li>
-    <li>
-      Available Quantity: <%=@product.quantity%>
-    </li>
-  </ul>
+<section class = "show-product-view">
+  <article class="medium-image"><%= image_tag @product.photo(:large) %></article>
+  <section class ="product-info">
+    <h2><%= @product.name %></h2>
+    <section>
+      <ul>
+        <li>
+          Category: <% @product.categories.each do |category| %>
+             <%= category.name.capitalize %>
+             <% end %>
+        </li>
+        <li>
+          Description: <%=@product.description%>
+        </li>
+        <li>
+          Price: $<%=@product.price%>
+        </li>
+        <li>
+          Available Quantity: <%=@product.quantity%>
+        </li>
+      </ul>
+    </section>
+    <%= link_to("Add to Order", new_product_order_item_path(@product.id), :class => "button") %>
+  </section>
+</section>
 
-  <section>
+
+  <section class = "show-product-review">
     <h3>Reviews:</h3>
+    <p><strong>Average Rating: </strong><%= "#{@product.avg_rating} stars" %> </p>
     <% @product.reviews.each do |review| %>
       <ul>
         <li>
@@ -31,10 +40,10 @@
         </li>
       </ul>
     <% end %>
-    <h3>Average Rating: <%= @product.avg_rating %> </h3>
+
     <%= link_to("Add a Review", new_product_review_path(@product.id), :class => "button") %>
-    <%= link_to("Add to Order", new_product_order_item_path(@product.id), :class => "button") %>
   </section>
+
 <% else %>
   <h2>404 placeholder</h2>
 <% end%>
