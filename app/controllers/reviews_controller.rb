@@ -44,12 +44,15 @@ class ReviewsController < ApplicationController
       flash[:status] = :failure
       flash[:result_text] = "Access Denied: To edit, you must have logged in to edit your own review."
       redirect_to review_path(@review)
+
     elsif session[:user_id] == @review.product.user_id
       flash[:status] = :failure
       flash[:result_text] = "Edit Permissions Denied: As a merchant, you cannot review your own products."
       redirect_to review_path(@review)
+
     elsif session[:user_id] == @review.user_id
       @review.update_attributes(review_params)
+
       if @review.save
         flash[:status] = :success
         flash[:result_text] = "Successfully updated your review."

@@ -1,7 +1,8 @@
 <h1>Featured :</h1>
+
 <% @showcase.each do |item| %>
-<h2 class="featured-item"><%= link_to "#{item.name}", product_path(item.id) %></h2>
-<%= item.description %>
+  <h2 class="featured-item"><%= link_to "#{item.name}", product_path(item.id) %></h2>
+  <%= item.description %>
 <% end %>
 
 <!-- <%= link_to "Create Category Test Link", new_category_path, class: "button" %> -->

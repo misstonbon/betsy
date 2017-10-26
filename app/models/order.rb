@@ -12,7 +12,6 @@ class Order < ApplicationRecord
 # TODO checkout will change status and add user_id
 
   def total_cost
-
     total = 0.0
 
     self.order_items.each do |item|
@@ -28,7 +27,7 @@ class Order < ApplicationRecord
       return []
     else
 
-      user.order_items.map {|order_item| order_item.order }
+    user.order_items.map {|order_item| order_item.order }
 
     end
 

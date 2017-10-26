@@ -4,11 +4,11 @@
   <h3>There are no products to display!</h3>
 <% else %>
   <% @products.each do |product| %>
-  <div class="items">
-    <h3><small><%= link_to "#{product.name}", product_path(product.id)%></small></h3>
-    <%= image_tag product.photo(:medium) %>
-    <p><%= product.description %></p>
-    <p>$<%= product.price %></p>
-  </div>
+    <div class="items">
+      <h3><small><%= link_to "#{product.name}", product_path(product.id)%></small></h3>
+      <%= image_tag product.photo(:medium) %>
+      <p><%= product.description %></p>
+      <p>$<%= product.price %></p>
+    </div>
   <% end %>
 <%end%>

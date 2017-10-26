@@ -18,13 +18,13 @@ class ProductsController < ApplicationController
 
   def create
 
-    categories = product_params[:categories].map do |c|
+    categories = params[:product][:categories].map do |c|
       Category.find_by(id: c)
     end.compact
 
-    new_params = product_params.except(:categories)
+    # categories = Category.clean_up_stuff(params[:product][:categories])
 
-    @product= Product.new new_params
+    @product= Product.new product_params
     @product.user_id = session[:user_id]
     categories.each do |category|
       @product.categories << category
@@ -46,16 +46,14 @@ class ProductsController < ApplicationController
   end
 
   def update
-    categories = product_params[:categories].map do |c|
+    categories = params[:product][:categories].map do |c|
       Category.find_by(id: c)
     end.compact
 
-    new_params = product_params.except(:categories)
-    @product.update_attributes(new_params)
+    @product.update_attributes(product_params)
     categories.each do |category|
       @product.categories << category
     end
-
 
     if @product.save
       flash[:status] = :success
@@ -77,19 +75,11 @@ class ProductsController < ApplicationController
   end
 
   def by_category
-
     @products_by_category = Product.to_category_hash
   end
 
   def by_merchant
-    # @products_by_merchant = Product.to_merchant_hash
-   #placeholder for now
-
-
-    # @products = find_instock
-
     @products_by_merchant =  Product.to_merchant_hash
-
   end
 
 
@@ -100,7 +90,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :quantity, :stock, :photo, categories: [])
+    params.require(:product).permit(:name, :description, :price, :quantity, :stock, :photo)
   end
 
   def find_instock
