@@ -1,19 +1,44 @@
 <h3> <%= "#{@user.name}'s Order Fulfillment Page" %></h3>
 
+
+<%statuses = ["paid", "incomplete", "complete"]%>
 <section>
-  <h3><strong>Total Revenue:</strong> <%="$#{@user.total_revenue}"%></h3>
-    <%statuses = ["paid", "incomplete", "complete"]%>
-    <h4>Revenue by Status</h4>
-    <% statuses.each do |status|%>
-    <section>
-      <ul>
-        <li>
-          <%= "#{status.capitalize}: $#{@user.total_revenue_by_status(status)}"%>
-        </li>
-      </ul>
-    </section>
-    <%end %>
+<h3>Revenue Summary:</h3>
+<ul class="revenue">
+<% statuses.each do |status|%>
+    <li><h4>Total Revenue for Status: <%= "#{status.upcase}: $#{@user.total_revenue_by_status(status)}"%></h4></li>
+<%end %>
+</ul>
 </section>
+
+
+<h3><strong>Total Revenue:</strong> <%="$#{@user.total_revenue}"%></h3>
+
+
+<% if @user.user_orders.blank? %>
+  <h3>No orders have been placed yet.</h3>
+<% else %>
+  <%@user.user_orders.each do |order|%>
+  <div class="items">
+    <p>Order ID:<%= link_to "#{order.id}", user_order_path(@user.id, order.id)%></p>
+    <p>Order Date: <%= order.created_at %></p>
+    <p>Status: <%= order.status %></p>
+  </div>
+  <% end %>
+<%end%>
+
+<h3><strong>Total Revenue:</strong> <%="$#{@user.total_revenue}"%></h3>
+  <%statuses = ["paid", "incomplete", "complete"]%>
+  <h4>Revenue by Status</h4>
+<% if @user.user_orders.blank? %>
+  <h3>No orders have been placed yet.</h3>
+<% else %>
+  <% statuses.each do |status|%>%>
+  <div class="items">
+    <p><%= "#{status.capitalize}: $#{@user.total_revenue_by_status(status)}"%></p>
+  </div>
+  <% end %>
+<%end%>
 
 <section>
   <h3>My Orders</h3>
@@ -22,7 +47,7 @@
     <thead>
       <tr>
         <th>
-          Order ID
+          Order ID shuld be clickable and take you to order page
         </th>
         <th>
           Order Date
