@@ -90,7 +90,7 @@ class OrderItemsController < ApplicationController
     if item.shipped == "not shipped"
       item.shipped = "shipped"
     else
-      item.shipped == "not shipped"
+      item.shipped = "not shipped"
     end
 
     if item.save
