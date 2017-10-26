@@ -25,4 +25,5 @@ class UsersController < ApplicationController
     end
     @user_orders = Order.by_user(@user)
   end
+
 end

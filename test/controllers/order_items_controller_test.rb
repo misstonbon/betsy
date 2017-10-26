@@ -212,6 +212,28 @@ flash[:result_text].must_equal "Error: You must choose a quantity less than or e
       must_redirect_to order_path(paid.id)
 
     end
+  end
 
+  describe "OrderItem#mark_shipped" do
+
+    let(:merchant) {users(:je)}
+    let(:merchant_order_item) {order_items(:orderitem4)}
+
+    it "ensures a paid order_item's default shipping status is: not shipped" do
+      login(merchant)
+
+      merchant_order_item.shipped.must_equal "not shipped"
+
+    end
+
+    it "changes order_item's shipping status to: shipped" do
+      login(merchant)
+
+      merchant_order_item.shipped.must_equal "not shipped"
+
+      patch item_shipped_path(merchant_order_item.id)
+
+      merchant_order_item.shipped.must_equal "shipped"
+    end
   end
 end
