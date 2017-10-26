@@ -20,6 +20,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
 gem 'paperclip'
 gem 'figaro'
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

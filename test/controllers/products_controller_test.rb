@@ -62,7 +62,7 @@ describe ProductsController do
       product_data = {
         product: {
           name: product.name + " 2",
-          category: "food",
+          categories: [categories(:food)],
           description: "Chocolate with gold inside",
           price: 15.00,
           quantity: 10,
@@ -83,7 +83,7 @@ describe ProductsController do
       product_data = {
         product: {
           name: "",
-          category: "food",
+          categories: [categories(:food)],
           description: "Chocolate with gold inside",
           price: 15.00,
           quantity: 10,
@@ -106,7 +106,7 @@ describe ProductsController do
 
     it "handles bad data" do
       valid_name = products(:yacht).name
-      put product_path(products(:yacht).id), params: { product: {name: "",category: :food ,description: "Great yacht!",quantity: 100,price: 12400.00, user: users(:tanja)}}
+      put product_path(products(:yacht).id), params: { product: {name: "",categories: [categories(:food), categories(:transportation)] ,description: "Great yacht!",quantity: 100,price: 12400.00, user: users(:tanja)}}
       yacht = Product.find_by_id(products(:yacht).id)
         new_name = yacht.name
         new_name.must_equal valid_name

@@ -22,7 +22,6 @@
     $NAV
 \*------------------------------------*/
 
-
 .nav{
     list-style:none;
     margin-left:0;
@@ -53,19 +52,16 @@
 }
     .flyout-content{
         /* Position the flyouts off-screen. This is typically better than `display:none;`. */
-        position:absolute;
+        position: absolute;
         top:100%;
         left:-99999px;
         height:0;
         overflow:hidden;
     }
     .flyout:hover > .flyout-content{
-        left:0;
+      left:0;
     }
-    .flyout-alt:hover > .flyout-content{
-        top:0;
-        left:100%;
-    }
+
     .flyout:hover > .flyout-content,
     .flyout-alt:hover > .flyout-content{
         /* Give the flyouts their height back once they come into view. */
@@ -92,6 +88,7 @@
 .site-nav a,
 .site-nav .flyout-content{
     border: none;
+    background: #405b7a;
 }
 .site-nav > li > a{
     border: none;
@@ -202,7 +199,6 @@ h1, h2, h3, h4, h5 {
   padding-right: 20px;
   ul{
     background-color: #405b7a;
-
     opacity: 0.8;
     max-width: 500px;
     height: 110px;
@@ -218,6 +214,10 @@ h1, h2, h3, h4, h5 {
     font-family: $primary-font;
     color: black;
     text-shadow: 6px 6px 20px snow;
+  }
+  .revenue {
+    height:500px;
+    max-width: 600px;
   }
 
 }
@@ -250,6 +250,7 @@ h1, h2, h3, h4, h5 {
  .page-header {
    max-width: 100%;
    padding: 25px 20px 10px 20px;
+   border-bottom: black 1px dotted;
    h2 {
      text-align: center;
      margin: 25px auto 40px auto;
