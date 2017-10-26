@@ -5,8 +5,10 @@ class OrdersController < ApplicationController
   end
 
   def show
-    unless @order = Order.find_by(id: params[:id])
-      render_404
+    @order = Order.find_by(id: params[:id])
+    render_404 unless @order  
+    if @order.status == "paid"
+      create_new_order
     end
   end
 
