@@ -84,11 +84,12 @@
 .site-nav a:hover{
     color: white;
     background-color:#d469e5;
+
 }
 .site-nav a,
 .site-nav .flyout-content{
     border: none;
-    background: #405b7a;
+    background: #00BA51;
 }
 .site-nav > li > a{
     border: none;
@@ -183,6 +184,7 @@ h1, h2, h3, h4, h5 {
   background-color: #405b7a;
   display: inline-block;
   height: 3em;
+  margin: 2px;
 
   &:hover {
     background-color: $pink;
@@ -216,11 +218,28 @@ h1, h2, h3, h4, h5 {
     text-shadow: 6px 6px 20px snow;
   }
   .revenue {
-    height:500px;
+    height:200px;
     max-width: 600px;
   }
+  .user-order {
+    display:inline-block;
+    background-color: #405b7a;
+    padding:20px;
+    color: white;
+    opacity:0.9;
+    margin-top: 30px;
+    margin-bottom: 10px;
 
+    strong{
+      font-family: 'Playfair Display';
+      font-size: 1.2em;
+    }
+  }
+  .bottom-buttons{
+    display: table-cell;
+  }
 }
+
 .cart-page li {
   list-style-type: none;
   text-align: left;
@@ -232,8 +251,9 @@ h1, h2, h3, h4, h5 {
     font-weight: lighter;
     color: $pink;
   }
+}
 
-  }
+
 
 .cart-page ul {
   padding-top: 20px;

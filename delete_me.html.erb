@@ -51,3 +51,22 @@
 
   </table>
 </section>
+
+
+
+
+<ul class="nav site-nav">
+  <li class=flyout>
+    <a>Your Account <small>&#9660</small></a>
+    <!-- Flyout -->
+    <ul class="flyout-content nav stacked">
+      <li>
+        <%= link_to("Account Dashboard", user_account_path(@login_user.id)%>
+      </li>
+      <li><%= link_to "Add Product to Sell", new_product_path, alt: "link to add product for merchant", class: "button" %>
+      </li>
+      <li><%= link_to "Add New Category", new_category_path, alt: "link to add category for merchant", class: "button" %>
+      </li>
+    </ul>
+  </ul>
+</ul>

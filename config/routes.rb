@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get "/users/:id/orders", to: "users#order_fulfillment", as: 'order_fulfillment' #order_fulfillment_path
 
+  get "/users/:user_id/orders/:id", to: "orders#user_order",as: "user_order"
+
   resources :products do
     resources :reviews, only: [:new, :create]
     resources :order_items, only: [:new, :create]
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
   resources :order_items, except: [:new, :create]
 
   resources :users do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index]
     resources :order_items, only: [:index, :show, :edit, :update]
   end
 
