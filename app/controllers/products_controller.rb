@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # before_action :authenticate, except: [:index, :show]
 
   def index
-    @products = find_instock
+    @products = Product.find_instock
   end
 
   def show
@@ -103,14 +103,14 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :description, :price, :quantity, :stock, :photo, categories: [])
   end
 
-  def find_instock
-    @products = []
-    Product.all.each do |prod|
-      if prod.quantity > 0 && prod.stock == "In Stock"
-        @products << prod
-      end
-    end
-    return @products
-  end
+  # def find_instock
+  #   @products = []
+  #   Product.all.each do |prod|
+  #     if prod.quantity > 0 && prod.stock == "In Stock"
+  #       @products << prod
+  #     end
+  #   end
+  #   return @products
+  # end
 
 end
