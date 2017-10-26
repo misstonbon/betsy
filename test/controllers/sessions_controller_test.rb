@@ -66,5 +66,14 @@ describe SessionsController do
       User.count.must_equal start_count
 
     end
+
+    it "successfully logs out a user" do
+      login(users(:amy))
+      post logout_path
+      must_redirect_to root_path
+      flash[:result_text].must_equal "Successfully logged out"
+      session[:user_id].must_be_nil
+    end
+
   end
 end
