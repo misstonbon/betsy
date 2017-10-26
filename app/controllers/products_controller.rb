@@ -46,7 +46,16 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update_attributes(product_params)
+    categories = product_params[:categories].map do |c|
+      Category.find_by(id: c)
+    end.compact
+
+    new_params = product_params.except(:categories)
+    @product.update_attributes(new_params)
+    categories.each do |category|
+      @product.categories << category
+    end
+
 
     if @product.save
       flash[:status] = :success
