@@ -14,3 +14,8 @@ orderitem3:
   quantity: 1
   product: scarves
   order: paid_order
+
+orderitem4:
+  quantity: 2
+  product: candy2
+  order: paid_order

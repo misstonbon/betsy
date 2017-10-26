@@ -89,7 +89,7 @@
           Subtotal
         </th>
         <th>
-          Shipped?
+          Item Shipping Status
         </th>
       </tr>
       <tr>
@@ -109,7 +109,11 @@
           <%= "$#{item.quantity * item.product.price}" %>
         </td>
         <td>
-          <%= "Will be link to change order item status to shipped"%>
+          <% if item.shipped == "not shipped" %>
+          <%= link_to("Ship Item Now", item_shipped_path(item.id), method: :patch, class: "button")%>
+          <% else %>
+          <%= "Shipped on: #{Date.current}" %>
+          <% end %>
         </td>
       </tr>
 
