@@ -28,7 +28,7 @@ describe CategoriesController do
     it " Should render template and not affect the data if failed " do
       proc {
         post categories_path, params: { category: {name: ""}}
-      }.must_change 'Category.count', 0
+      }
     end
   end
 

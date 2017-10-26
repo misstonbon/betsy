@@ -19,13 +19,10 @@ class UsersController < ApplicationController
 
   def order_fulfillment
     @user = User.find_by_id(params[:id])
-    render_404 unless @user
-    # if session[:user_id] != @user.id
-    #   flash[:status] = :failure
-    #   flash[:message] = "Error - You do not have permission to view this page"
-    #   redirect_to root_path
-    # end
+    if @login_user == nil || (@login_user.id != @user.id)
+      render_404
 
+    end
     @user_orders = Order.by_user(@user)
   end
 end
