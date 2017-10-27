@@ -1,16 +1,6 @@
-<h1>Create a new category!</h1>
+<h1>New Category</h1>
 
-<ul class="errors">
-  <% if @category.errors.any? %>
-    <% @category.errors.each do |column, message| %>
-      <li>
-        <strong><%= column.capitalize %></strong> <%= message %>
-      </li>
-      <% end %>
-  <% end %>
-</ul>
-
-
+<ul class="add-cat">
 <%= form_for @category do |f| %>
 
   <%= f.label :name %>
@@ -18,3 +8,5 @@
   <%= f.submit %>
 
 <% end %>
+
+</ul>

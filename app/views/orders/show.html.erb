@@ -1,7 +1,9 @@
-<h1> Your Cart </h1>
-<% if  @order.order_items.size == 0 %>
-Your cart is empty!
+<% if  @order.order_items.empty? %>
+<h1> Your Cart is empty!</h1>
+<p><%= link_to "Click Here to Browse Products", products_path, class: "button"%></p>
+
 <% else %>
+<h1> Your Cart </h1>
 <section class="cart-page">
 <ul>
   <% @order.order_items.each do |item| %>

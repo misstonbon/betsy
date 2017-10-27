@@ -89,7 +89,7 @@
 .site-nav a,
 .site-nav .flyout-content{
     border: none;
-    background: #00BA51;
+    background: #16ad57;
 }
 .site-nav > li > a{
     border: none;
@@ -127,7 +127,7 @@
   }
 }
 
-$primary-font: 'Playfair Display', serif;
+$primary-font: 'Raleway', sans-serif;
 $secondary-font:'Raleway', serif;
 
 
@@ -185,6 +185,7 @@ h1, h2, h3, h4, h5 {
   display: inline-block;
   height: 3em;
   margin: 2px;
+  font-weight: bold;
 
   &:hover {
     background-color: $pink;
@@ -194,7 +195,6 @@ h1, h2, h3, h4, h5 {
   font-family: 'Leckerli One';
   color: #233a75;
   text-shadow: 6px 6px 10px snow;
-
 }
 .main-content {
   padding-left: 20px;
@@ -203,7 +203,7 @@ h1, h2, h3, h4, h5 {
     background-color: #405b7a;
     opacity: 0.8;
     max-width: 500px;
-    height: 110px;
+    height: 130px;
     overflow: scroll;
     border-radius: 15px;
     padding: 5px;
@@ -238,6 +238,7 @@ h1, h2, h3, h4, h5 {
   .bottom-buttons{
     display: table-cell;
   }
+
 }
 
 .cart-page li {
@@ -296,30 +297,8 @@ h1, h2, h3, h4, h5 {
    }
  }
 
- .top-ten ul {
-   list-style-type: none;
-   margin-left: 0px;
- }
-
  section.spotlight > div {
    padding: 0 2rem 2rem 2rem;
- }
-
-.spotlight {
-  p {
-   margin-bottom: 0px;
-  }
-  a {
-    border-bottom: $default-border;
-  }
-}
-
- .media-spotlight-header {
-   color: $dark-gray;
- }
-
- .media-spotlight-header::after {
-   content: ":"
  }
 
  .root-hr {
