@@ -32,7 +32,10 @@
 #user-orders a {
   text-decoration: underline;
   text-decoration-style: solid;
-  color: #405b7a;
+}
+
+#user-orders.button a {
+  color: snow;
 }
 
 .orders-summary, .revenue-summary {
