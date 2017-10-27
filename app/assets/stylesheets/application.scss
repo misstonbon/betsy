@@ -217,6 +217,30 @@ h1, h2, h3, h4, h5 {
     color: black;
     text-shadow: 6px 6px 20px snow;
   }
+
+
+
+  .new-product {
+    height: 650px;
+    max-width: 800px;
+    opacity: 0.9;
+    padding:20px;
+    label, input {
+      font-weight: bold;
+    }
+    .checkbox{
+      display: inline-table;
+      margin:10px;
+      text-align: center;
+    }
+    .button{
+      background-color: green;
+    }
+  }
+
+
+
+
   .revenue {
     height:200px;
     max-width: 600px;
@@ -238,7 +262,6 @@ h1, h2, h3, h4, h5 {
   .bottom-buttons{
     display: table-cell;
   }
-
 }
 
 .cart-page li {
@@ -319,7 +342,6 @@ main {
 
 .all-products  section table {
   background-color: #405b7a;
-
 
 }
 
