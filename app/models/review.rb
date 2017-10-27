@@ -5,4 +5,9 @@ class Review < ApplicationRecord
   validates :rating, presence: true, numericality: true
 
   validates_inclusion_of :rating, in: 1..5
+
+  def has_permission_review?
+
+  end
+
 end
