@@ -3,12 +3,10 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  # def self.all_categories
-  #   @categories_list = []
-  #   @categories.each do |cat|
-  #     @categories_list << cat.name
-  #   end
-  #
-  #   return @categories_list
-  # end
+  def self.clean_up(params)
+    categories = params.map do |c|
+      Category.find_by(id: c)
+    end.compact
+  end
+
 end

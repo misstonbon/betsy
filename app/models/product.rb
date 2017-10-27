@@ -1,7 +1,5 @@
 class Product < ApplicationRecord
 
-  # This is a test comment
-
   STOCK = ["In Stock", "Out of Stock"]
   # This method associates the attribute ":avatar" with a file attachment
   has_attached_file :photo,
@@ -94,5 +92,14 @@ class Product < ApplicationRecord
     end
   end
 
+  def self.find_instock
+    @products = []
+    Product.all.each do |prod|
+      if prod.quantity > 0 && prod.stock == "In Stock"
+        @products << prod
+      end
+    end
+    return @products
+  end
 
 end

@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # before_action :authenticate, except: [:index, :show]
 
   def index
-    @products = find_instock
+    @products = Product.find_instock
   end
 
   def show
@@ -18,11 +18,7 @@ class ProductsController < ApplicationController
 
   def create
 
-    categories = params[:product][:categories].map do |c|
-      Category.find_by(id: c)
-    end.compact
-
-    # categories = Category.clean_up_stuff(params[:product][:categories])
+    categories = Category.clean_up(params[:product][:categories])
 
     @product= Product.new product_params
     @product.user_id = session[:user_id]
@@ -46,9 +42,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    categories = params[:product][:categories].map do |c|
-      Category.find_by(id: c)
-    end.compact
+    categories = Category.clean_up(params[:product][:categories])
 
     @product.update_attributes(product_params)
     categories.each do |category|
@@ -82,7 +76,6 @@ class ProductsController < ApplicationController
     @products_by_merchant =  Product.to_merchant_hash
   end
 
-
   private
 
   def find_product
@@ -91,16 +84,6 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :description, :price, :quantity, :stock, :photo)
-  end
-
-  def find_instock
-    @products = []
-    Product.all.each do |prod|
-      if prod.quantity > 0 && prod.stock == "In Stock"
-        @products << prod
-      end
-    end
-    return @products
   end
 
 end
