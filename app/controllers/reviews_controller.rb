@@ -17,7 +17,6 @@ class ReviewsController < ApplicationController
       flash[:result_text] = "Edit Permissions Denied: As a merchant, you cannot review your own products."
       redirect_to product_path(@product.id) and return
     end
-
     @review = Review.new(review_params)
     @review.product_id = @product.id
     @review.user_id = session[:user_id]
