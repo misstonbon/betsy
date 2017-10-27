@@ -1,7 +1,7 @@
 <% if @product %>
 
   <section class = "show-product-view">
-    <article class="medium-image"><%= image_tag @product.photo(:large) %></article>
+    <article class="medium-image"><%= image_tag @product.photo(:medium) %></article>
     <section class ="product-info">
       <h2><%= @product.name %></h2>
       <section>
