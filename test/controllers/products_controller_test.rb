@@ -65,7 +65,7 @@ describe ProductsController do
 
       post products_path, params: product_data
       Product.count.must_equal start_count
-      flash[:result_text].must_equal "Error: You must be logged in to add a product!"
+      flash[:result_text].must_equal "Error: Product was not added"
     end
   end
 
