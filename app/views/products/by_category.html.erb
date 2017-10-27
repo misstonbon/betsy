@@ -11,7 +11,7 @@
     <h3><small><%= link_to "#{product.name}", product_path(product.id)%></small></h3>
     <%= image_tag product.photo(:medium) %>
     <p><%= product.description %></p>
-    <p>$<%= product.price %></p>
+    <p>$<%= sprintf('%.2f', product.price) %></p>
   </div>
   <% end %>
   <% end %>
