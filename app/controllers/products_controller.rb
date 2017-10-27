@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     else
       flash[:status] = :failure
-      flash.now[:result_text] = "Error: You must be logged in to add a product!"
+      flash.now[:result_text] = "Error: Product was not added"
       render :new
     end
 
