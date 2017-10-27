@@ -46,6 +46,13 @@ describe OrdersController do
     end
   end
 
+  describe "Order#show" do
+    it "can view order show page" do
+      get order_path(order1.id)
+      must_respond_with :success
+    end
+  end
+
   describe "Order#place_order" do
     it "changes order status to paid with valid inputs" do
       id = order1.id
