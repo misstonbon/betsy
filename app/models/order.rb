@@ -8,9 +8,6 @@ class Order < ApplicationRecord
 
   validates :status, presence: true, inclusion: { in: STATUS, allow_nil: false}
 
-# TODO figre out status for orders
-# TODO checkout will change status and add user_id
-
   def total_cost
     total = 0.0
 

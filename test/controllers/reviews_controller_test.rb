@@ -98,10 +98,6 @@ describe ReviewsController do
       must_redirect_to review_path(Review.last.id)
     end
 
-#TODO
-    it "cannot create a review for an non-existing product (no product_id)" do
-
-    end
   end
 
   describe "reviews#show" do
