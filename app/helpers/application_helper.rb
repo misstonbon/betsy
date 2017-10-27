@@ -8,10 +8,10 @@ module ApplicationHelper
   end
 
   def print_categories(product)
-    to_print = ""
+    to_print = []
     product.categories.each do |category|
-      to_print << category.name
+      to_print << category.name.capitalize
     end
-    return to_print
+    return to_print.join(" ")
   end
 end
