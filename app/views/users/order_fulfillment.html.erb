@@ -7,9 +7,9 @@
   <h3>Revenue Summary:</h3>
   <ul class="revenue">
     <% statuses.each do |status|%>
-      <li><h4>Total Revenue for <%= "#{status}" %> orders:  <%="$#{@user.total_revenue_by_status(status)}"%></h4></li>
+      <li><h4>Total Revenue for <%= "#{status}" %> orders:  <%="$#{sprintf('%.2f', @user.total_revenue_by_status(status))}"%></h4></li>
     <%end %>
-    <h3><strong>Total Revenue:</strong> <%="$#{@user.total_revenue}"%></h3>
+    <h3><strong>Total Revenue:</strong> <%="$#{sprintf('%.2f', @user.total_revenue)}"%></h3>
   </ul>
 </section>
 
@@ -62,13 +62,13 @@
           <%= link_to "#{item.product.name}", product_path(item.product.id)%>
         </td>
         <td>
-          <%= item.product.price %>
+          <%= "$#{sprintf('%.2f', item.product.price)}" %>
         </td>
         <td>
           <%= item.quantity%>
         </td>
         <td>
-          <%= "$#{item.quantity * item.product.price}" %>
+          <%= "$#{sprintf('%.2f', (item.quantity * item.product.price))}" %>
         </td>
         <td>
           <% if item.shipped == "not shipped" %>

@@ -11,7 +11,7 @@
    <h4><%= item.product.name %></h4>
   </li>
   <li>
-    Price: $<%= item.product.price %>
+    Price: $<%= sprintf('%.2f', item.product.price) %>
   </li>
   <li>
     Quantity: <%= item.quantity %> |
