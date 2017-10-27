@@ -28,7 +28,7 @@
 
     <section class = "show-product-review">
       <h3>Reviews:</h3><span></span>
-      <p><strong>Average Rating: </strong><%= "#{@product.avg_rating} stars" %> </p>
+      <p><strong>Average Rating: </strong><%= "#{@product.avg_rating.round(1)} stars" %> </p>
       <section id = "reviews">
 
         <% @product.reviews.each do |review| %>

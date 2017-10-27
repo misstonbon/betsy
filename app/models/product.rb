@@ -74,7 +74,7 @@ class Product < ApplicationRecord
   def avg_rating
     if (self.reviews).count > 0
       product_reviews = self.reviews
-      sum_ratings = 0
+      sum_ratings = 0.0
       product_reviews.each do |review|
         sum_ratings += review.rating
       end
