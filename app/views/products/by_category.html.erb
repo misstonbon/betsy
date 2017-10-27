@@ -2,7 +2,7 @@
 
 <% @products_by_category.each do |category, products| %>
 
-  <h3><%= category.titleize %></h3>
+  <h2><%= category.titleize %></h2>
   <% if products.blank? %>
   <h3>There are no products to display!</h3>
   <% else %>
