@@ -48,14 +48,14 @@ class OrdersController < ApplicationController
         flash.now[:error] = "Error has occured!"
         render :edit
       end
-    end 
+    end
   end
 
   def user_order
     @user_order = Order.find_by_id(params[:id])
     @user = User.find_by_id(params[:user_id])
     render_404 unless @user
-    unless @user.id = session[:user_id] && Order.by_user(@user).include?(@user_order)
+    unless @user.id == session[:user_id] && Order.by_user(@user).include?(@user_order)
       flash[:error] = "You are not authorized to see this page!"
       redirect_to root_path
     end
