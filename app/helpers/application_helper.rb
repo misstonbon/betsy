@@ -12,6 +12,6 @@ module ApplicationHelper
     product.categories.each do |category|
       to_print << category.name.capitalize
     end
-    return to_print.join(" ")
+    return to_print.join(", ")
   end
 end
