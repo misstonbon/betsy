@@ -240,7 +240,15 @@ h1, h2, h3, h4, h5 {
   }
 
 
-
+.new-review{
+  height:500px;
+  overflow: scroll;
+  max-width: 600px;
+  opacity: 0.9;
+.button{
+  background-color: green;
+}
+}
 
   .revenue {
     height:200px;
