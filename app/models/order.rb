@@ -60,6 +60,10 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.by_status(status, orders)
+    return orders.select {|ord| ord.status == status }
+  end
+
   # def self.change_status_to_paid(order_id)
   #   order = Order.find_by_id(order_id)
   #   # when i put order.id, it complains , does rails know to look by id this way?
