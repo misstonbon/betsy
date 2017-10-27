@@ -132,7 +132,6 @@ describe OrdersController do
 
     end
 
-    # TODO
     it "does not delete if quantity of order_item is more than inventory" do
       product = Product.find_by_id(chocolate.id)
       count = product.quantity
